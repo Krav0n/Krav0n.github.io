@@ -1,20 +1,20 @@
-<!-- תפריט נגישות מלא ומתוקן - להדבקה לפני תגית ה-body הסוגרת -->
+<!-- תפריט נגישות מלא ומתוקן ב-100% -->
 <style>
   /* ==================== ACCESSIBILITY WIDGET STYLES ==================== */
   #a11y-widget-container { position: fixed; bottom: 80px; left: 0; z-index: 99998; direction: rtl; }
   #a11y-fab { width: 52px; height: 52px; background: #e02020; color: white; border: none; border-radius: 0 10px 10px 0; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 3px 3px 15px rgba(0,0,0,0.4); transition: all 0.2s; }
   #a11y-fab:hover { background: #c01010; width: 58px; }
   #a11y-panel { position: fixed; bottom: 0; left: -420px; top: 0; width: 420px; max-width: 95vw; background: #fff; color: #222; z-index: 99999; transition: left 0.35s cubic-bezier(0.4,0,0.2,1); overflow-y: auto; box-shadow: 5px 0 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
-  #a11y-panel.open { left: 0; }
+  #a11y-panel.open { left: 0 !important; }
   #a11y-panel-header { background: #e02020; color: white; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 2; flex-shrink: 0; }
   #a11y-panel-header h2 { font-size: 17px; font-weight: 900; margin: 0; direction: rtl; }
   #a11y-close { background: none; border: none; color: white; cursor: pointer; padding: 4px; border-radius: 6px; display: flex; align-items: center; }
   #a11y-close:hover { background: rgba(255,255,255,0.2); }
-  .a11y-section { padding: 14px 16px 8px; }
+  .a11y-section { padding: 14px 16px 8px; text-align: right; }
   .a11y-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
-  .a11y-btn { background: #fff; border: 1.5px solid #ddd; border-radius: 10px; padding: 12px 6px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; font-size: 12px; color: #333; font-weight: 700; text-align: center; transition: all 0.15s; font-family: 'Heebo', sans-serif; line-height: 1.3; min-height: 70px; justify-content: center; }
+  .a11y-btn { background: #fff; border: 1.5px solid #ddd; border-radius: 10px; padding: 12px 6px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; font-size: 12px; color: #333; font-weight: 700; text-align: center; transition: all 0.15s; font-family: sans-serif; line-height: 1.3; min-height: 70px; justify-content: center; width: 100%; }
   .a11y-btn:hover { border-color: #e02020; color: #e02020; background: #fff5f5; }
-  .a11y-btn.active { border-color: #e02020; background: #fff0f0; color: #e02020; box-shadow: 0 0 0 2px #e0202033; }
+  .a11y-btn.active { border-color: #e02020 !important; background: #fff0f0 !important; color: #e02020 !important; box-shadow: 0 0 0 2px rgba(224,32,32,0.2) !important; }
   #reading-guide-bar { position: fixed; top: 0; left: 0; right: 0; height: 40px; background: rgba(0,0,0,0.3); pointer-events: none; z-index: 99990; display: none; border-top: 2px solid #e02020; border-bottom: 2px solid #e02020; }
   .a11y-slider-row { display: flex; align-items: center; gap: 10px; direction: rtl; padding: 8px 0; }
   .a11y-slider-row input[type=range] { flex: 1; accent-color: #e02020; }
@@ -50,7 +50,7 @@
   </div>
 
   <div class="a11y-section">
-    <h3 style="font-size:14px; font-weight:800; margin:0 0 10px 0;">התאמות תצוגה וניגודיות</h3>
+    <h3 style="font-size:14px; font-weight:800; margin:0 0 10px 0; direction: rtl;">התאמות תצוגה וניגודיות</h3>
     <div class="a11y-grid">
       <button class="a11y-btn" data-feature="contrast-bright">ניגודיות בהירה</button>
       <button class="a11y-btn" data-feature="contrast-dark">ניגודיות כהה</button>
@@ -62,7 +62,7 @@
   <div style="height: 1px; background: #eee; margin: 4px 16px;"></div>
 
   <div class="a11y-section">
-    <h3 style="font-size:14px; font-weight:800; margin:0 0 10px 0;">גופנים וקריאה</h3>
+    <h3 style="font-size:14px; font-weight:800; margin:0 0 10px 0; direction: rtl;">גופנים וקריאה</h3>
     <div class="a11y-slider-row">
       <span class="a11y-slider-label">גודל גופן</span>
       <input type="range" min="80" max="160" value="100" id="font-size-slider">
@@ -77,7 +77,7 @@
   <div style="height: 1px; background: #eee; margin: 4px 16px;"></div>
 
   <div class="a11y-section">
-    <h3 style="font-size:14px; font-weight:800; margin:0 0 10px 0;">כלים נוספים</h3>
+    <h3 style="font-size:14px; font-weight:800; margin:0 0 10px 0; direction: rtl;">כלים נוספים</h3>
     <div class="a11y-grid">
       <button class="a11y-btn" data-feature="reading-guide">מדריך קריאה</button>
       <button class="a11y-btn" data-feature="big-cursor">סמן גדול</button>
@@ -94,7 +94,7 @@
 
 <!-- רכיב הקראת הטקסט (TTS) -->
 <div id="tts-bar" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1e293b; color:white; border-top:2px solid #e02020; z-index:99994; padding:10px 16px; direction:rtl;">
-  <div style="max-width:600px; margin:0 auto; display:flex; align-items:center; justify-content:between; gap:10px;">
+  <div style="max-width:600px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:10px;">
     <span style="font-size:13px;">🔊 מקריא כעת את תוכן האתר...</span>
     <button id="tts-stop-btn" style="background:#e02020; color:white; border:none; padding:4px 10px; border-radius:5px; cursor:pointer; font-weight:bold;">עצור הקראה</button>
   </div>
@@ -102,60 +102,64 @@
 
 <!-- JavaScript Logic -->
 <script>
-  const fab = document.getElementById('a11y-fab');
-  const panel = document.getElementById('a11y-panel');
-  const closeBtn = document.getElementById('a11y-close');
-  const body = document.body;
+  (function() {
+    const fab = document.getElementById('a11y-fab');
+    const panel = document.getElementById('a11y-panel');
+    const closeBtn = document.getElementById('a11y-close');
+    const body = document.body;
 
-  // פתיחה וסגירה של הפאנל
-  fab.addEventListener('click', () => {
-    const isOpen = panel.classList.toggle('open');
-    fab.setAttribute('aria-expanded', isOpen);
-  });
-  closeBtn.addEventListener('click', () => { panel.classList.remove('open'); fab.setAttribute('aria-expanded', 'false'); });
+    if (!fab || !panel || !closeBtn) return;
 
-  // מפת היכולות (Features)
-  const featureMap = {
-    'contrast-bright': () => { body.classList.toggle('a11y-high-contrast'); body.classList.remove('a11y-dark-contrast','a11y-mono'); },
-    'contrast-dark': () => { body.classList.toggle('a11y-dark-contrast'); body.classList.remove('a11y-high-contrast','a11y-mono'); },
-    'mono': () => { body.classList.toggle('a11y-mono'); body.classList.remove('a11y-high-contrast','a11y-dark-contrast'); },
-    'stop-anim': () => body.classList.toggle('a11y-stop-anim'),
-    'readable-font': () => body.classList.toggle('a11y-readable-font'),
-    'highlight-links': () => body.classList.toggle('a11y-highlight-links'),
-    'big-cursor': () => body.classList.toggle('a11y-big-cursor'),
-    'reading-guide': toggleReadingGuide,
-    'tts-read': toggleTTS,
-    'voice-nav': toggleVoiceNav
-  };
-
-  document.querySelectorAll('.a11y-btn[data-feature]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const f = btn.dataset.feature;
-      if (featureMap[f]) { featureMap[f](); }
-      btn.classList.toggle('active');
+    // הפעלה וסגירה בטוחה של הפאנל הצידי
+    fab.addEventListener('click', function(e) {
+      e.stopPropagation();
+      panel.classList.toggle('open');
+      const isOpen = panel.classList.contains('open');
+      fab.setAttribute('aria-expanded', isOpen);
     });
-  });
 
-  // מדריך קריאה
-  function toggleReadingGuide() {
-    const guide = document.getElementById('reading-guide-bar');
-    const active = guide.style.display === 'block';
-    guide.style.display = active ? 'none' : 'block';
-    if (!active) { document.addEventListener('mousemove', moveGuide); } 
-    else { document.removeEventListener('mousemove', moveGuide); }
-  }
-  function moveGuide(e) {
-    document.getElementById('reading-guide-bar').style.top = (e.clientY - 20) + 'px';
-  }
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      panel.classList.remove('open');
+      fab.setAttribute('aria-expanded', 'false');
+    });
 
-  // שינוי גודל גופן
-  const fontSlider = document.getElementById('font-size-slider');
-  const fontDisplay = document.getElementById('font-size-display');
-  fontSlider.addEventListener('input', () => {
-    document.documentElement.style.fontSize = fontSlider.value + '%';
-    fontDisplay.textContent = fontSlider.value + '%';
-  });
+    // מניעת סגירה כאשר לוחצים בתוך הפאנל
+    panel.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
 
-  // מנוע הקראת טקסט (TTS)
-  let ttsUtterance = null;
-  function toggleTTS() {
+    // סגירה בלחיצה מחוץ לפאנל
+    document.addEventListener('click', function() {
+      panel.classList.remove('open');
+      fab.setAttribute('aria-expanded', 'false');
+    });
+
+    // מפת היכולות
+    const featureMap = {
+      'contrast-bright': function() { body.classList.toggle('a11y-high-contrast'); body.classList.remove('a11y-dark-contrast','a11y-mono'); },
+      'contrast-dark': function() { body.classList.toggle('a11y-dark-contrast'); body.classList.remove('a11y-high-contrast','a11y-mono'); },
+      'mono': function() { body.classList.toggle('a11y-mono'); body.classList.remove('a11y-high-contrast','a11y-dark-contrast'); },
+      'stop-anim': function() { body.classList.toggle('a11y-stop-anim'); },
+      'readable-font': function() { body.classList.toggle('a11y-readable-font'); },
+      'highlight-links': function() { body.classList.toggle('a11y-highlight-links'); },
+      'big-cursor': function() { body.classList.toggle('a11y-big-cursor'); },
+      'reading-guide': toggleReadingGuide,
+      'tts-read': toggleTTS,
+      'voice-nav': toggleVoiceNav
+    };
+
+    document.querySelectorAll('.a11y-btn[data-feature]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const f = btn.dataset.feature;
+        if (featureMap[f]) { featureMap[f](); }
+        
+        // עדכון מצב אקטיבי עבור פיצ'רים שאינם הקראה/פקודות קוליות
+        if (f !== 'tts-read' && f !== 'voice-nav') {
+          btn.classList.toggle('active');
+        }
+      });
+    });
+
+    // מדריך קריאה
