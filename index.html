@@ -3,255 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הקישורים של Krav0n</title>
-    <!-- טעינת אייקונים של FontAwesome להצגת הלוגואים של הרשתות והנגישות -->
-    <link rel="stylesheet" href="https://cloudflare.com">
+    <title>האתר שלי</title>
+    <!-- ייבוא סמל כיסא גלגלים מ-FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --base-font-size: 18px;
-            --base-padding: 18px;
-            --letter-spacing: normal;
-            --word-spacing: normal;
-            --line-height: 1.5;
+            --bg-color: #0d0a14;
+            --text-color: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0c0014; /* רקע כהה מאוד כמו בתמונה */
-            color: #ffffff;
-            margin: 0;
-            padding: 40px 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: system-ui, -apple-system, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            box-sizing: border-box;
-            transition: filter 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+            margin: 0;
+            transition: all 0.3s ease;
         }
 
-        /* --- קלאסים ומצבי נגישות מתקדמים --- */
-        body.monochrome { filter: grayscale(1) !important; }
-        body.dark-contrast { background-color: #000000 !important; color: #ffff00 !important; filter: contrast(1.8); }
-        body.dark-contrast .link-card { border: 2px solid #ffff00 !important; background: #000000 !important; color: #ffff00 !important; }
-        body.light-contrast { background-color: #ffffff !important; color: #000000 !important; filter: contrast(1.8); }
-        body.light-contrast .link-card { background: #ffffff !important; color: #000000 !important; border: 2px solid #000000 !important; box-shadow: none; }
-        body.highlight-links .link-card { outline: 4px dashed #ff0055 !important; outline-offset: 4px; }
-        body.readable-font * { font-family: Arial, sans-serif !important; font-weight: bold !important; }
+        body.high-contrast {
+            --bg-color: #000000;
+            --text-color: #ffff00;
+        }
         
-        /* שינוי גודל סמן העכבר */
-        body.big-cursor { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://w3.org" width="48" height="48" viewBox="0 0 24 24" fill="white" stroke="black" stroke-width="2"><path d="M4.5 3V17l4-4h7z"/></svg>'), auto !important; }
-        body.big-cursor-black { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://w3.org" width="48" height="48" viewBox="0 0 24 24" fill="black" stroke="white" stroke-width="2"><path d="M4.5 3V17l4-4h7z"/></svg>'), auto !important; }
-        body.big-cursor a, body.big-cursor-black a, body.big-cursor button, body.big-cursor-black button { cursor: inherit !important; }
-
-        /* מיכל התוכן הראשי */
-        .container {
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-            margin-top: 45vh; /* המיקום המדויק והנכון שלכם */
+        body.large-text {
+            font-size: 1.2em;
         }
 
-        /* עיצוב תמונת פרופיל חלק */
-        .profile-link {
-            display: inline-block;
-            margin-bottom: 25px;
-            text-decoration: none;
+        /* 
+         *  העלאת תמונת הפרופיל למעלה ב-15% 
+         */
+        .profile-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15vh; /* מרים את התמונה ב-15% מגובה המסך ביחס לכפתורים */
+            color: #7a6b9a;
+            font-size: 14px;
         }
-        .profile-link:focus {
-            outline: 4px solid #53fc18;
-            border-radius: 50%;
-        }
-        .profile-img {
-            width: 100px;
-            height: 100px;
+
+        .profile-pic {
+            max-width: 100px;
+            max-height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .links-container {
             display: flex;
             flex-direction: column;
-            gap: 14px; 
+            gap: 12px;
+            width: 100%;
+            max-width: 320px;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
 
-        /* סגנון כללי לכפתורים בדיוק כמו בתמונה */
-        .link-card {
-            border-radius: 14px; 
-            padding: var(--base-padding);
-            color: #ffffff;
-            text-decoration: none;
-            font-size: var(--base-font-size);
-            letter-spacing: var(--letter-spacing);
-            word-spacing: var(--word-spacing);
-            line-height: var(--line-height);
-            font-weight: bold;
+        .link-btn {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 10px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease, opacity 0.2s ease;
+            align-items: center;
+            width: 100%;
+            padding: 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            transition: transform 0.2s, opacity 0.2s;
+            box-sizing: border-box;
+            border: 2px solid transparent; 
         }
 
-        .link-card:hover {
-            transform: scale(1.02); 
-            opacity: 0.92;
+        .link-btn:hover, .link-btn:focus {
+            transform: scale(1.03);
+            opacity: 0.9;
+            outline: 2px solid white;
         }
 
-        /* פוקוס מקלדת נגיש וברור */
-        .link-card:focus {
-            outline: 4px solid #ffffff;
-            transform: scale(1.02);
-            opacity: 1;
+        .btn-kick {
+            background-color: #53fc18;
+            color: #000000;
         }
 
-        /* צבעי כפתורים מהתמונה המקורית */
-        .btn-kick { background-color: #53fc18; color: #000000; }
-        .btn-discord { background: linear-gradient(to right, #4051b5, #5865f2); }
-        .btn-youtube { background: linear-gradient(to right, #ba0000, #e60000); }
-        .btn-instagram { background: linear-gradient(45deg, #8a3ab9, #e95950, #fccc63); }
+        .btn-discord {
+            background-color: #5865F2;
+            color: #ffffff;
+        }
 
-        /* --- כפתור נגישות צף מובנה --- */
-        .a11y-btn {
+        .btn-youtube {
+            background-color: #FF0000;
+            color: #ffffff;
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: #ffffff;
+        }
+
+        /* כפתור נגישות - נקודה כחולה עם סמל נכות בתחתית משמאל */
+        .accessibility-btn {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            background-color: #0066cc;
-            color: #ffffff;
-            border: none;
-            border-radius: 50%;
             width: 55px;
             height: 55px;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            z-index: 10000;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            z-index: 1000;
             transition: transform 0.2s;
         }
-        .a11y-btn:hover { transform: scale(1.1); }
 
-        /* --- חלון תפריט הנגישות המלא --- */
-        .a11y-menu {
-            display: none;
+        .accessibility-btn:hover, .accessibility-btn:focus {
+            transform: scale(1.1);
+            outline: 2px solid white;
+        }
+
+        /* תפריט נגישות (נפתח בלחיצה) */
+        .accessibility-menu {
             position: fixed;
             bottom: 85px;
             left: 20px;
-            width: 320px;
-            max-height: 70vh;
-            background-color: #111827;
-            border: 2px solid #0066cc;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            z-index: 10000;
-            color: #ffffff;
-            overflow-y: auto;
-        }
-        .a11y-header {
-            background-color: #0066cc;
-            padding: 14px;
-            font-weight: bold;
-            font-size: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-        }
-        .a11y-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 0 5px;
-        }
-        .a11y-body {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .a11y-section-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: #9ca3af;
-            border-bottom: 1px solid #374151;
-            padding-bottom: 5px;
-            margin-bottom: 8px;
-            text-align: right;
-        }
-        .a11y-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-        .a11y-grid button {
-            background-color: #1f2937;
-            color: white;
-            border: 1px solid #4b5563;
+            background-color: #1e1e1e;
+            border: 1px solid #444;
             border-radius: 8px;
-            padding: 10px 5px;
-            font-size: 12px;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .accessibility-menu.active {
+            display: flex;
+        }
+
+        .accessibility-menu button {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+            padding: 10px 15px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s, border-color 0.2s;
-            text-align: center;
+            font-size: 14px;
+            font-family: inherit;
         }
-        .a11y-grid button:hover, .a11y-grid button.active {
-            background-color: #0066cc;
-            border-color: #0066cc;
+
+        .accessibility-menu button:hover {
+            background-color: #444;
         }
-        .reset-btn {
-            grid-column: span 2;
-            background-color: #dc2626 !important;
-            border-color: #dc2626 !important;
-            margin-top: 5px;
-            color: white !important;
+        
+        body.high-contrast .link-btn {
+            border-color: yellow;
         }
     </style>
 </head>
 <body>
 
-    <!-- תגית האזור המרכזי לקוראי מסך -->
-    <main class="container">
-        <!-- תמונת פרופיל נגישה המובילה ל-Kick -->
-        <a href="https://kick.com" target="_blank" class="profile-link" aria-label="תמונת פרופיל - מעבר לערוץ ה-Kick של Krav0n">
-            <img src="https://placeholder.com" alt="תמונת פרופיל רשמית של Krav0n" class="profile-img">
-        </a>
+    <div class="profile-section">
+        <!-- מקום לתמונת הפרופיל שלך. הוסף את הקישור לתמונה ב-src -->
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <i class="fa-regular fa-image" style="font-size: 24px;"></i>
+            <span>תמונת פרופיל רשמית של ...</span>
+        </div>
+    </div>
 
-        <!-- תפריט הקישורים הראשי המאורגן והנגיש שלכם -->
-        <nav class="links-container" aria-label="קישורים חברתיים">
-            <!-- 1. כפתור Kick -->
-            <a href="https://kick.com" target="_blank" class="link-card btn-kick" aria-label="מעבר לערוץ ה-Kick הרשמי של Krav0n">
-                Kick <i class="fa-solid fa-k" aria-hidden="true"></i>
-            </a>
-            <!-- 2. כפתור Discord -->
-            <a href="https://discord.com" target="_blank" class="link-card btn-discord" aria-label="הצטרפות לשרת ה-Discord של Krav0n">
-                Discord <i class="fab fa-discord" aria-hidden="true"></i>
-            </a>
-            <!-- 3. כפתור YouTube -->
-            <a href="https://youtube.com" target="_blank" class="link-card btn-youtube" aria-label="מעבר לערוץ ה-YouTube של Krav0n">
-                YouTube <i class="fab fa-youtube" aria-hidden="true"></i>
-            </a>
-            <!-- 4. כפתור Instagram -->
-            <a href="https://instagram.com" target="_blank" class="link-card btn-instagram" aria-label="מעבר לעמוד ה-Instagram של Krav0n">
-                Instagram <i class="fab fa-instagram" aria-hidden="true"></i>
-            </a>
-        </nav>
-    </main>
+    <div class="links-container">
+        <a href="#" class="link-btn btn-kick" aria-label="Kick">Kick</a>
+        <a href="#" class="link-btn btn-discord" aria-label="Discord">Discord</a>
+        <a href="#" class="link-btn btn-youtube" aria-label="YouTube">YouTube</a>
+        <a href="#" class="link-btn btn-instagram" aria-label="Instagram">Instagram</a>
+    </div>
 
-    <!-- כפתור נגישות צף מובנה -->
-    <button class="a11y-btn" id="a11yToggleBtn" aria-label="פתח תפריט נגישות" title="תפריט נגישות">
-        <i class="fa-solid fa-universal-access"></i>
+    <!-- כפתור הנגישות -->
+    <button class="accessibility-btn" id="accBtn" aria-label="פתיחת תפריט נגישות" aria-expanded="false">
+        <i class="fa-solid fa-wheelchair"></i>
     </button>
 
-    <!-- חלון תפריט נגישות מתקדם ועצמאי לחלוטין (נבנה מאפס) -->
-    <div class="a11y-menu" id="a11yMenu" role="dialog" aria-label="תפריט אפשרויות נגישות">
-        <div class="a11y-header">
-            <span>תפריט נגישות</span>
-            <button class="a11y-close" id="a11yCloseBtn">✕</button>
-        </div>
+    <!-- תפריט הנגישות -->
+    <div class="accessibility-menu" id="accMenu" role="menu">
+        <button onclick="toggleHighContrast()" role="menuitem">ניגודיות גבוהה</button>
+        <button onclick="toggleLargeText()" role="menuitem">טקסט גדול</button>
+        <button onclick="resetAccessibility()" role="menuitem">איפוס נגישות</button>
+    </div>
+
+    <script>
+        const accBtn = document.getElementById('accBtn');
+        const accMenu = document.getElementById('accMenu');
+
+        accBtn.addEventListener('click', () => {
+            accMenu.classList.toggle('active');
+            const isExpanded = accMenu.classList.contains('active');
+            accBtn.setAttribute('aria-expanded', isExpanded);
+        });
+
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
+
+        function toggleLargeText() {
+            document.body.classList.toggle('large-text');
+        }
+
+        function resetAccessibility() {
+            document.body.classList.remove('high-contrast');
+            document.body.classList.remove('large-text');
+        }
+    </script>
+</body>
+</html>
