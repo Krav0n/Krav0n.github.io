@@ -46,15 +46,72 @@
         /* 
          * דמות ברקע ימין למטה
          */
-        .bg-character {
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>האתר שלי</title>
+    <style>
+        /* עיצוב כללי של הדף והרקע */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2c1f4d; /* צבע הרקע הכהה מהאתר שלך */
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* 1. עיצוב עיגול הפרופיל במרכז */
+        .profile-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden; /* דואג שהתמונה תישאר עגולה */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .profile-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* מותח את התמונה יפה בתוך העיגול */
+        }
+
+        /* 2. עיצוב התמונה בצד ימין למטה */
+        .bottom-right-image {
             position: fixed;
-            bottom: -10px;
-            right: 5%;
-            height: 65vh;
-            max-height: 600px;
-            z-index: -1;
-            pointer-events: none;
-            filter: drop-shadow(0 0 15px rgba(0,0,0,0.4));
+            bottom: 20px;       /* מרחק מהתחתית */
+            right: 20px;        /* מרחק מצד ימין */
+            width: 50px;        /* רוחב התמונה */
+            height: 50px;       /* גובה התמונה */
+            border-radius: 50%; /* הופך גם אותה לעגולה (אפשר למחוק אם לא רוצים) */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            z-index: 9999;      /* תמיד מעל הכל */
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- תמונת הפרופיל במרכז המסך -->
+    <div class="profile-container">
+        <!-- פה שמים את הקישור לתמונת הפרופיל שלך -->
+        <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true" alt="פרופיל">
+    </div>
+
+    <!-- תמונה קבועה בצד ימין למטה -->
+    <!-- פה שמים את הקישור לתמונה בצד ימין למטה -->
+    <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/1.png?raw=true" class="bottom-right-image" alt="אייקון צד">
+
+</body>
+</html>
+
         }
 
         @media (max-width: 768px) {
