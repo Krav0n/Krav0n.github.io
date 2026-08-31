@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>האתר שלי</title>
-    <!-- ייבוא סמל כיסא גלגלים מ-FontAwesome -->
+    <title>Krav0n Links</title>
+    <!-- ייבוא FontAwesome עבור סמלים -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #0d0a14;
+            /* רקע בהיר יותר ב-20% מהמקור */
+            --bg-color: #2b233d; 
             --text-color: #ffffff;
         }
 
@@ -22,45 +23,75 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            transition: all 0.3s ease;
-        }
-
-        body.high-contrast {
-            --bg-color: #000000;
-            --text-color: #ffff00;
-        }
-        
-        body.large-text {
-            font-size: 1.2em;
+            transition: background-color 0.3s ease, filter 0.3s ease;
+            position: relative;
+            overflow-x: hidden;
         }
 
         /* 
-         *  העלאת תמונת הפרופיל למעלה ב-15% 
+         * אפקט תאורה לעכבר (הופך את האזור לבהיר יותר ב-15% בערך)
          */
+        .spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            /* שימוש בגרדיאנט רדיאלי שעוקב אחרי העכבר */
+            background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255, 255, 255, 0.15) 0%, transparent 250px);
+            z-index: 0;
+        }
+
+        /* 
+         * דמות ברקע ימין למטה
+         */
+        .bg-character {
+            position: fixed;
+            bottom: -10px;
+            right: 5%;
+            height: 65vh;
+            max-height: 600px;
+            z-index: -1;
+            pointer-events: none;
+            filter: drop-shadow(0 0 15px rgba(0,0,0,0.4));
+        }
+
+        @media (max-width: 768px) {
+            .bg-character {
+                height: 45vh;
+                right: -10%;
+                opacity: 0.6; /* טיפה שקוף במסכים קטנים כדי לא להפריע */
+            }
+        }
+
+        /* תמונת פרופיל מורמת למעלה ב-15% */
         .profile-section {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 15vh; /* מרים את התמונה ב-15% מגובה המסך ביחס לכפתורים */
-            color: #7a6b9a;
-            font-size: 14px;
+            margin-bottom: 15vh; 
+            z-index: 1;
         }
 
         .profile-pic {
-            max-width: 100px;
-            max-height: 100px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             object-fit: cover;
+            border: 3px solid #555;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         .links-container {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
             width: 100%;
             max-width: 320px;
             padding: 0 20px;
             box-sizing: border-box;
+            z-index: 1;
         }
 
         .link-btn {
@@ -68,20 +99,20 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            padding: 14px;
-            border-radius: 6px;
+            padding: 16px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 15px;
-            transition: transform 0.2s, opacity 0.2s;
+            font-size: 16px;
+            transition: transform 0.2s, filter 0.2s;
             box-sizing: border-box;
             border: 2px solid transparent; 
         }
 
         .link-btn:hover, .link-btn:focus {
-            transform: scale(1.03);
-            opacity: 0.9;
-            outline: 2px solid white;
+            transform: scale(1.04);
+            filter: brightness(1.15); /* בהיר יותר גם במעבר על הכפתור */
+            outline: none;
         }
 
         .btn-kick {
@@ -104,20 +135,21 @@
             color: #ffffff;
         }
 
-        /* כפתור נגישות - נקודה כחולה עם סמל נכות בתחתית משמאל */
+        /* === עיצוב נגישות בהשראת התמונה === */
+        
         .accessibility-btn {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            width: 55px;
-            height: 55px;
-            background-color: #007bff;
+            width: 60px;
+            height: 60px;
+            background-color: #e50000; /* אדום בהתאמה לתמונה */
             color: white;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 28px;
+            font-size: 30px;
             border: none;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
@@ -125,101 +157,229 @@
             transition: transform 0.2s;
         }
 
-        .accessibility-btn:hover, .accessibility-btn:focus {
+        .accessibility-btn:hover {
             transform: scale(1.1);
-            outline: 2px solid white;
         }
 
-        /* תפריט נגישות (נפתח בלחיצה) */
         .accessibility-menu {
             position: fixed;
-            bottom: 85px;
+            bottom: 90px;
             left: 20px;
-            background-color: #1e1e1e;
-            border: 1px solid #444;
+            background-color: #ffffff;
+            color: #333;
             border-radius: 8px;
-            padding: 15px;
+            width: 320px;
             display: none;
             flex-direction: column;
-            gap: 10px;
             z-index: 999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            font-family: inherit;
         }
 
         .accessibility-menu.active {
             display: flex;
         }
 
-        .accessibility-menu button {
-            background-color: #333;
+        .acc-header {
+            background-color: #e50000;
             color: white;
-            border: 1px solid #555;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-family: inherit;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .accessibility-menu button:hover {
-            background-color: #444;
+        .acc-header button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
         }
-        
-        body.high-contrast .link-btn {
-            border-color: yellow;
+
+        .acc-content {
+            padding: 15px;
+            max-height: 60vh;
+            overflow-y: auto;
         }
+
+        .acc-section-title {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .acc-section-title::before {
+            content: "-";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 18px;
+            height: 18px;
+            background-color: #e50000;
+            color: white;
+            border-radius: 50%;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .acc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .acc-item {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 12px 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .acc-item i {
+            font-size: 24px;
+            color: #e50000;
+        }
+
+        .acc-item:hover, .acc-item.active {
+            background-color: #fff5f5;
+            border-color: #e50000;
+            color: #e50000;
+        }
+
+        /* מחלקות ליישום הנגישות באתר */
+        body.grayscale { filter: grayscale(100%); }
+        body.high-contrast-mode {
+            --bg-color: #000000;
+            --text-color: #ffff00;
+        }
+        body.high-contrast-mode .link-btn {
+            border: 2px solid yellow;
+        }
+        body.light-contrast-mode {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+        }
+        body.large-text-mode { font-size: 1.2em; }
+        body.large-text-mode .link-btn { font-size: 1.1em; }
     </style>
 </head>
 <body>
 
+    <!-- אפקט הפנס - מעקב עכבר -->
+    <div class="spotlight"></div>
+
+    <!-- תמונת הדמות ברקע (ימין למטה) -->
+    <!-- במידה ומעלים ל-GitHub, יש לשנות את הנתיב לנתיב היחסי בתיקייה -->
+    <img src=".user_uploaded/media_1788144662276.png" class="bg-character" alt="">
+
+    <!-- אזור תמונת הפרופיל -->
     <div class="profile-section">
-        <!-- מקום לתמונת הפרופיל שלך. הוסף את הקישור לתמונה ב-src -->
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="fa-regular fa-image" style="font-size: 24px;"></i>
-            <span>תמונת פרופיל רשמית של ...</span>
+        <img src=".user_uploaded/media_1788144662285.jpg" alt="תמונת פרופיל רשמית של Krav0n" class="profile-pic">
+    </div>
+
+    <!-- כפתורים וקישורים -->
+    <div class="links-container">
+        <a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick" aria-label="Kick">Kick</a>
+        <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord" aria-label="Discord">Discord</a>
+        <a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube" aria-label="YouTube">YouTube</a>
+        <a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram" aria-label="Instagram">Instagram</a>
+    </div>
+
+    <!-- כפתור הנגישות השמאלי התחתון -->
+    <button class="accessibility-btn" id="accBtn" aria-label="פתיחת תפריט נגישות" aria-expanded="false">
+        <i class="fa-solid fa-universal-access"></i>
+    </button>
+
+    <!-- תפריט נגישות מלא בהשראת העיצוב בתמונה (אדום/לבן) -->
+    <div class="accessibility-menu" id="accMenu" role="menu">
+        <div class="acc-header">
+            <span>תפריט נגישות</span>
+            <button id="closeAccBtn" aria-label="סגור"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="acc-content">
+            
+            <div class="acc-section-title">התאמות ניגודיות</div>
+            <div class="acc-grid">
+                <div class="acc-item" onclick="toggleMode('high-contrast-mode', this)">
+                    <i class="fa-solid fa-moon"></i>
+                    <span>ניגודיות כהה</span>
+                </div>
+                <div class="acc-item" onclick="toggleMode('light-contrast-mode', this)">
+                    <i class="fa-regular fa-sun"></i>
+                    <span>ניגודיות בהירה</span>
+                </div>
+                <div class="acc-item" onclick="toggleMode('grayscale', this)">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                    <span>מונוכרום</span>
+                </div>
+            </div>
+
+            <div class="acc-section-title">הגדלת הטקסט והגופן</div>
+            <div class="acc-grid">
+                <div class="acc-item" onclick="toggleMode('large-text-mode', this)">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    <span>הגדלת טקסט</span>
+                </div>
+                <div class="acc-item" onclick="resetAccessibility()">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>איפוס הגדרות</span>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <div class="links-container">
-        <a href="#" class="link-btn btn-kick" aria-label="Kick">Kick</a>
-        <a href="#" class="link-btn btn-discord" aria-label="Discord">Discord</a>
-        <a href="#" class="link-btn btn-youtube" aria-label="YouTube">YouTube</a>
-        <a href="#" class="link-btn btn-instagram" aria-label="Instagram">Instagram</a>
-    </div>
-
-    <!-- כפתור הנגישות -->
-    <button class="accessibility-btn" id="accBtn" aria-label="פתיחת תפריט נגישות" aria-expanded="false">
-        <i class="fa-solid fa-wheelchair"></i>
-    </button>
-
-    <!-- תפריט הנגישות -->
-    <div class="accessibility-menu" id="accMenu" role="menu">
-        <button onclick="toggleHighContrast()" role="menuitem">ניגודיות גבוהה</button>
-        <button onclick="toggleLargeText()" role="menuitem">טקסט גדול</button>
-        <button onclick="resetAccessibility()" role="menuitem">איפוס נגישות</button>
-    </div>
-
     <script>
-        const accBtn = document.getElementById('accBtn');
-        const accMenu = document.getElementById('accMenu');
-
-        accBtn.addEventListener('click', () => {
-            accMenu.classList.toggle('active');
-            const isExpanded = accMenu.classList.contains('active');
-            accBtn.setAttribute('aria-expanded', isExpanded);
+        // פונקציה ליצירת אפקט הפנס וההתבהרות ב-15% סביב העכבר
+        const spotlight = document.querySelector('.spotlight');
+        document.addEventListener('mousemove', (e) => {
+            spotlight.style.setProperty('--x', e.clientX + 'px');
+            spotlight.style.setProperty('--y', e.clientY + 'px');
         });
 
-        function toggleHighContrast() {
-            document.body.classList.toggle('high-contrast');
+        // ניהול תפריט הנגישות
+        const accBtn = document.getElementById('accBtn');
+        const accMenu = document.getElementById('accMenu');
+        const closeAccBtn = document.getElementById('closeAccBtn');
+
+        function toggleMenu() {
+            accMenu.classList.toggle('active');
+            accBtn.setAttribute('aria-expanded', accMenu.classList.contains('active'));
         }
 
-        function toggleLargeText() {
-            document.body.classList.toggle('large-text');
+        accBtn.addEventListener('click', toggleMenu);
+        closeAccBtn.addEventListener('click', toggleMenu);
+
+        // פונקציות להפעלת כלי הנגישות
+        function toggleMode(modeClass, btnElement) {
+            document.body.classList.toggle(modeClass);
+            if (btnElement) {
+                btnElement.classList.toggle('active');
+            }
         }
 
         function resetAccessibility() {
-            document.body.classList.remove('high-contrast');
-            document.body.classList.remove('large-text');
+            document.body.className = ''; // מסיר את כל המחלקות
+            document.querySelectorAll('.acc-item').forEach(el => el.classList.remove('active'));
         }
     </script>
 </body>
