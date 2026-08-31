@@ -27,15 +27,15 @@
             position: relative;
             overflow-x: hidden;
             
-            /* 2. שילוב דמות הילד ישירות כרקע בצד ימין */
+            /* שילוב דמות הילד ישירות כרקע בצד ימין */
             background-image: url('https://github.com/Krav0n/Krav0n.github.io/blob/main/1.png?raw=true');
             background-repeat: no-repeat;
-            background-position: right bottom; /* ממוקם בפינה הימנית התחתונה של הרקע */
+            background-position: right bottom; 
             background-attachment: fixed;
-            background-size: 450px; /* שומר על פרופורציות הדמות */
+            background-size: 450px; 
         }
 
-        /* אפקט תאורה לעכבר */
+        /* אפקט תאורה לעכבר (קטן, 5% בהירות, ואנימציית ברקים) */
         .spotlight {
             position: fixed;
             top: 0;
@@ -43,15 +43,27 @@
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255, 255, 255, 0.15) 0%, transparent 150px);
+            /* שינוי ל-0.05 לבהירות של 5%, והקטנת הרדיוס ל-80px שיהיה קטן */
+            background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255, 255, 255, 0.05) 0%, transparent 80px);
             z-index: 0;
+            /* אנימציה של הבהובים (ברקים) */
+            animation: lightningFlicker 2s infinite;
         }
 
-        /* התאמה למסכים קטנים (סמארטפונים) שהרקע לא יפריע לטקסט */
+        /* אנימציית הברקים להבהוב של הספוטלייט */
+        @keyframes lightningFlicker {
+            0%, 94%, 100% { opacity: 1; }
+            95% { opacity: 1.8; }
+            96% { opacity: 0.4; }
+            97% { opacity: 2.2; }
+            98% { opacity: 0.6; }
+            99% { opacity: 1.5; }
+        }
+
         @media (max-width: 768px) {
             body {
                 background-position: right bottom; 
-                background-size: 180px; /* מקטין את דמות הרקע בניידים */
+                background-size: 180px; 
             }
         }
 
@@ -64,7 +76,6 @@
             z-index: 1;
         }
 
-        /* 1. עיצוב עיגול תמונת הפרופיל במרכז */
         .profile-pic {
             width: 180px;
             height: 180px;
@@ -114,7 +125,7 @@
             color: #ffffff;
         }
 
-        /* === עיצוב תפריט הנגישות המקורי שלך === */
+        /* כפתור נגישות */
         .accessibility-btn {
             position: fixed;
             bottom: 20px;
@@ -222,7 +233,7 @@
 
         /* מחלקות שינוי מצב נגישות */
         body.grayscale { filter: grayscale(100%); }
-        body.high-contrast-mode { --bg-color: #000000; --text-color: #ffffff; }
+        body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; }
         body.high-contrast-mode .link-btn { border: 2px solid yellow; }
         body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; }
         body.large-text-mode { font-size: 1.2em; }
@@ -231,23 +242,23 @@
 </head>
 <body>
 
-    <!-- אפקט הספוטלייט ברקע -->
+    <!-- אפקט הספוטלייט (עם ברקים) -->
     <div class="spotlight" id="spotlight"></div>
 
-    <!-- 1. תמונת הפרופיל העגולה במרכז (עם הדרקון מאחור) -->
+    <!-- תמונת הפרופיל במרכז -->
     <div class="profile-section">
         <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true" class="profile-pic" alt="Krav0n Profile">
     </div>
 
-    <!-- מיכל כפתורי הקישורים -->
+    <!-- כפתורי הקישורים -->
     <div class="links-container">
-        <a href="https://kick.com" target="_blank" class="link-btn btn-kick">Kick</a>
-        <a href="https://discord.com" target="_blank" class="link-btn btn-discord">Discord</a>
-        <a href="https://youtube.com" target="_blank" class="link-btn btn-youtube">YouTube</a>
-        <a href="https://instagram.com" target="_blank" class="link-btn btn-instagram">Instagram</a>
+        <a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick">Kick</a>
+        <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord">Discord</a>
+        <a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube">YouTube</a>
+        <a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram">Instagram</a>
     </div>
 
-    <!-- כפתור נגישות (פינה שמאלית תחתונה כמו המקור שלך) -->
+    <!-- כפתור נגישות -->
     <button class="accessibility-btn" id="accBtn" aria-label="תפריט נגישות">
         <i class="fa-solid fa-universal-access"></i>
     </button>
@@ -273,7 +284,6 @@
         </div>
     </div>
 
-    <!-- קוד ה-JavaScript להפעלת התפריט ואפקט העכבר -->
     <script>
         // אפקט ספוטלייט עוקב עכבר
         const spotlight = document.getElementById('spotlight');
@@ -290,3 +300,43 @@
         accBtn.addEventListener('click', () => accMenu.classList.toggle('active'));
         closeAccBtn.addEventListener('click', () => accMenu.classList.remove('active'));
 
+        // --- הוספת הפונקציונליות לכפתורי הנגישות שחסרה בקוד ---
+        const body = document.body;
+
+        function clearActiveButtons() {
+            document.querySelectorAll('.acc-item').forEach(btn => btn.classList.remove('active'));
+        }
+
+        document.getElementById('contrastDark').addEventListener('click', function() {
+            body.className = '';
+            body.classList.add('high-contrast-mode');
+            clearActiveButtons();
+            this.classList.add('active');
+        });
+
+        document.getElementById('contrastLight').addEventListener('click', function() {
+            body.className = '';
+            body.classList.add('light-contrast-mode');
+            clearActiveButtons();
+            this.classList.add('active');
+        });
+
+        document.getElementById('contrastGray').addEventListener('click', function() {
+            body.className = '';
+            body.classList.add('grayscale');
+            clearActiveButtons();
+            this.classList.add('active');
+        });
+
+        document.getElementById('textLarge').addEventListener('click', function() {
+            body.classList.toggle('large-text-mode');
+            this.classList.toggle('active');
+        });
+
+        document.getElementById('accReset').addEventListener('click', function() {
+            body.className = '';
+            clearActiveButtons();
+        });
+    </script>
+</body>
+</html>
