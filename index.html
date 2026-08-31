@@ -240,35 +240,23 @@
         body.large-text-mode { font-size: 1.2em; }
         body.large-text-mode .link-btn { font-size: 1.1em; }
 
-        /* אפקט ברקים מציאותי ברקע מסביב */
-        .lightning-bg {
+        /* אפקט ברקים שמיוצר בקוד (Canvas) רק מסביב למסך */
+        #lightningCanvas {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             z-index: -2; /* מאחורי הכל */
             pointer-events: none;
-            background-image: url('images/real_lightning.jpg');
-            background-size: cover;
-            background-position: center;
-            mix-blend-mode: screen; /* מעלים את הרקע השחור ומשאיר רק את הברקים הזוהרים */
-            opacity: 0;
-            animation: realisticFlash 7s infinite;
-        }
-
-        @keyframes realisticFlash {
-            0%, 92%, 100% { opacity: 0; }
-            93% { opacity: 0.8; }
-            94% { opacity: 0; }
-            95% { opacity: 0.5; }
-            96% { opacity: 0; }
-            98% { opacity: 1; filter: brightness(1.2); }
-            99% { opacity: 0.2; }
+            /* מסכה שקופה באמצע כדי שהברקים לא יגעו בטקסט ובתמונות */
+            -webkit-mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
+            mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
         }
     </style>
 </head>
 <body>
 
-    <!-- אפקט ברקים מציאותי ברקע -->
-    <div class="lightning-bg"></div>
+    <!-- קנבס לאפקט ברקים שמיוצר חי בקוד -->
+    <canvas id="lightningCanvas"></canvas>
 
     <!-- אפקט הספוטלייט (עם ברקים) -->
     <div class="spotlight" id="spotlight"></div>
@@ -313,7 +301,97 @@
     </div>
 
     <script>
-        // אפקט ספוטלייט עוקב עכבר
+        // === אפקט ברקים בקוד (Canvas) ===
+        const canvas = document.getElementById('lightningCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function drawBolt(startX, startY, length, angle, branchProbability, depth) {
+            if (depth > 3) return; // לא לפצל יותר מדי
+            
+            let currentX = startX;
+            let currentY = startY;
+            
+            ctx.beginPath();
+            ctx.moveTo(currentX, currentY);
+            
+            // סגנון הברק (צהוב זוהר)
+            ctx.shadowBlur = depth === 0 ? 15 : 5;
+            ctx.shadowColor = "#facc15";
+            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - depth * 0.2})`;
+            ctx.lineWidth = Math.max(1, 3 - depth);
+            
+            let segments = Math.floor(length / 10);
+            for (let i = 0; i < segments; i++) {
+                // תנועה אקראית בכיוון הכללי
+                let segmentAngle = angle + (Math.random() - 0.5) * 1.5;
+                currentX += Math.cos(segmentAngle) * 10;
+                currentY += Math.sin(segmentAngle) * 10;
+                ctx.lineTo(currentX, currentY);
+                
+                // פיצול ענפים (ברקים קטנים יותר)
+                if (Math.random() < branchProbability) {
+                    let newAngle = angle + (Math.random() > 0.5 ? 1 : -1) * (0.5 + Math.random() * 0.5);
+                    drawBolt(currentX, currentY, length * 0.5, newAngle, branchProbability * 0.5, depth + 1);
+                    ctx.moveTo(currentX, currentY);
+                }
+            }
+            ctx.stroke();
+        }
+
+        function strike() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // התחלה אקראית מהקצוות
+            let startX, startY, angle;
+            const edge = Math.random();
+            if (edge < 0.25) { // למעלה
+                startX = Math.random() * canvas.width; startY = 0; angle = Math.PI / 2;
+            } else if (edge < 0.5) { // ימין
+                startX = canvas.width; startY = Math.random() * canvas.height; angle = Math.PI;
+            } else if (edge < 0.75) { // למטה
+                startX = Math.random() * canvas.width; startY = canvas.height; angle = -Math.PI / 2;
+            } else { // שמאל
+                startX = 0; startY = Math.random() * canvas.height; angle = 0;
+            }
+            
+            // כיוון כללי למרכז המסך
+            let centerX = canvas.width / 2;
+            let centerY = canvas.height / 2;
+            angle = Math.atan2(centerY - startY, centerX - startX) + (Math.random() - 0.5) * 0.5;
+
+            // ציור הברק
+            drawBolt(startX, startY, canvas.height * 0.6, angle, 0.1, 0);
+            
+            // אפקט פלאש חלש על כל המסך (מוסתר במרכז על ידי המסכה)
+            ctx.fillStyle = "rgba(255, 255, 150, 0.03)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // ניקוי המסך מהר כדי לדמות הבהוב
+            setTimeout(() => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // סיכוי להבהוב כפול
+                if (Math.random() < 0.3) {
+                    setTimeout(strike, 50 + Math.random() * 100);
+                    return;
+                }
+                
+                // תזמון הברק הבא
+                setTimeout(strike, 2000 + Math.random() * 6000);
+            }, 100);
+        }
+        
+        // התחלת האפקט
+        setTimeout(strike, 1500);
+
+        // === אפקט ספוטלייט עוקב עכבר ===
         const spotlight = document.getElementById('spotlight');
         document.addEventListener('mousemove', (e) => {
             spotlight.style.setProperty('--x', `${e.clientX}px`);
