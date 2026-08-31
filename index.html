@@ -1,251 +1,27 @@
-/* סגנונות בסיסיים של תפריט הנגישות */
-#a11y-widget-container { position: fixed; bottom: 80px; left: 0; z-index: 99998; direction: rtl; }
-#a11y-fab { width: 52px; height: 52px; background: #e02020; color: white; border: none; border-radius: 0 10px 10px 0; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 3px 3px 15px rgba(0,0,0,0.4); transition: all 0.2s; }
-#a11y-fab:hover { background: #c01010; width: 58px; }
-#a11y-panel { position: fixed; bottom: 0; left: -420px; top: 0; width: 420px; max-width: 95vw; background: #fff; color: #222; z-index: 99999; transition: left 0.35s cubic-bezier(0.4,0,0.2,1); overflow-y: auto; box-shadow: 5px 0 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
-#a11y-panel.open { left: 0; }
-#a11y-panel-header { background: #e02020; color: white; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 2; flex-shrink: 0; }
-#a11y-panel-header h2 { font-size: 17px; font-weight: 900; margin: 0; direction: rtl; }
-.a11y-section { padding: 14px 16px 8px; }
-.a11y-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
-.a11y-btn { background: #fff; border: 1.5px solid #ddd; border-radius: 10px; padding: 12px 6px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; font-size: 11px; color: #333; font-weight: 700; text-align: center; transition: all 0.15s; font-family: 'Heebo', sans-serif; line-height: 1.3; min-height: 80px; justify-content: center; }
-.a11y-btn:hover { border-color: #e02020; color: #e02020; background: #fff5f5; }
-.a11y-btn.active { border-color: #e02020; background: #fff0f0; color: #e02020; box-shadow: 0 0 0 2px #e0202033; }
-
-/* סרגלים וכלים מיוחדים */
-#reading-guide-bar { position: fixed; top: 0; left: 0; right: 0; height: 40px; background: rgba(0,0,0,0.3); pointer-events: none; z-index: 99990; display: none; border-top: 2px solid #e02020; border-bottom: 2px solid #e02020; }
-#vkeyboard { position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; border-top: 2px solid #e02020; z-index: 99995; display: none; padding: 12px; }
-
-/* מצבי נגישות המופעלים על ה-Body */
-body.a11y-stop-anim * { animation: none !important; transition: none !important; }
-body.a11y-large-text { font-size: 120% !important; }
-body.a11y-large-text h1 { font-size: 3rem !important; }
-body.a11y-high-contrast { filter: contrast(150%) brightness(1.1); }
-body.a11y-dark-contrast { filter: invert(1) hue-rotate(180deg); }
-body.a11y-mono { filter: grayscale(1); }
-body.a11y-highlight-links a { background: yellow !important; color: #000 !important; padding: 0 2px !important; outline: 2px solid orange !important; }
-body.a11y-readable-font * { font-family: 'Arial', sans-serif !important; letter-spacing: 0.05em !important; }
-body.a11y-big-cursor * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M8 0 L8 24 L14 18 L20 32 L23 31 L17 17 L26 17 Z' fill='black' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 8 0, auto !important; }
-body.a11y-big-cursor-white * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M8 0 L8 24 L14 18 L20 32 L23 31 L17 17 L26 17 Z' fill='white' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E") 8 0, auto !important; }
-body.a11y-hide-images img { visibility: hidden !important; }
-body.a11y-saturation-high { filter: saturate(2.5); }
-body.a11y-saturation-low { filter: saturate(0.3); }
-.a11y-focus-visible :focus { outline: 3px solid #e02020 !important; outline-offset: 3px !important; }
-
-<!-- כפתור הנגישות הצף (FAB) -->
-<div id="a11y-widget-container" role=" region" aria-label=" תפריט נגישות">
-  <button id="a11y-fab" aria-label=" פתח תפריט נגישות" aria-expanded=" false" aria-controls=" a11y-panel">
-    <svg xmlns="http://w3.org" width="30" height="30" fill="white" viewBox="0 0 256 256" aria-hidden="true">
-      <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM128,56a16,16,0,1,0,16,16A16,16,0,0,0,128,56Zm40,56a8,8,0,0,1-8,8H136v40h16a8,8,0,0,1,0,16H104a8,8,0,0,1,0-16h16V120H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,112Z"/>
-    </svg>
-  </button>
-</div>
-
-<!-- חלונית תפריט הנגישות -->
-<div id="a11y-panel" role=" dialog" aria-modal=" true" aria-label=" תפריט נגישות" tabindex="-1">
-  <div id="a11y-panel-header">
-    <button id="a11y-close" aria-label=" סגור תפריט נגישות">
-      <svg xmlns="http://w3.org" width="22" height="22" fill="white" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>
-    </button>
-    <h2>תפריט נגישות</h2>
-  </div>
-
-  <!-- קטגוריה: התאמות ניווט -->
-  <div class="a11y-section">
-    <div class="a11y-section-header" id="nav-section-header" aria-expanded="true" aria-controls="nav-section-body">
-      <button class="a11y-section-toggle" aria-label=" כווץ התאמות ניווט">−</button>
-      <h3>התאמות ניווט</h3>
-    </div>
-    <div id="nav-section-body" class="a11y-grid">
-      <button class="a11y-btn" data-feature="keyboard-nav">ניווט מקלדת</button>
-      <button class="a11y-btn" data-feature="regions">ניווט אזורים</button>
-      <button class="a11y-btn" data-feature="screen-reader">התאמה לקורא מסך</button>
-      <button class="a11y-btn" data-feature="voice-nav">פקודות קוליות</button>
-      <button class="a11y-btn" data-feature="smart-nav">ניווט חכם</button>
-    </div>
-  </div>
-
-  <div class="a11y-divider"></div>
-
-  <!-- קטגוריה: התאמות ניגודיות -->
-  <div class="a11y-section">
-    <div class="a11y-section-header" id="contrast-section-header">
-      <button class="a11y-section-toggle">−</button>
-      <h3>התאמות ניגודיות</h3>
-    </div>
-    <div id="contrast-section-body" class="a11y-grid">
-      <button class="a11y-btn" data-feature="contrast-bright">ניגודיות בהירה</button>
-      <button class="a11y-btn" data-feature="contrast-dark">ניגודיות כהה</button>
-      <button class="a11y-btn" data-feature="mono">מונוכרום</button>
-      <button class="a11y-btn" data-feature="saturation-high">רוויה גבוהה</button>
-      <button class="a11y-btn" data-feature="saturation-low">רוויה נמוכה</button>
-    </div>
-  </div>
-
-  <div class="a11y-divider"></div>
-
-  <!-- קטגוריה: גופן וטקסט -->
-  <div class="a11y-section">
-    <div class="a11y-section-header">
-      <button class="a11y-section-toggle">−</button>
-      <h3>הגדלת הטקסט והקטנת הגופן</h3>
-    </div>
-    <div id="font-section-body">
-      <div class="a11y-slider-row">
-        <span class="a11y-slider-label">גודל גופן</span>
-        <input type="range" min="80" max="160" value="100" id="font-size-slider">
-        <span class="a11y-slider-label" id="font-size-display">100%</span>
-      </div>
-      <div style="display:flex;gap:6px;margin-top:4px;">
-        <button class="a11y-btn" data-feature="readable-font" style="flex:1;min-height:60px;">גופן קריאה</button>
-        <button class="a11y-btn" data-feature="highlight-links" style="flex:1;min-height:60px;">הדגשת קישורים</button>
-        <button class="a11y-btn" data-feature="image-desc" style="flex:1;min-height:60px;">תיאור לתמונות</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="a11y-divider"></div>
-
-  <!-- קטגוריה: כלים נוספים והקראה -->
-  <div class="a11y-section" style="padding-bottom:16px;">
-    <div class="a11y-section-header">
-      <button class="a11y-section-toggle">−</button>
-      <h3>כלים נוספים</h3>
-    </div>
-    <div id="tools-section-body" class="a11y-grid">
-      <button class="a11y-btn" data-feature="reading-guide">מדריך קריאה</button>
-      <button class="a11y-btn" data-feature="tts-read" id="tts-main-btn">הקראת טקסט</button>
-      <button class="a11y-btn" data-feature="stop-anim">עצירת אנימציות</button>
-    </div>
-    <button id="a11y-reset-all" style="width:100%;margin-top:14px;padding:10px;background:#fff5f5;border:1.5px solid #fca5a5;border-radius:10px;color:#e02020;font-weight:900;font-size:13px;cursor:pointer;direction:rtl;">
-      ← איפוס כל הגדרות הנגישות
-    </button>
-  </div>
-</div>
-
-<!-- סרגל שליטה בהקראת טקסט (TTS) -->
-<div id="tts-bar" role=" region" aria-label=" שליטה בהקראה" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1e293b;border-top:2px solid #e02020;z-index:99994;padding:10px 16px;direction:rtl;">
-  <div style="max-width:700px;margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-    <button id="tts-play-pause">השהה</button>
-    <button id="tts-stop">⏹ עצור</button>
-    <input type="range" id="tts-speed" min="0.5" max="2" step="0.1" value="1">
-    <span id="tts-speed-label">×1</span>
-    <select id="tts-voice-select" style="background:#334155;color:white;"></select>
-    <div id="tts-progress-text" style="color:white;font-size:11px;"></div>
-  </div>
-</div>
-
-<!-- מדריך קריאה ומקלדת וירטואלית -->
-<div id="reading-guide-bar" aria-hidden="true"></div>
-<div id="vkeyboard" role=" complementary" aria-label=" מקלדת וירטואלית"></div>
-
-// ============ פתיחה וסגירה של תפריט הנגישות ============
-const fab = document.getElementById('a11y-fab');
-const panel = document.getElementById('a11y-panel');
-const closeBtn = document.getElementById('a11y-close');
-const body = document.body;
-
-fab.addEventListener('click', () => {
-  const isOpen = panel.classList.toggle('open');
-  fab.setAttribute('aria-expanded', isOpen);
-  if (isOpen) { panel.focus(); }
-});
-
-closeBtn.addEventListener('click', () => { 
-  panel.classList.remove('open'); 
-  fab.setAttribute('aria-expanded', 'false'); 
-  fab.focus(); 
-});
-
-// ============ מפת הפיצ'רים והפעלתם ============
-const featureMap = {
-  'contrast-bright': () => { body.classList.toggle('a11y-high-contrast'); body.classList.remove('a11y-dark-contrast','a11y-mono'); },
-  'contrast-dark': () => { body.classList.toggle('a11y-dark-contrast'); body.classList.remove('a11y-high-contrast','a11y-mono'); },
-  'mono': () => { body.classList.toggle('a11y-mono'); body.classList.remove('a11y-high-contrast','a11y-dark-contrast'); },
-  'saturation-high': () => { body.classList.toggle('a11y-saturation-high'); body.classList.remove('a11y-saturation-low'); },
-  'saturation-low': () => { body.classList.toggle('a11y-saturation-low'); body.classList.remove('a11y-saturation-high'); },
-  'readable-font': () => body.classList.toggle('a11y-readable-font'),
-  'highlight-links': () => body.classList.toggle('a11y-highlight-links'),
-  'stop-anim': () => body.classList.toggle('a11y-stop-anim'),
-  'big-cursor': () => { body.classList.toggle('a11y-big-cursor'); },
-  'reading-guide': toggleReadingGuide,
-  'virtual-keyboard': () => { const vk = document.getElementById('vkeyboard'); vk.style.display = vk.style.display === 'block' ? 'none' : 'block'; },
-  'zoom-content': () => body.classList.toggle('a11y-large-text'),
-  'tts-read': () => { toggleTTS(); } // פונקציית הקראת טקסט מורחבת בהמשך
-};
-
-// האזנה ללחיצה על כפתורי הנגישות
-document.querySelectorAll('.a11y-btn[data-feature]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const f = btn.dataset.feature;
-    if (featureMap[f]) { featureMap[f](); }
-    btn.classList.toggle('active');
-  });
-});
-
-// ============ מדריך קריאה (סרגל שעוקב אחר העכבר) ============
-function toggleReadingGuide() {
-  const guide = document.getElementById('reading-guide-bar');
-  const active = guide.style.display === 'block';
-  guide.style.display = active ? 'none' : 'block';
-  if (!active) { document.addEventListener('mousemove', moveGuide); } else { document.removeEventListener('mousemove', moveGuide); }
-}
-function moveGuide(e) {
-  const g = document.getElementById('reading-guide-bar');
-  if (g) g.style.top = (e.clientY - 20) + 'px';
-}
-
-// ============ שינוי גודל גופן עם סליידר ============
-const fontSlider = document.getElementById('font-size-slider');
-const fontDisplay = document.getElementById('font-size-display');
-fontSlider && fontSlider.addEventListener('input', () => {
-  const pct = fontSlider.value;
-  document.documentElement.style.fontSize = pct + '%';
-  fontDisplay.textContent = pct + '%';
-});
-
-// ============ מנוע הקראת טקסט (Text-to-Speech) ============
-let ttsUtterance = null;
-function toggleTTS() {
-  if (!('speechSynthesis' in window)) { alert('הדפדפן אינו תומך בהקראת טקסט.'); return; }
-  
-  window.speechSynthesis.cancel(); // איפוס הקראות קודמות
-  const cardsText = Array.from(document.querySelectorAll('.card')).map(c => c.textContent).join('. ');
-  
-  ttsUtterance = new SpeechSynthesisUtterance(cardsText);
-  ttsUtterance.lang = 'he-IL';
-  
-  ttsUtterance.onstart = () => { document.getElementById('tts-bar').style.display = 'block'; };
-  ttsUtterance.onend = () => { document.getElementById('tts-bar').style.display = 'none'; };
-  
-  window.speechSynthesis.speak(ttsUtterance);
-}
-
-// ============ ניווט ופקודות קוליות (Voice Navigation) ============
-let voiceRecognition = null;
-function toggleVoiceNav() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) { alert('הדפדפן לא תומך בזיהוי קול.'); return; }
-  
-  voiceRecognition = new SpeechRecognition();
-  voiceRecognition.lang = 'he-IL';
-  voiceRecognition.continuous = true;
-  
-  voiceRecognition.onresult = (e) => {
-    const transcript = e.results[e.results.length - 1][0].transcript.trim().toLowerCase();
-    if (transcript.includes('למטה')) { window.scrollBy({ top: 300, behavior: 'smooth' }); }
-    if (transcript.includes('למעלה')) { window.scrollBy({ top: -300, behavior: 'smooth' }); }
-  };
-  voiceRecognition.start();
-}
-
-// ============ איפוס כללי ============
-document.getElementById('a11y-reset-all')?.addEventListener('click', () => {
-  body.className = ''; // מסיר את כל הקלאסים של הנגישות
-  document.documentElement.style.fontSize = '';
-  window.speechSynthesis.cancel();
-  document.getElementById('tts-bar').style.display = 'none';
-  document.getElementById('reading-guide-bar').style.display = 'none';
-  document.querySelectorAll('.a11y-btn').forEach(b => b.classList.remove('active'));
-});
-
+<!-- תפריט נגישות חינמי ופשוט -->
+<script src="https://jsdelivr.net"></script>
+<script>
+  window.addEventListener('load', function() {
+    new Accessibility({
+      language: {
+        he: {
+          title: "תפריט נגישות",
+          decreaseText: "הקטן טקסט",
+          increaseText: "הגדל טקסט",
+          invertColors: "ניגודיות הפוכה",
+          grayHues: "גווני אפור",
+          underlineLinks: "קו תחתון לקישורים",
+          bigCursor: "סמן גדול",
+          readingGuide: "מדריך קריאה",
+          textToSpeech: "הקראת טקסט",
+          speechToText: "זיהוי קולי"
+        }
+      },
+      labels: {
+        title: "אפשרויות נגישות",
+        close: "סגור"
+      },
+      textToSpeechLang: "he-IL"
+    });
+  }, false);
+</script>
