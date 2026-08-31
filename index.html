@@ -2,14 +2,133 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>האתר של Krav0n</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הקישורים של Krav0n</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding-top: 50px; background-color: #f4f4f4; }
-        h1 { color: #333; }
+        /* עיצוב רקע כללי של האתר */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e1b4b); /* רקע מדורג כהה ומודרני */
+            color: #ffffff;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* מיכל מרכזי ששומר על רוחב קבוע ונוח בנייד ובמחשב */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* עיצוב תמונת הפרופיל */
+        .profile-link {
+            display: inline-block;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .profile-link:hover {
+            transform: scale(1.08); /* התמונה תגדל מעט ברחיפה */
+        }
+        .profile-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%; /* הופך את התמונה לעיגול */
+            border: 4px solid #53fc18; /* מסגרת ירוקה זוהרת בסגנון Kick */
+            box-shadow: 0 0 20px rgba(83, 252, 24, 0.4);
+            object-fit: cover;
+        }
+
+        /* שם המשתמש */
+        .username {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0 5px 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* תיאור קצר מתחת לשם */
+        .bio {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        /* עיצוב כפתורי הקישורים */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px; /* רווח בין כפתור לכפתור */
+        }
+        .link-card {
+            background: rgba(255, 255, 255, 0.05); /* רקע חצי שקוף */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* אפקט מעבר עכבר על הכפתורים */
+        .link-card:hover {
+            background: #53fc18; /* הופך לירוק Kick */
+            color: #000000; /* הטקסט הופך לשחור לניגודיות */
+            transform: translateY(-2px); /* קפיצה קלה למעלה */
+            box-shadow: 0 6px 15px rgba(83, 252, 24, 0.3);
+        }
     </style>
 </head>
 <body>
-    <h1>ברוכים הבאים לאתר ה-GitHub Pages שלי!</h1>
-    <p>האתר נוצר בהצלחה ובקרוב יהיו כאן דברים מעניינים.</p>
+
+    <div class="container">
+        
+        <!-- תמונת פרופיל לחיצה שמובילה לקיק שלכם -->
+        <!-- החליפו את הקישור למטה בקישור המדויק לערוץ שלכם -->
+        <a href="https://kick.com" target="_blank" class="profile-link">
+            <!-- כרגע שמתי תמונת פלייסהולדר זמנית, תוכלו להחליף אותה בקישור לתמונה שלכם -->
+            <img src="https://placeholder.com" alt="Krav0n" class="profile-img">
+        </a>
+
+        <div class="username">Krav0n</div>
+        <div class="bio">ברוכים הבאים לעמוד הקישורים הרשמי שלי 🚀</div>
+
+        <!-- רשימת הכפתורים הלחיצים -->
+        <div class="links-container">
+            
+            <!-- כפתור 1 -->
+            <a href="https://kick.com" target="_blank" class="link-card">
+                🟢 ערוץ ה-Kick שלי
+            </a>
+
+            <!-- כפתור 2 -->
+            <a href="https://discord.gg" target="_blank" class="link-card">
+                💬 שרת ה-Discord של הקהילה
+            </a>
+
+            <!-- כפתור 3 -->
+            <a href="https://youtube.com" target="_blank" class="link-card">
+                🔴 ערוץ ה-YouTube שלי
+            </a>
+
+            <!-- כפתור 4 -->
+            <a href="https://tiktok.com" target="_blank" class="link-card">
+                🎵 ה-TikTok שלי
+            </a>
+
+        </div>
+
+    </div>
+
 </body>
 </html>
