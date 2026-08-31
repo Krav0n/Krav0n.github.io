@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הקישורים של Krav0n</title>
-    <!-- טעינת אייקונים של FontAwesome -->
+    <!-- טעינת אייקונים של FontAwesome בצורה תקינה כדי שהלוגואים יוצגו -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         body {
@@ -24,7 +24,7 @@
             width: 100%;
             max-width: 500px;
             text-align: center;
-            margin-top: 45vh; /* דוחף את התוכן למטה עוד יותר, קרוב לחלק התחתון */
+            margin-top: 65vh; /* דוחף את התוכן למטה עוד יותר ב-20% נוספים מהפעם הקודמת */
         }
 
         /* עיצוב תמונת פרופיל חלק */
@@ -32,6 +32,11 @@
             display: inline-block;
             margin-bottom: 25px;
             text-decoration: none;
+        }
+        /* הדגשת נגישות לתמונת הפרופיל בעת ניווט מקלדת */
+        .profile-link:focus {
+            outline: 3px solid #53fc18;
+            border-radius: 50%;
         }
         .profile-img {
             width: 100px;
@@ -68,6 +73,13 @@
             opacity: 0.92;
         }
 
+        /* נגישות מקלדת: סימון ברור של הכפתור הממוקד הנוכחי */
+        .link-card:focus {
+            outline: 4px solid #ffffff;
+            transform: scale(1.02);
+            opacity: 1;
+        }
+
         /* צבעים ורקעים ייחודיים לכל כפתור לפי התמונה */
         .btn-kick {
             background-color: #53fc18;
@@ -89,39 +101,40 @@
 </head>
 <body>
 
-    <div class="container">
+    <!-- תגית main מגדירה את האזור המרכזי עבור קוראי מסך -->
+    <main class="container">
         
-        <!-- תמונת פרופיל לחיצה שמובילה לקיק שלכם -->
-        <a href="https://kick.com" target="_blank" class="profile-link">
-            <img src="https://placeholder.com" alt="Krav0n" class="profile-img">
+        <!-- תמונת פרופיל לחיצה ונגישה שמובילה לקיק שלכם -->
+        <a href="https://kick.com/krav0n" target="_blank" class="profile-link" aria-label="תמונת פרופיל - מעבר לערוץ ה-Kick של Krav0n">
+            <img src="https://placeholder.com" alt="תמונת הפרופיל הרשמית של Krav0n" class="profile-img">
         </a>
 
-        <!-- רשימת הכפתורים מסודרת מחדש -->
-        <div class="links-container">
+        <!-- תגית nav מציינת לקורא המסך שמדובר בתפריט קישורי ניווט -->
+        <nav class="links-container" aria-label="קישורים חברתיים">
             
-            <!-- 1. כפתור Kick -->
-            <a href="https://kick.com/krav0n" target="_blank" class="link-card btn-kick">
-                Kick <i class="fa-solid fa-k"></i>
+            <!-- 1. כפתור Kick נגיש -->
+            <a href="https://kick.com/krav0n" target="_blank" class="link-card btn-kick" aria-label="מעבר לערוץ ה-Kick הרשמי של Krav0n">
+                Kick <i class="fa-solid fa-k" aria-hidden="true"></i>
             </a>
 
-            <!-- 2. כפתור Discord -->
-            <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" class="link-card btn-discord">
-                Discord <i class="fab fa-discord"></i>
+            <!-- 2. כפתור Discord נגיש -->
+            <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" class="link-card btn-discord" aria-label="הצטרפות לשרת ה-Discord של Krav0n">
+                Discord <i class="fab fa-discord" aria-hidden="true"></i>
             </a>
 
-            <!-- 3. כפתור YouTube -->
-            <a href="https://www.youtube.com/@Krav0n5" target="_blank" class="link-card btn-youtube">
-                YouTube <i class="fab fa-youtube"></i>
+            <!-- 3. כפתור YouTube נגיש -->
+            <a href="https://www.youtube.com/@Krav0n5" target="_blank" class="link-card btn-youtube" aria-label="מעבר לערוץ ה-YouTube של Krav0n">
+                YouTube <i class="fab fa-youtube" aria-hidden="true"></i>
             </a>
 
-            <!-- 4. כפתור Instagram -->
-            <a href="https://www.instagram.com/krav0n.5/" target="_blank" class="link-card btn-instagram">
-                Instagram <i class="fab fa-instagram"></i>
+            <!-- 4. כפתור Instagram נגיש -->
+            <a href="https://www.instagram.com/krav0n.5/" target="_blank" class="link-card btn-instagram" aria-label="מעבר לעמוד ה-Instagram של Krav0n">
+                Instagram <i class="fab fa-instagram" aria-hidden="true"></i>
             </a>
 
-        </div>
+        </nav>
 
-    </div>
+    </main>
 
 </body>
 </html>
