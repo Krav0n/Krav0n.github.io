@@ -423,21 +423,17 @@
         document.addEventListener('mousemove', (e) => {
             spotlight.style.setProperty('--x', `${e.clientX}px`);
             spotlight.style.setProperty('--y', `${e.clientY}px`);
-        });
+    });
+        
+<!-- תוסף נגישות -->
+<script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
+<script src="https://www.negishim.com/accessibility/accessibility_pro.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var accessibility_rtl = true;
+    var pixel_from_side = 20;
+    var pixel_from_start = 20;
+</script>
 
-        // פתיחה וסגירה של תפריט נגישות
-        const accBtn = document.getElementById('accBtn');
-        const accMenu = document.getElementById('accMenu');
-        const closeAccBtn = document.getElementById('closeAccBtn');
-
-        accBtn.addEventListener('click', () => accMenu.classList.toggle('active'));
-        closeAccBtn.addEventListener('click', () => accMenu.classList.remove('active'));
-
-        // --- הוספת הפונקציונליות לכפתורי הנגישות ---
-        const body = document.body;
-
-        function clearActiveButtons() {
-            document.querySelectorAll('.acc-item').forEach(btn => btn.classList.remove('active'));
         }
 
         document.getElementById('contrastDark').addEventListener('click', function() {
