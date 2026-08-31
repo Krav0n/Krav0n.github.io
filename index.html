@@ -240,43 +240,35 @@
         body.large-text-mode { font-size: 1.2em; }
         body.large-text-mode .link-btn { font-size: 1.1em; }
 
-        /* אפקט ברקים ברקע מסביב */
+        /* אפקט ברקים מציאותי ברקע מסביב */
         .lightning-bg {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -2; /* מאחורי הכל */
             pointer-events: none;
-            overflow: hidden;
-        }
-        .bolt {
-            position: absolute;
-            width: 70px;
-            fill: #facc15; /* צהוב זוהר */
-            filter: drop-shadow(0 0 10px #facc15) drop-shadow(0 0 20px #fff);
+            background-image: url('images/real_lightning.jpg');
+            background-size: cover;
+            background-position: center;
+            mix-blend-mode: screen; /* מעלים את הרקע השחור ומשאיר רק את הברקים הזוהרים */
             opacity: 0;
+            animation: realisticFlash 7s infinite;
         }
-        .bolt1 { top: 15%; left: 10%; transform: rotate(15deg); animation: flashBolt 5s infinite 1s; }
-        .bolt2 { top: 25%; right: 15%; transform: rotate(-25deg) scale(1.3); animation: flashBolt 8s infinite 3s; }
-        .bolt3 { bottom: 20%; left: 20%; transform: rotate(10deg) scale(0.8); animation: flashBolt 6s infinite 2s; }
-        .bolt4 { top: 65%; right: 10%; transform: rotate(-15deg) scale(1.1); animation: flashBolt 7s infinite 4.5s; }
 
-        @keyframes flashBolt {
-            0%, 96%, 100% { opacity: 0; }
-            97% { opacity: 1; }
-            98% { opacity: 0; }
-            99% { opacity: 0.8; }
+        @keyframes realisticFlash {
+            0%, 92%, 100% { opacity: 0; }
+            93% { opacity: 0.8; }
+            94% { opacity: 0; }
+            95% { opacity: 0.5; }
+            96% { opacity: 0; }
+            98% { opacity: 1; filter: brightness(1.2); }
+            99% { opacity: 0.2; }
         }
     </style>
 </head>
 <body>
 
-    <!-- אפקט ברקים שמפוזרים ברקע -->
-    <div class="lightning-bg">
-        <svg class="bolt bolt1" viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg>
-        <svg class="bolt bolt2" viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg>
-        <svg class="bolt bolt3" viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg>
-        <svg class="bolt bolt4" viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg>
-    </div>
+    <!-- אפקט ברקים מציאותי ברקע -->
+    <div class="lightning-bg"></div>
 
     <!-- אפקט הספוטלייט (עם ברקים) -->
     <div class="spotlight" id="spotlight"></div>
