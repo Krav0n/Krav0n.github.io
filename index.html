@@ -7,6 +7,8 @@
     <!-- ייבוא FontAwesome עבור סמלים -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
         :root {
             /* רקע בהיר יותר ב-20% מהמקור */
             --bg-color: #2b233d; 
@@ -23,6 +25,8 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
+            padding: 20px 0 60px 0; /* מרווח פנימי שמונע חפיפה עם הקרדיט למטה */
+            box-sizing: border-box;
             transition: background-color 0.3s ease, filter 0.3s ease;
             position: relative;
             overflow-x: hidden;
@@ -67,13 +71,41 @@
             }
         }
 
-        /* תמונת פרופיל מורמת למעלה ב-15% */
+        /* תמונת פרופיל + שם, עם מרווח שדוחף את הכפתורים למטה */
         .profile-section {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin-bottom: 5vh; 
+            gap: 15px;
+            margin-bottom: 15vh; /* מוריד את הכפתורים למטה */
             z-index: 1;
+        }
+        
+        .profile-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #facc15, #ff9800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+        }
+
+        .footer-credit {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            color: #ffffff;
+            z-index: 10;
+            opacity: 0.8;
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         .profile-pic {
@@ -258,12 +290,16 @@
     <!-- קנבס לאפקט ברקים שמיוצר חי בקוד -->
     <canvas id="lightningCanvas"></canvas>
 
+    <!-- קרדיט בתחתית -->
+    <div class="footer-credit">Made by <span style="color: #facc15;">Krav0n</span></div>
+
     <!-- אפקט הספוטלייט (עם ברקים) -->
     <div class="spotlight" id="spotlight"></div>
 
-    <!-- תמונת הפרופיל במרכז -->
+    <!-- תמונת הפרופיל במרכז + שם -->
     <div class="profile-section">
         <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true" class="profile-pic" alt="Krav0n Profile">
+        <div class="profile-name">Krav0n</div>
     </div>
 
     <!-- כפתורי הקישורים -->
