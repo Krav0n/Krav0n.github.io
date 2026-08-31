@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הקישורים של Krav0n</title>
-    <!-- טעינת אייקונים של FontAwesome בצורה תקינה כדי שהלוגואים יוצגו -->
+    <!-- טעינת אייקונים של FontAwesome -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         body {
@@ -24,7 +24,7 @@
             width: 100%;
             max-width: 500px;
             text-align: center;
-            margin-top: 65vh; /* דוחף את התוכן למטה עוד יותר ב-20% נוספים מהפעם הקודמת */
+            margin-top: 45vh; /* המיקום הטוב והמדויק שלכם */
         }
 
         /* עיצוב תמונת פרופיל חלק */
@@ -33,7 +33,6 @@
             margin-bottom: 25px;
             text-decoration: none;
         }
-        /* הדגשת נגישות לתמונת הפרופיל בעת ניווט מקלדת */
         .profile-link:focus {
             outline: 3px solid #53fc18;
             border-radius: 50%;
@@ -105,7 +104,7 @@
     <main class="container">
         
         <!-- תמונת פרופיל לחיצה ונגישה שמובילה לקיק שלכם -->
-        <a href="https://kick.com/krav0n" target="_blank" class="profile-link" aria-label="תמונת פרופיל - מעבר לערוץ ה-Kick של Krav0n">
+        <a href="https://kick.com" target="_blank" class="profile-link" aria-label="תמונת פרופיל - מעבר לערוץ ה-Kick של Krav0n">
             <img src="https://placeholder.com" alt="תמונת הפרופיל הרשמית של Krav0n" class="profile-img">
         </a>
 
@@ -113,28 +112,35 @@
         <nav class="links-container" aria-label="קישורים חברתיים">
             
             <!-- 1. כפתור Kick נגיש -->
-            <a href="https://kick.com/krav0n" target="_blank" class="link-card btn-kick" aria-label="מעבר לערוץ ה-Kick הרשמי של Krav0n">
+            <a href="https://kick.com" target="_blank" class="link-card btn-kick" aria-label="מעבר לערוץ ה-Kick הרשמי של Krav0n">
                 Kick <i class="fa-solid fa-k" aria-hidden="true"></i>
             </a>
 
             <!-- 2. כפתור Discord נגיש -->
-            <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" class="link-card btn-discord" aria-label="הצטרפות לשרת ה-Discord של Krav0n">
+            <a href="https://discord.com" target="_blank" class="link-card btn-discord" aria-label="הצטרפות לשרת ה-Discord של Krav0n">
                 Discord <i class="fab fa-discord" aria-hidden="true"></i>
             </a>
 
             <!-- 3. כפתור YouTube נגיש -->
-            <a href="https://www.youtube.com/@Krav0n5" target="_blank" class="link-card btn-youtube" aria-label="מעבר לערוץ ה-YouTube של Krav0n">
+            <a href="https://youtube.com" target="_blank" class="link-card btn-youtube" aria-label="מעבר לערוץ ה-YouTube של Krav0n">
                 YouTube <i class="fab fa-youtube" aria-hidden="true"></i>
             </a>
 
             <!-- 4. כפתור Instagram נגיש -->
-            <a href="https://www.instagram.com/krav0n.5/" target="_blank" class="link-card btn-instagram" aria-label="מעבר לעמוד ה-Instagram של Krav0n">
+            <a href="https://instagram.com" target="_blank" class="link-card btn-instagram" aria-label="מעבר לעמוד ה-Instagram של Krav0n">
                 Instagram <i class="fab fa-instagram" aria-hidden="true"></i>
             </a>
 
         </nav>
 
     </main>
+
+    <!-- קוד תוסף נגישות מקצועי וחינמי שמכיל את כל האפשרויות שבתמונה -->
+    <script src="https://accessibility.co.il"></script>
+    <script>
+        accessibilitypro_rtl = true;
+        accessibilitypro_button_position = "left"; // מיקום הכפתור מצד שמאל למטה
+    </script>
 
 </body>
 </html>
