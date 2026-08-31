@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הקישורים של Krav0n</title>
+    <!-- טעינת אייקונים של FontAwesome כדי שיופיעו הלוגואים של הרשתות -->
+    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
-        /* עיצוב רקע כללי של האתר */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f172a, #1e1b4b); /* רקע מדורג כהה ומודרני */
+            background-color: #0c0014; /* רקע כהה מאוד כמו בתמונה */
             color: #ffffff;
             margin: 0;
             padding: 40px 20px;
@@ -18,74 +19,69 @@
             min-height: 100vh;
         }
 
-        /* מיכל מרכזי ששומר על רוחב קבוע ונוח בנייד ובמחשב */
         .container {
             width: 100%;
             max-width: 500px;
             text-align: center;
         }
 
-        /* עיצוב תמונת הפרופיל */
+        /* עיצוב תמונת פרופיל חלק */
         .profile-link {
             display: inline-block;
+            margin-bottom: 25px;
             text-decoration: none;
-            transition: transform 0.3s ease;
-        }
-        .profile-link:hover {
-            transform: scale(1.08); /* התמונה תגדל מעט ברחיפה */
         }
         .profile-img {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%; /* הופך את התמונה לעיגול */
-            border: 4px solid #53fc18; /* מסגרת ירוקה זוהרת בסגנון Kick */
-            box-shadow: 0 0 20px rgba(83, 252, 24, 0.4);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
             object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* שם המשתמש */
-        .username {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 15px 0 5px 0;
-            letter-spacing: 0.5px;
-        }
-
-        /* תיאור קצר מתחת לשם */
-        .bio {
-            font-size: 14px;
-            color: #94a3b8;
-            margin-bottom: 30px;
-        }
-
-        /* עיצוב כפתורי הקישורים */
         .links-container {
             display: flex;
             flex-direction: column;
-            gap: 16px; /* רווח בין כפתור לכפתור */
+            gap: 14px; /* רווח קבוע בין כפתורים */
         }
+
+        /* סגנון כללי לכפתורים בדיוק כמו בתמונה */
         .link-card {
-            background: rgba(255, 255, 255, 0.05); /* רקע חצי שקוף */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: 14px; /* פינות מעוגלות רחבות */
+            padding: 18px;
             color: #ffffff;
             text-decoration: none;
             font-size: 18px;
-            font-weight: 600;
+            font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            gap: 10px; /* רווח בין הטקסט לאייקון */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
-        /* אפקט מעבר עכבר על הכפתורים */
         .link-card:hover {
-            background: #53fc18; /* הופך לירוק Kick */
-            color: #000000; /* הטקסט הופך לשחור לניגודיות */
-            transform: translateY(-2px); /* קפיצה קלה למעלה */
-            box-shadow: 0 6px 15px rgba(83, 252, 24, 0.3);
+            transform: scale(1.02); /* הגדלה קלה ברחיפה */
+            opacity: 0.92;
+        }
+
+        /* צבעים ורקעים ייחודיים לכל כפתור לפי התמונה */
+        .btn-youtube {
+            background: linear-gradient(to right, #ba0000, #e60000);
+        }
+
+        .btn-kick {
+            background-color: #53fc18;
+            color: #000000; /* טקסט שחור ב-Kick לניגודיות */
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #8a3ab9, #e95950, #fccc63);
+        }
+
+        .btn-discord {
+            background: linear-gradient(to right, #4051b5, #5865f2);
         }
     </style>
 </head>
@@ -93,36 +89,32 @@
 
     <div class="container">
         
-        <!-- תמונת פרופיל לחיצה שמובילה לקיק שלכם -->
-        <a href="https://kick.com/krav0n" target="_blank" class="profile-link">
-            <!-- כרגע שמתי תמונת פלייסהולדר זמנית, תוכלו להחליף אותה בהמשך בקישור לתמונה שלכם -->
+        <!-- תמונת פרופיל לחיצה שמובילה לקיק -->
+        <a href="https://kick.com" target="_blank" class="profile-link">
             <img src="https://placeholder.com" alt="Krav0n" class="profile-img">
         </a>
 
-        <div class="username">Krav0n</div>
-        <div class="bio">ברוכים הבאים לעמוד הקישורים הרשמי שלי 🚀</div>
-
-        <!-- רשימת הכפתורים הלחיצים -->
+        <!-- רשימת הכפתורים בעיצוב החדש -->
         <div class="links-container">
             
-            <!-- כפתור 1 - Kick -->
-            <a href="https://kick.com/krav0n" target="_blank" class="link-card">
-                🟢 ערוץ ה-Kick שלי
+            <!-- כפתור YouTube -->
+            <a href="https://youtube.com" target="_blank" class="link-card btn-youtube">
+                YouTube <i class="fab fa-youtube"></i>
             </a>
 
-            <!-- כפתור 2 - Discord -->
-            <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" class="link-card">
-                💬 שרת ה-Discord של הקהילה
+            <!-- כפתור Kick -->
+            <a href="https://kick.com" target="_blank" class="link-card btn-kick">
+                Kick <i class="fa-solid fa-k"></i>
             </a>
 
-            <!-- כפתור 3 - YouTube -->
-            <a href="https://www.youtube.com/@Krav0n5" target="_blank" class="link-card">
-                🔴 ערוץ ה-YouTube שלי
+            <!-- כפתור Instagram -->
+            <a href="https://instagram.com" target="_blank" class="link-card btn-instagram">
+                Instagram <i class="fab fa-instagram"></i>
             </a>
 
-            <!-- כפתור 4 - Instagram -->
-            <a href="https://www.instagram.com/krav0n.5/" target="_blank" class="link-card">
-                📸 ה-Instagram שלי
+            <!-- כפתור Discord -->
+            <a href="https://discord.com" target="_blank" class="link-card btn-discord">
+                Discord <i class="fab fa-discord"></i>
             </a>
 
         </div>
