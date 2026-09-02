@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Krav0n Links</title>
+<link rel="icon" type="image/png" href="favicon.png">
 
 <!-- === Google Analytics 4 (Private Analytics) === -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-N1LLZ9CNJF"></script>
@@ -11,17 +12,14 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-N1LLZ9CNJF');
 </script>
 <!-- ============================================== -->
 
-<!-- ייבוא FontAwesome עבור סמלים -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 :root {
-/* רקע בהיר יותר ב-20% מהמקור */
 --bg-color: #2b233d;
 --text-color: #ffffff;
 }
@@ -35,25 +33,20 @@ align-items: center;
 justify-content: center;
 min-height: 100vh;
 margin: 0;
-padding: 20px 0 90px 0; /* מרווח פנימי תחתון מוגדל כדי למנוע חפיפה עם הפוטר החדש */
+padding: 20px 0 90px 0;
 box-sizing: border-box;
 transition: background-color 0.3s ease, filter 0.3s ease;
 position: relative;
 overflow-x: hidden;
-/* שילוב דמות הילד ישירות כרקע בצד ימין */
 background-image: url('https://github.com/Krav0n/Krav0n.github.io/blob/main/1.png?raw=true');
 background-repeat: no-repeat;
 background-position: right bottom;
 background-attachment: fixed;
 background-size: 450px;
-
-/* --- מניעת סימון טקסט והופעת סמן ה"פס" --- */
 -webkit-user-select: none;
 -ms-user-select: none;
 user-select: none;
 }
-
-/* אפקט תאורה לעכבר */
 .spotlight {
 position: fixed;
 top: 0;
@@ -74,10 +67,9 @@ animation: lightningFlicker 2s infinite;
 99% { opacity: 1.5; }
 }
 @media (max-width: 768px) {
-body {
-background-position: right bottom;
-background-size: 180px;
-}
+body { background-position: right bottom; background-size: 180px; }
+.footer-container { font-size: 12px; bottom: 12px; }
+.footer-links { gap: 8px; }
 }
 .profile-section {
 display: flex;
@@ -98,8 +90,6 @@ background: linear-gradient(45deg, #facc15, #ff9800);
 letter-spacing: 2px;
 filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
 }
-
-/* עיצוב הפוטר החדש והרספונסיבי */
 .footer-container {
 position: absolute;
 bottom: 15px;
@@ -114,9 +104,7 @@ color: #ffffff;
 z-index: 10;
 opacity: 0.9;
 }
-.footer-credit {
-letter-spacing: 1px;
-}
+.footer-credit { letter-spacing: 1px; }
 .footer-links {
 display: flex;
 align-items: center;
@@ -130,23 +118,8 @@ text-decoration: none;
 transition: color 0.2s;
 opacity: 0.8;
 }
-.footer-links a:hover {
-color: #facc15;
-opacity: 1;
-}
-.footer-links .separator {
-opacity: 0.5;
-}
-@media (max-width: 768px) {
-.footer-container {
-font-size: 12px;
-bottom: 12px;
-}
-.footer-links {
-gap: 8px;
-}
-}
-
+.footer-links a:hover { color: #facc15; opacity: 1; }
+.footer-links .separator { opacity: 0.5; }
 .profile-pic {
 width: 180px;
 height: 180px;
@@ -193,7 +166,6 @@ outline: none;
 background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 color: #ffffff;
 }
-/* כפתור נגישות */
 .accessibility-btn {
 position: fixed;
 bottom: 20px;
@@ -239,18 +211,8 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 }
-.acc-header button {
-background: none;
-border: none;
-color: white;
-font-size: 20px;
-cursor: pointer;
-}
-.acc-content {
-padding: 15px;
-max-height: 60vh;
-overflow-y: auto;
-}
+.acc-header button { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+.acc-content { padding: 15px; max-height: 60vh; overflow-y: auto; }
 .acc-section-title {
 font-size: 15px;
 font-weight: bold;
@@ -283,11 +245,7 @@ font-size: 13px;
 color: #555;
 }
 .acc-item i { font-size: 24px; color: #e50000; }
-.acc-item:hover, .acc-item.active {
-background-color: #fff5f5;
-border-color: #e50000;
-color: #e50000;
-}
+.acc-item:hover, .acc-item.active { background-color: #fff5f5; border-color: #e50000; color: #e50000; }
 body.grayscale { filter: grayscale(100%); }
 body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; }
 body.high-contrast-mode .link-btn { border: 2px solid yellow; }
@@ -308,7 +266,6 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 <body>
 <canvas id="lightningCanvas"></canvas>
 
-<!-- פוטר עם מדיניות ונגישות -->
 <footer class="footer-container">
     <div class="footer-credit">Made by <span style="color: #facc15;">Krav0n</span></div>
     <div class="footer-links">
@@ -321,7 +278,6 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 <div class="spotlight" id="spotlight"></div>
 
 <div class="profile-section">
-<!-- תגית Alt מעודכנת בעברית לתמונת הפרופיל -->
 <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true" class="profile-pic" alt="תמונת הפרופיל המאוירת של Krav0n">
 <div class="profile-name">Krav0n</div>
 </div>
@@ -333,12 +289,10 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 <a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
 </div>
 
-<!-- כפתור נגישות -->
 <button class="accessibility-btn" id="accBtn" aria-label="תפריט נגישות">
 <i class="fa-solid fa-universal-access"></i>
 </button>
 
-<!-- תפריט נגישות -->
 <div class="accessibility-menu" id="accMenu">
 <div class="acc-header">
 <span>תפריט נגישות</span>
@@ -358,11 +312,9 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 </div>
 </div>
 </div>
+
 <script>
-// === מניעת בדיקת קוד מקור ===
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 document.addEventListener('keydown', function(e) {
     if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
     if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) { e.preventDefault(); }
@@ -370,20 +322,14 @@ document.addEventListener('keydown', function(e) {
     if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) { e.preventDefault(); }
     if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); }
 });
-
-// === אפקט ברקים בקוד ===
 const canvas = document.getElementById('lightningCanvas');
 const ctx = canvas.getContext('2d');
-function resizeCanvas() {
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-}
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 function drawBolt(startX, startY, length, angle, branchProbability, depth) {
 if (depth > 3) return;
-let currentX = startX;
-let currentY = startY;
+let currentX = startX, currentY = startY;
 ctx.beginPath();
 ctx.moveTo(currentX, currentY);
 ctx.shadowBlur = depth === 0 ? 15 : 5;
@@ -408,71 +354,39 @@ function strike() {
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 let startX, startY, angle;
 const edge = Math.random();
-if (edge < 0.25) { startX = Math.random() * canvas.width; startY = 0; angle = Math.PI / 2; } 
-else if (edge < 0.5) { startX = canvas.width; startY = Math.random() * canvas.height; angle = Math.PI; } 
-else if (edge < 0.75) { startX = Math.random() * canvas.width; startY = canvas.height; angle = -Math.PI / 2; } 
+if (edge < 0.25) { startX = Math.random() * canvas.width; startY = 0; angle = Math.PI / 2; }
+else if (edge < 0.5) { startX = canvas.width; startY = Math.random() * canvas.height; angle = Math.PI; }
+else if (edge < 0.75) { startX = Math.random() * canvas.width; startY = canvas.height; angle = -Math.PI / 2; }
 else { startX = 0; startY = Math.random() * canvas.height; angle = 0; }
-let centerX = canvas.width / 2;
-let centerY = canvas.height / 2;
+let centerX = canvas.width / 2, centerY = canvas.height / 2;
 angle = Math.atan2(centerY - startY, centerX - startX) + (Math.random() - 0.5) * 0.5;
 drawBolt(startX, startY, canvas.height * 0.6, angle, 0.1, 0);
 ctx.fillStyle = "rgba(255, 255, 150, 0.03)";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 setTimeout(() => {
 ctx.clearRect(0, 0, canvas.width, canvas.height);
-if (Math.random() < 0.3) {
-setTimeout(strike, 50 + Math.random() * 100);
-return;
-}
+if (Math.random() < 0.3) { setTimeout(strike, 50 + Math.random() * 100); return; }
 setTimeout(strike, 2000 + Math.random() * 6000);
 }, 100);
 }
 setTimeout(strike, 1500);
-
-// === אפקט ספוטלייט עוקב עכבר ===
 const spotlight = document.getElementById('spotlight');
 document.addEventListener('mousemove', (e) => {
 spotlight.style.setProperty('--x', `${e.clientX}px`);
 spotlight.style.setProperty('--y', `${e.clientY}px`);
 });
-
-// פתיחה וסגירה של תפריט נגישות
 const accBtn = document.getElementById('accBtn');
 const accMenu = document.getElementById('accMenu');
 const closeAccBtn = document.getElementById('closeAccBtn');
 accBtn.addEventListener('click', () => accMenu.classList.toggle('active'));
 closeAccBtn.addEventListener('click', () => accMenu.classList.remove('active'));
-
 const body = document.body;
-function clearActiveButtons() {
-document.querySelectorAll('.acc-item').forEach(btn => btn.classList.remove('active'));
-}
-document.getElementById('contrastDark').addEventListener('click', function() {
-body.className = '';
-body.classList.add('high-contrast-mode');
-clearActiveButtons();
-this.classList.add('active');
-});
-document.getElementById('contrastLight').addEventListener('click', function() {
-body.className = '';
-body.classList.add('light-contrast-mode');
-clearActiveButtons();
-this.classList.add('active');
-});
-document.getElementById('contrastGray').addEventListener('click', function() {
-body.className = '';
-body.classList.add('grayscale');
-clearActiveButtons();
-this.classList.add('active');
-});
-document.getElementById('textLarge').addEventListener('click', function() {
-body.classList.toggle('large-text-mode');
-this.classList.toggle('active');
-});
-document.getElementById('accReset').addEventListener('click', function() {
-body.className = '';
-clearActiveButtons();
-});
+function clearActiveButtons() { document.querySelectorAll('.acc-item').forEach(btn => btn.classList.remove('active')); }
+document.getElementById('contrastDark').addEventListener('click', function() { body.className = ''; body.classList.add('high-contrast-mode'); clearActiveButtons(); this.classList.add('active'); });
+document.getElementById('contrastLight').addEventListener('click', function() { body.className = ''; body.classList.add('light-contrast-mode'); clearActiveButtons(); this.classList.add('active'); });
+document.getElementById('contrastGray').addEventListener('click', function() { body.className = ''; body.classList.add('grayscale'); clearActiveButtons(); this.classList.add('active'); });
+document.getElementById('textLarge').addEventListener('click', function() { body.classList.toggle('large-text-mode'); this.classList.toggle('active'); });
+document.getElementById('accReset').addEventListener('click', function() { body.className = ''; clearActiveButtons(); });
 </script>
 </body>
 </html>
