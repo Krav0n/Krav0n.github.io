@@ -35,7 +35,7 @@ align-items: center;
 justify-content: center;
 min-height: 100vh;
 margin: 0;
-padding: 20px 0 60px 0; /* מרווח פנימי שמונע חפיפה עם הקרדיט למטה */
+padding: 20px 0 90px 0; /* מרווח פנימי תחתון מוגדל כדי למנוע חפיפה עם הפוטר החדש */
 box-sizing: border-box;
 transition: background-color 0.3s ease, filter 0.3s ease;
 position: relative;
@@ -53,7 +53,7 @@ background-size: 450px;
 user-select: none;
 }
 
-/* אפקט תאורה לעכבר (קטן, 5% בהירות, ואנימציית ברקים) */
+/* אפקט תאורה לעכבר */
 .spotlight {
 position: fixed;
 top: 0;
@@ -61,13 +61,10 @@ left: 0;
 width: 100vw;
 height: 100vh;
 pointer-events: none;
-/* שינוי ל-0.05 לבהירות של 5%, והקטנת הרדיוס ל-80px שיהיה קטן */
 background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255, 255, 255, 0.05) 0%, transparent 80px);
 z-index: 0;
-/* אנימציה של הבהובים (ברקים) */
 animation: lightningFlicker 2s infinite;
 }
-/* אנימציית הברקים להבהוב של הספוטלייט */
 @keyframes lightningFlicker {
 0%, 94%, 100% { opacity: 1; }
 95% { opacity: 1.8; }
@@ -82,14 +79,13 @@ background-position: right bottom;
 background-size: 180px;
 }
 }
-/* תמונת פרופיל + שם, עם מרווח שדוחף את הכפתורים למטה */
 .profile-section {
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
 gap: 15px;
-margin-bottom: 15vh; /* מוריד את הכפתורים למטה */
+margin-bottom: 15vh;
 z-index: 1;
 }
 .profile-name {
@@ -102,19 +98,55 @@ background: linear-gradient(45deg, #facc15, #ff9800);
 letter-spacing: 2px;
 filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
 }
-.footer-credit {
+
+/* עיצוב הפוטר החדש והרספונסיבי */
+.footer-container {
 position: absolute;
 bottom: 15px;
-left: 50%;
-transform: translateX(-50%);
-font-family: 'Poppins', sans-serif;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 8px;
+font-family: 'Poppins', sans-serif, system-ui;
 font-size: 13px;
 color: #ffffff;
 z-index: 10;
-opacity: 0.8;
-letter-spacing: 1px;
-white-space: nowrap;
+opacity: 0.9;
 }
+.footer-credit {
+letter-spacing: 1px;
+}
+.footer-links {
+display: flex;
+align-items: center;
+gap: 12px;
+flex-wrap: wrap;
+justify-content: center;
+}
+.footer-links a {
+color: #ffffff;
+text-decoration: none;
+transition: color 0.2s;
+opacity: 0.8;
+}
+.footer-links a:hover {
+color: #facc15;
+opacity: 1;
+}
+.footer-links .separator {
+opacity: 0.5;
+}
+@media (max-width: 768px) {
+.footer-container {
+font-size: 12px;
+bottom: 12px;
+}
+.footer-links {
+gap: 8px;
+}
+}
+
 .profile-pic {
 width: 180px;
 height: 180px;
@@ -122,7 +154,6 @@ border-radius: 50%;
 object-fit: cover;
 border: 3px solid #555;
 box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-/* ביטול גרירה של תמונת הפרופיל */
 -webkit-user-drag: none;
 }
 .links-container {
@@ -257,49 +288,56 @@ background-color: #fff5f5;
 border-color: #e50000;
 color: #e50000;
 }
-/* מחלקות שינוי מצב נגישות */
 body.grayscale { filter: grayscale(100%); }
 body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; }
 body.high-contrast-mode .link-btn { border: 2px solid yellow; }
 body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; }
 body.large-text-mode { font-size: 1.2em; }
 body.large-text-mode .link-btn { font-size: 1.1em; }
-/* אפקט ברקים שמיוצר בקוד (Canvas) רק מסביב למסך */
 #lightningCanvas {
 position: fixed;
 top: 0; left: 0;
 width: 100vw; height: 100vh;
-z-index: -2; /* מאחורי הכל */
+z-index: -2;
 pointer-events: none;
-/* מסכה שקופה באמצע כדי שהברקים לא יגעו בטקסט ובתמונות */
 -webkit-mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 }
 </style>
 </head>
 <body>
-<!-- קנבס לאפקט ברקים שמיוצר חי בקוד -->
 <canvas id="lightningCanvas"></canvas>
-<!-- קרדיט בתחתית -->
-<div class="footer-credit">Made by <span style="color: #facc15;">Krav0n</span></div>
-<!-- אפקט הספוטלייט (עם ברקים) -->
+
+<!-- פוטר עם מדיניות ונגישות -->
+<footer class="footer-container">
+    <div class="footer-credit">Made by <span style="color: #facc15;">Krav0n</span></div>
+    <div class="footer-links">
+        <a href="accessibility.html">הצהרת נגישות</a>
+        <span class="separator">|</span>
+        <a href="privacy.html">מדיניות פרטיות</a>
+    </div>
+</footer>
+
 <div class="spotlight" id="spotlight"></div>
-<!-- תמונת הפרופיל במרכז + שם -->
+
 <div class="profile-section">
+<!-- תגית Alt מעודכנת בעברית לתמונת הפרופיל -->
 <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true" class="profile-pic" alt="תמונת הפרופיל המאוירת של Krav0n">
 <div class="profile-name">Krav0n</div>
 </div>
-<!-- כפתורי הקישורים -->
+
 <div class="links-container">
 <a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAEs0lEQVR4AZyW0XXcRgxFH1ZJ/pR/Sw3o5F+uw04BbsAuRykgKUcqwEkBsvMb6TNHYu7FkFxutLJlzxngARgAfDPkkrv79e+z6Zi8neNvP4918bi8mkZ8i9pD3nx+isbefHo1ibtUpSULhlF6AwtgLmm62oT2OTqzl8bOSrC1/o/G7CHupmlKkCkzCtiECBPV38q8RpFWtri1qZzX5qg9rBBbyAB3ssiWKQFmmqFG0nYYxpI52Kh9KHrmbFHbWtEy7c4hsINEBkdgYYg5TgCDqQ1wIq1VyKi0disjyu7IMK7fgmIaWvvY96snAMkMxon2og/RlSFq17aobQ/RJtqdQ4BnQFIwhh662clslflURlYYJBLTV6w5xNkjzbW1jz7iBYx1FsZONhDJARrgUsaS2TlAY0PU5mxR21rRMu0VNeJwtdInEAZkJLcKobZlqn2IvRXC7jG5u07+ua4VtbsfGR6W9ooaxmfsE9CXZQuOeHu1y5CTFe+4SHoHg732PbE/3/2Qv5AFte9vqjNV9gtjYGE5B/YJyHAVmGmPiy8kBt6z07Fn9QSxQnZ2eyK+X+zjMTZ2X06uHepn7OrBLBk4mOXoqFTHq/H26iT3192io4eKnDLSCkNE+iKVhlS6usmEuwxBNNZzE+Ys3V5VPr47wfrSJPegnw7SF5vXsHdFj8Em8AnDCHB0Vufcsevnd74UklvarTBEpC9Wqaqg+BX0vQkDVuhxAjBt+1Dd8mBeX/zIsVN8uLR6Z+8fcvnx3/z8+pHbb59Z2K29fTZYYHI9YtyCpdkWF3vt+1XjlAsq+0R7bMQdpzIAJLGqfAZkGMYWF5vwC+fp5ZSL3x9y/uFhrph7sEt3zpYBd80ysV4F+wSKWDL0wMXOi4YXPX09hQ2Rv9TO2EFsEcGKiQtCAFY8B9CLoifivGieXj7m7P3j/p6zK+v7XtO3kZjYQtctQkAue9FKhs4Lhw+nv4xYxy7FBvxGlB2rioir6VFoCEzAXrTcAcEXzfubXT795gvJdlSzW+sHcJ6EvP8D8OmqDXA+8SEs7L1opXnmm4Yk/BbcQSjUV9EJQeMWEQBdCXov/COSj8wWbP75nuFp3PNx6h1zBNt7vXQn3DvvNYL9JgycZLbgsPNk+LT7kvHBe7I4BzyJm19+6pdVVdE5B6JTYbCmzQngwAkyGJ5E8DCPTNm76k/uSyTWUgrsuxWbE6YNUeY3nYCkA+3zD4+5+GN54eT5QYG73QrlIRyV2CfgvmW1IsxyZJjj/YU+MPH7f2g5ktqhcZ/tSgXFTI2uRTGn9Ak0QxQzQcnMj4r3XFzEo4+LqQiexCnfgDwzyjiJC2YYCTFUkvJrCKkg7JqJwcQYF3/sd7sX0vcLB22zZyCRuRDc4imvZpZoxtRw++L+Ieg+z55AYNdEwfSQPtLBSlUFxSt4giRE+Qyf80o+b3wIqy0qU6MyGNVenvwndGuShTemlGfpIPdTRJ7c33QFNSLSOQatGeging7nMPruJCS5FTVISeOeaeakAZVKUlWp5EB0jIW1VNKrI5AQKGRgGJUdVCQGZaakDMTRzhzEZkcmCo2dsuyHNHyy2lhyRiuizF4gsFR0Tqb8BwAA//+KAJAAAAAABklEQVQDAGepFNaHJGKPAAAAAElFTkSuQmCC" style="width: 22px; height: 22px; object-fit: contain; margin-left: 8px;"> Kick</a>
 <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord"><i class="fa-brands fa-discord"></i> Discord</a>
 <a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube"><i class="fa-brands fa-youtube"></i> YouTube</a>
 <a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
 </div>
+
 <!-- כפתור נגישות -->
 <button class="accessibility-btn" id="accBtn" aria-label="תפריט נגישות">
 <i class="fa-solid fa-universal-access"></i>
 </button>
+
 <!-- תפריט נגישות -->
 <div class="accessibility-menu" id="accMenu">
 <div class="acc-header">
@@ -321,38 +359,19 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 </div>
 </div>
 <script>
-// === מניעת בדיקת קוד מקור (Anti-Inspect) ===
-// 1. ביטול קליק ימני (Right-Click)
+// === מניעת בדיקת קוד מקור ===
 document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
 });
-
-// 2. ביטול קיצורי מקלדת של מפתחים (F12, Ctrl+Shift+I, Ctrl+U וכו')
 document.addEventListener('keydown', function(e) {
-    // F12
-    if (e.key === 'F12' || e.keyCode === 123) {
-        e.preventDefault();
-    }
-    // Ctrl+Shift+I (Windows) / Cmd+Option+I (Mac)
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) {
-        e.preventDefault();
-    }
-    // Ctrl+Shift+J (Windows) / Cmd+Option+J (Mac)
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) {
-        e.preventDefault();
-    }
-    // Ctrl+Shift+C (Windows) / Cmd+Option+C (Mac)
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) {
-        e.preventDefault();
-    }
-    // Ctrl+U (Windows) / Cmd+U (Mac) - View Source
-    if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) {
-        e.preventDefault();
-    }
+    if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) { e.preventDefault(); }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) { e.preventDefault(); }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) { e.preventDefault(); }
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); }
 });
-// ===========================================
 
-// === אפקט ברקים בקוד (Canvas) ===
+// === אפקט ברקים בקוד ===
 const canvas = document.getElementById('lightningCanvas');
 const ctx = canvas.getContext('2d');
 function resizeCanvas() {
@@ -362,24 +381,21 @@ canvas.height = window.innerHeight;
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 function drawBolt(startX, startY, length, angle, branchProbability, depth) {
-if (depth > 3) return; // לא לפצל יותר מדי
+if (depth > 3) return;
 let currentX = startX;
 let currentY = startY;
 ctx.beginPath();
 ctx.moveTo(currentX, currentY);
-// סגנון הברק (צהוב זוהר)
 ctx.shadowBlur = depth === 0 ? 15 : 5;
 ctx.shadowColor = "#facc15";
 ctx.strokeStyle = `rgba(255, 255, 255, ${1 - depth * 0.2})`;
 ctx.lineWidth = Math.max(1, 3 - depth);
 let segments = Math.floor(length / 10);
 for (let i = 0; i < segments; i++) {
-// תנועה אקראית בכיוון הכללי
 let segmentAngle = angle + (Math.random() - 0.5) * 1.5;
 currentX += Math.cos(segmentAngle) * 10;
 currentY += Math.sin(segmentAngle) * 10;
 ctx.lineTo(currentX, currentY);
-// פיצול ענפים (ברקים קטנים יותר)
 if (Math.random() < branchProbability) {
 let newAngle = angle + (Math.random() > 0.5 ? 1 : -1) * (0.5 + Math.random() * 0.5);
 drawBolt(currentX, currentY, length * 0.5, newAngle, branchProbability * 0.5, depth + 1);
@@ -390,54 +406,43 @@ ctx.stroke();
 }
 function strike() {
 ctx.clearRect(0, 0, canvas.width, canvas.height);
-// התחלה אקראית מהקצוות
 let startX, startY, angle;
 const edge = Math.random();
-if (edge < 0.25) { // למעלה
-startX = Math.random() * canvas.width; startY = 0; angle = Math.PI / 2;
-} else if (edge < 0.5) { // ימין
-startX = canvas.width; startY = Math.random() * canvas.height; angle = Math.PI;
-} else if (edge < 0.75) { // למטה
-startX = Math.random() * canvas.width; startY = canvas.height; angle = -Math.PI / 2;
-} else { // שמאל
-startX = 0; startY = Math.random() * canvas.height; angle = 0;
-}
-// כיוון כללי למרכז המסך
+if (edge < 0.25) { startX = Math.random() * canvas.width; startY = 0; angle = Math.PI / 2; } 
+else if (edge < 0.5) { startX = canvas.width; startY = Math.random() * canvas.height; angle = Math.PI; } 
+else if (edge < 0.75) { startX = Math.random() * canvas.width; startY = canvas.height; angle = -Math.PI / 2; } 
+else { startX = 0; startY = Math.random() * canvas.height; angle = 0; }
 let centerX = canvas.width / 2;
 let centerY = canvas.height / 2;
 angle = Math.atan2(centerY - startY, centerX - startX) + (Math.random() - 0.5) * 0.5;
-// ציור הברק
 drawBolt(startX, startY, canvas.height * 0.6, angle, 0.1, 0);
-// אפקט פלאש חלש על כל המסך (מוסתר במרכז על ידי המסכה)
 ctx.fillStyle = "rgba(255, 255, 150, 0.03)";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
-// ניקוי המסך מהר כדי לדמות הבהוב
 setTimeout(() => {
 ctx.clearRect(0, 0, canvas.width, canvas.height);
-// סיכוי להבהוב כפול
 if (Math.random() < 0.3) {
 setTimeout(strike, 50 + Math.random() * 100);
 return;
 }
-// תזמון הברק הבא
 setTimeout(strike, 2000 + Math.random() * 6000);
 }, 100);
 }
-// התחלת האפקט
 setTimeout(strike, 1500);
+
 // === אפקט ספוטלייט עוקב עכבר ===
 const spotlight = document.getElementById('spotlight');
 document.addEventListener('mousemove', (e) => {
 spotlight.style.setProperty('--x', `${e.clientX}px`);
 spotlight.style.setProperty('--y', `${e.clientY}px`);
 });
+
 // פתיחה וסגירה של תפריט נגישות
 const accBtn = document.getElementById('accBtn');
 const accMenu = document.getElementById('accMenu');
 const closeAccBtn = document.getElementById('closeAccBtn');
 accBtn.addEventListener('click', () => accMenu.classList.toggle('active'));
 closeAccBtn.addEventListener('click', () => accMenu.classList.remove('active'));
-// --- הוספת הפונקציונליות לכפתורי הנגישות שחסרה בקוד ---
+
 const body = document.body;
 function clearActiveButtons() {
 document.querySelectorAll('.acc-item').forEach(btn => btn.classList.remove('active'));
