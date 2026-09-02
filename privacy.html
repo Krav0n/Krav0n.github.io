@@ -27,8 +27,6 @@ body {
     margin: 0;
     padding: 40px 20px;
     line-height: 1.6;
-
-    /* מניעת סימון והעתקת טקסט */
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -41,34 +39,21 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
-h1 {
-    color: #facc15;
-    text-align: center;
-    margin-bottom: 30px;
-}
-h2 {
-    color: #ff9800;
-    margin-top: 35px;
-    font-size: 1.2rem;
-}
+h1 { color: #facc15; text-align: center; margin-bottom: 30px; }
+h2 { color: #ff9800; margin-top: 35px; font-size: 1.2rem; }
 a.link-mail {
     color: #53fc18;
     text-decoration: none;
     font-weight: bold;
 }
-a.link-mail:hover {
-    text-decoration: underline;
-}
+a.link-mail:hover { text-decoration: underline; }
 a.discord-text {
     color: #5865F2;
     font-weight: bold;
-    font-family: 'Poppins', sans-serif, system-ui;
     letter-spacing: 1px;
     text-decoration: none;
 }
-a.discord-text:hover {
-    text-decoration: underline;
-}
+a.discord-text:hover { text-decoration: underline; }
 .back-btn {
     display: inline-flex;
     align-items: center;
@@ -82,10 +67,7 @@ a.discord-text:hover {
     transition: background 0.3s, transform 0.2s;
     font-weight: bold;
 }
-.back-btn:hover {
-    background: rgba(255,255,255,0.2);
-    transform: translateX(3px);
-}
+.back-btn:hover { background: rgba(255,255,255,0.2); transform: translateX(3px); }
 </style>
 </head>
 <body>
@@ -110,11 +92,14 @@ a.discord-text:hover {
 
         <h2>5. יצירת קשר בנושאי פרטיות</h2>
         <p>בכל שאלה הנוגעת לשמירה על הפרטיות שלך באתר, ניתן לפנות אלינו ישירות בערוצים הבאים:</p>
-        <p>כתובת דואר אלקטרוני: <a href="mailto:kravon0505@gmail.com" class="link-mail">kravon0505@gmail.com</a><br>
-        דיסקורד: <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="discord-text" dir="ltr">krav0n</a></p>
+        <p>
+            📧 דואר אלקטרוני:
+            <a href="mailto:kravon0505@gmail.com" class="link-mail">kravon0505@gmail.com</a><br><br>
+            💬 דיסקורד:
+            <a href="https://discord.com/users/1446068764910157925" target="_blank" rel="noopener noreferrer" class="discord-text" dir="ltr">krav0n</a>
+        </p>
     </div>
 
-    <!-- === מניעת בדיקת קוד מקור (Anti-Inspect) === -->
     <script>
         document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
         document.addEventListener('keydown', function(e) {
