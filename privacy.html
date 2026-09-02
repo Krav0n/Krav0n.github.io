@@ -59,6 +59,12 @@ a.link-mail {
 a.link-mail:hover {
     text-decoration: underline;
 }
+.discord-text {
+    color: #5865F2;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif, system-ui;
+    letter-spacing: 1px;
+}
 .back-btn {
     display: inline-flex;
     align-items: center;
@@ -99,18 +105,14 @@ a.link-mail:hover {
         <p>אנו שומרים לעצמנו את הזכות לעדכן מסמך זה מעת לעת. מומלץ לבקר בדף זה מדי פעם כדי להתעדכן בשינויים.</p>
 
         <h2>5. יצירת קשר בנושאי פרטיות</h2>
-        <p>בכל שאלה הנוגעת לשמירה על הפרטיות שלך באתר, ניתן לפנות אלינו ישירות לכתובת המייל הבאה:</p>
-        <p><a href="Discord:krav0n" class="link-Discord">krav0n</a></p>
+        <p>בכל שאלה הנוגעת לשמירה על הפרטיות שלך באתר, ניתן לפנות אלינו ישירות בערוצים הבאים:</p>
+        <p>כתובת דואר אלקטרוני: <a href="mailto:kravon0505@gmail.com" class="link-mail">kravon0505@gmail.com</a><br>
+        דיסקורד: <span class="discord-text" dir="ltr">krav0n</span></p>
     </div>
 
     <!-- === מניעת בדיקת קוד מקור (Anti-Inspect) === -->
     <script>
-        // 1. ביטול קליק ימני
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-        
-        // 2. ביטול קיצורי מקלדת של מפתחים
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
         document.addEventListener('keydown', function(e) {
             if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
             if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) { e.preventDefault(); }
