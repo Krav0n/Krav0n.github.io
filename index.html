@@ -46,7 +46,13 @@ background-repeat: no-repeat;
 background-position: right bottom;
 background-attachment: fixed;
 background-size: 450px;
+
+/* --- מניעת סימון טקסט והופעת סמן ה"פס" --- */
+-webkit-user-select: none;
+-ms-user-select: none;
+user-select: none;
 }
+
 /* אפקט תאורה לעכבר (קטן, 5% בהירות, ואנימציית ברקים) */
 .spotlight {
 position: fixed;
@@ -116,6 +122,8 @@ border-radius: 50%;
 object-fit: cover;
 border: 3px solid #555;
 box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+/* ביטול גרירה של תמונת הפרופיל */
+-webkit-user-drag: none;
 }
 .links-container {
 display: flex;
