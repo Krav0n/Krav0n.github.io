@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>הצהרת נגישות - Krav0n Links</title>
+
+<!-- === Google Analytics 4 (Private Analytics) === -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N1LLZ9CNJF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-N1LLZ9CNJF');
+</script>
+<!-- ============================================== -->
+
 <style>
 :root {
     --bg-color: #2b233d;
@@ -16,6 +27,11 @@ body {
     margin: 0;
     padding: 40px 20px;
     line-height: 1.6;
+    
+    /* מניעת סימון והעתקת טקסט */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .container {
     max-width: 800px;
@@ -92,9 +108,25 @@ li {
         <h2>פניות והצעות לשיפור בנושא נגישות</h2>
         <p>אם במהלך הגלישה באתר נתקלתם בקושי, בבעיה או בתקלה בנושא הנגישות, נשמח מאוד אם תעדכנו אותנו כדי שנוכל לתקן ולשפר את החוויה עבורכם.</p>
         <p>ניתן ליצור קשר בערוץ הבא:<br>
-        כתובת דואר אלקטרוני: <a href="mailto:YOUREMAIL@EXAMPLE.COM" class="link-mail">YOUREMAIL@EXAMPLE.COM</a> 
-        <br><small>(* זכור להחליף את כתובת המייל בקוד לכתובת האמיתית שלך)</small>
+        כתובת דואר אלקטרוני: <a href="Discord: krav0n" class="link-mail">Discord: krav0n </a> 
         </p>
     </div>
+
+    <!-- === מניעת בדיקת קוד מקור (Anti-Inspect) === -->
+    <script>
+        // 1. ביטול קליק ימני
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        // 2. ביטול קיצורי מקלדת של מפתחים
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) { e.preventDefault(); }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) { e.preventDefault(); }
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) { e.preventDefault(); }
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); }
+        });
+    </script>
 </body>
 </html>
