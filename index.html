@@ -221,42 +221,42 @@ z-index: 2;
    הדמות עומדת בחזית ומסתירה את האור מאחוריה,
    לכן הניאון מחולק לשני מוקדים מדויקים מתחת לספוילר הקדמי והגלגלים בלבד משני צידי הדמות */
 
-/* 1. ניאון מתחת לספוילר הקדמי והגלגל השמאלי */
+/* 1. ניאון מתחת לגחון ולגלגל בצד שמאל - על הכביש מתחת לרכב */
 .car-underglow-left {
 position: absolute;
-bottom: 26%;
-left: 6%;
-width: 40%;
-height: 20px;
+bottom: 12%;
+left: 3%;
+width: 33%;
+height: 22px;
 border-radius: 50%;
 background: radial-gradient(ellipse at 50% 50%, 
   rgba(0, 235, 255, 0.95) 0%, 
-  rgba(0, 160, 255, 0.75) 40%, 
+  rgba(0, 160, 255, 0.75) 45%, 
   rgba(0, 90, 255, 0.2) 70%, 
   transparent 85%
 );
-filter: blur(6px) drop-shadow(0 0 10px rgba(0, 220, 255, 0.9));
+filter: blur(7px) drop-shadow(0 0 12px rgba(0, 220, 255, 0.9));
 mix-blend-mode: screen;
 pointer-events: none;
 z-index: 1;
 animation: realisticNeonBlink 2.2s ease-in-out infinite;
 }
 
-/* 2. ניאון מתחת לפינה הימנית של הטמבון והחצאית */
+/* 2. ניאון מתחת לספוילר בצד ימין - על הכביש מתחת לרכב */
 .car-underglow-right {
 position: absolute;
-bottom: 27.5%;
+bottom: 14%;
 left: 64%;
-width: 22%;
-height: 16px;
+width: 18%;
+height: 18px;
 border-radius: 50%;
 background: radial-gradient(ellipse at 50% 50%, 
   rgba(0, 235, 255, 0.95) 0%, 
-  rgba(0, 160, 255, 0.75) 40%, 
+  rgba(0, 160, 255, 0.75) 45%, 
   rgba(0, 90, 255, 0.2) 70%, 
   transparent 85%
 );
-filter: blur(5px) drop-shadow(0 0 8px rgba(0, 220, 255, 0.85));
+filter: blur(6px) drop-shadow(0 0 10px rgba(0, 220, 255, 0.85));
 mix-blend-mode: screen;
 pointer-events: none;
 z-index: 1;
