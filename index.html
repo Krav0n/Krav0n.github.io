@@ -217,37 +217,64 @@ position: relative;
 z-index: 2;
 }
 
-/* אפקט תאורת ניאון כחולה שמהבהבת רק למטה (מתחת לרכב בלבד על הכביש) */
-.car-underglow {
+/* אפקט תאורת ניאון כחולה ריאליסטית מתחת לרכב:
+   הדמות עומדת בחזית ומסתירה את האור מאחוריה,
+   לכן הניאון מחולק לשני מוקדים מדויקים מתחת לספוילר הקדמי והגלגלים בלבד משני צידי הדמות */
+
+/* 1. ניאון מתחת לספוילר הקדמי והגלגל השמאלי */
+.car-underglow-left {
 position: absolute;
-bottom: -6px;
+bottom: 26%;
 left: 6%;
-width: 88%;
-height: 24px;
+width: 40%;
+height: 20px;
 border-radius: 50%;
 background: radial-gradient(ellipse at 50% 50%, 
   rgba(0, 235, 255, 0.95) 0%, 
-  rgba(0, 160, 255, 0.7) 35%, 
-  rgba(0, 90, 255, 0.15) 65%, 
-  transparent 80%
+  rgba(0, 160, 255, 0.75) 40%, 
+  rgba(0, 90, 255, 0.2) 70%, 
+  transparent 85%
 );
-filter: blur(8px);
+filter: blur(6px) drop-shadow(0 0 10px rgba(0, 220, 255, 0.9));
 mix-blend-mode: screen;
 pointer-events: none;
 z-index: 1;
-animation: blueNeonBlink 2s ease-in-out infinite;
+animation: realisticNeonBlink 2.2s ease-in-out infinite;
 }
 
-/* אנימציית הבהוב ועמעום הניאון מתחת לרכב בלבד */
-@keyframes blueNeonBlink {
+/* 2. ניאון מתחת לפינה הימנית של הטמבון והחצאית */
+.car-underglow-right {
+position: absolute;
+bottom: 27.5%;
+left: 64%;
+width: 22%;
+height: 16px;
+border-radius: 50%;
+background: radial-gradient(ellipse at 50% 50%, 
+  rgba(0, 235, 255, 0.95) 0%, 
+  rgba(0, 160, 255, 0.75) 40%, 
+  rgba(0, 90, 255, 0.2) 70%, 
+  transparent 85%
+);
+filter: blur(5px) drop-shadow(0 0 8px rgba(0, 220, 255, 0.85));
+mix-blend-mode: screen;
+pointer-events: none;
+z-index: 1;
+animation: realisticNeonBlink 2.2s ease-in-out infinite;
+}
+
+/* אנימציית הבהוב ועמעום ניאון ריאליסטית */
+@keyframes realisticNeonBlink {
 0%, 100% {
   opacity: 0;
-  transform: scaleX(0.85) scaleY(0.6);
+  transform: scaleY(0.6) scaleX(0.92);
+}
+12%, 88% {
+  opacity: 0;
 }
 45%, 55% {
   opacity: 1;
-  transform: scaleX(1) scaleY(1);
-  filter: blur(7px) drop-shadow(0 0 14px rgba(0, 225, 255, 0.95));
+  transform: scaleY(1) scaleX(1);
 }
 }
 
@@ -283,6 +310,14 @@ filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.45));
 .side-char-right {
   height: 180px;
   max-height: 25vh;
+}
+.car-underglow-left {
+  height: 10px;
+  filter: blur(4px) drop-shadow(0 0 6px rgba(0, 220, 255, 0.8));
+}
+.car-underglow-right {
+  height: 8px;
+  filter: blur(3px) drop-shadow(0 0 5px rgba(0, 220, 255, 0.8));
 }
 }
 /* =================================================================== */
@@ -546,7 +581,7 @@ body.large-text-mode .link-btn { font-size: 1.1em; }
 @media (prefers-reduced-motion: reduce) {
 .link-btn { animation: none; }
 .kick-status-badge.live .status-dot { animation: none; }
-.car-underglow { animation: none; }
+.car-underglow-left, .car-underglow-right { animation: none; }
 }
 
 #lightningCanvas {
@@ -569,9 +604,10 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
      alt="Krav0n Character"
      onerror="this.onerror=null; this.src='1.png';">
 
-<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) עם תאורת ניאון כחולה שמהבהבת רק למטה מתחת לרכב -->
+<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) עם תאורת ניאון ריאליסטית מתחת לרכב משני צידי הדמות -->
 <div class="side-car-container">
-    <div class="car-underglow"></div>
+    <div class="car-underglow-left"></div>
+    <div class="car-underglow-right"></div>
     <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
          class="side-car-left" 
          alt="Krav0n Skyline GT-R"
