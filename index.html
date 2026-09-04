@@ -185,27 +185,102 @@ animation: liveRecPulse 1.4s infinite ease-in-out;
 }
 /* ============================================================== */
 
-/* ================= איזון ויישור שתי התמונות בצדדים ================= */
-.side-car-left,
+/* ================= איזון ויישור שתי התמונות בצדדים ואפקט ניאון כחול לרכב ================= */
+.side-car-container,
 .side-char-right {
 position: fixed;
-/* שתיהן מיושרות בדיוק לאותו גובה מעל כפתור הנגישות */
+/* שתיהן בדיוק באותו גובה מעל כפתור הנגישות */
 bottom: calc(85px + 3vh);
 z-index: 0;
-pointer-events: none; /* מאפשר לחיצה חופשית על כפתור הנגישות */
+pointer-events: none; /* מונע כל חסימה של לחיצה על כפתור הנגישות */
 -webkit-user-drag: none;
 user-select: none;
 transition: bottom 0.3s ease, width 0.3s ease, height 0.3s ease;
 }
 
-/* תמונת רכב ניסאן GT-R בצד שמאל */
-.side-car-left {
+/* מיקום מעטפת הרכב (3.png) בצד שמאל */
+.side-car-container {
 left: 0;
 width: 390px;
 max-width: 29vw;
 height: auto;
+}
+
+/* תמונת רכב ניסאן GT-R בצד שמאל */
+.side-car-left {
+display: block;
+width: 100%;
+height: auto;
 mix-blend-mode: screen;
-filter: drop-shadow(0 0 25px rgba(0, 140, 255, 0.35));
+pointer-events: none;
+position: relative;
+z-index: 2;
+animation: carNeonBreathe 3s ease-in-out infinite;
+}
+
+/* אפקט תאורת ניאון כחולה מרוכזת מתחת לגחון הרכב והגלגלים */
+.car-underglow {
+position: absolute;
+bottom: 0;
+left: 4%;
+width: 92%;
+height: 28%;
+border-radius: 50% 50% 40% 40%;
+background: radial-gradient(ellipse at 45% 65%, 
+  rgba(0, 235, 255, 0.95) 0%, 
+  rgba(0, 160, 255, 0.8) 32%, 
+  rgba(0, 100, 255, 0.45) 58%, 
+  transparent 78%
+);
+filter: blur(14px);
+mix-blend-mode: screen;
+pointer-events: none;
+z-index: 1;
+animation: blueNeonPulse 3s ease-in-out infinite;
+}
+
+/* הילת ניאון כחולה רחבה הנשפכת על הקרקע מתחת לרכב */
+.car-underglow-wide {
+position: absolute;
+bottom: -6px;
+left: -5%;
+width: 110%;
+height: 24%;
+border-radius: 50%;
+background: radial-gradient(ellipse at center, 
+  rgba(0, 140, 255, 0.65) 0%, 
+  rgba(0, 80, 255, 0.28) 50%, 
+  transparent 75%
+);
+filter: blur(22px);
+mix-blend-mode: screen;
+pointer-events: none;
+z-index: 1;
+animation: blueNeonPulse 3s ease-in-out infinite;
+}
+
+/* אנימציית נורת ניאון כחולה: נדלקת בעוצמה ומתעמעמת בלולאה אינסופית */
+@keyframes blueNeonPulse {
+0%, 100% {
+  opacity: 0.12;
+  transform: scaleY(0.85) scaleX(0.96);
+  filter: blur(16px);
+}
+45%, 55% {
+  opacity: 1;
+  transform: scaleY(1.08) scaleX(1.02);
+  filter: blur(12px) drop-shadow(0 0 20px rgba(0, 210, 255, 0.9));
+}
+}
+
+/* אנימציית פעימת זוהר משלימה לגוף הרכב */
+@keyframes carNeonBreathe {
+0%, 100% {
+  filter: brightness(0.9) drop-shadow(0 0 15px rgba(0, 140, 255, 0.2));
+}
+45%, 55% {
+  filter: brightness(1.15) drop-shadow(0 0 35px rgba(0, 200, 255, 0.85)) drop-shadow(0 0 60px rgba(0, 120, 255, 0.5));
+}
 }
 
 /* תמונת הדמות בצד ימין */
@@ -218,7 +293,7 @@ filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.45));
 }
 
 @media (max-width: 1024px) {
-.side-car-left {
+.side-car-container {
   width: 300px;
   max-width: 34vw;
 }
@@ -229,11 +304,11 @@ filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.45));
 }
 
 @media (max-width: 768px) {
-.side-car-left,
+.side-car-container,
 .side-char-right {
-  bottom: 105px; /* מרווח בטוח וגבוה מעל כפתור הנגישות בנייד */
+  bottom: 105px; /* מרווח נקי ובטוח מעל כפתור הנגישות בנייד */
 }
-.side-car-left {
+.side-car-container {
   width: 160px;
   max-width: 40vw;
 }
@@ -503,6 +578,7 @@ body.large-text-mode .link-btn { font-size: 1.1em; }
 @media (prefers-reduced-motion: reduce) {
 .link-btn { animation: none; }
 .kick-status-badge.live .status-dot { animation: none; }
+.car-underglow, .car-underglow-wide, .side-car-left { animation: none; }
 }
 
 #lightningCanvas {
@@ -525,11 +601,15 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
      alt="Krav0n Character"
      onerror="this.onerror=null; this.src='1.png';">
 
-<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) מאוזנת באותו גובה מעל כפתור הנגישות -->
-<img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
-     class="side-car-left" 
-     alt="Krav0n Skyline GT-R"
-     onerror="this.onerror=null; this.src='3.png';">
+<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) עם תאורת ניאון כחולה מתחת לרכב שנדלקת ומתעמעמת בלולאה אינסופית -->
+<div class="side-car-container">
+    <div class="car-underglow-wide"></div>
+    <div class="car-underglow"></div>
+    <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
+         class="side-car-left" 
+         alt="Krav0n Skyline GT-R"
+         onerror="this.onerror=null; this.src='3.png';">
+</div>
 
 <footer class="footer-container">
     <div class="footer-credit">Made by <span style="color: #facc15;">Krav0n</span></div>
