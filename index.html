@@ -19,10 +19,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+/* רישום משתנה זווית עבור אנימציית מסגרת חלקה ב-GPU ללא עומס על המעבד */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 :root {
 --bg-color: #2b233d;
 --text-color: #ffffff;
 }
+
 body {
 background-color: var(--bg-color);
 color: var(--text-color);
@@ -47,6 +56,7 @@ background-size: 450px;
 -ms-user-select: none;
 user-select: none;
 }
+
 .spotlight {
 position: fixed;
 top: 0;
@@ -58,6 +68,7 @@ background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255, 2
 z-index: 0;
 animation: lightningFlicker 2s infinite;
 }
+
 @keyframes lightningFlicker {
 0%, 94%, 100% { opacity: 1; }
 95% { opacity: 1.8; }
@@ -66,20 +77,33 @@ animation: lightningFlicker 2s infinite;
 98% { opacity: 0.6; }
 99% { opacity: 1.5; }
 }
+
 @media (max-width: 768px) {
 body { background-position: right bottom; background-size: 180px; }
 .footer-container { font-size: 12px; bottom: 12px; }
 .footer-links { gap: 8px; }
 }
+
 .profile-section {
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-gap: 15px;
-margin-bottom: 15vh;
+gap: 12px;
+margin-bottom: 12vh;
 z-index: 1;
 }
+
+.profile-pic {
+width: 180px;
+height: 180px;
+border-radius: 50%;
+object-fit: cover;
+border: 3px solid #555;
+box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+-webkit-user-drag: none;
+}
+
 .profile-name {
 font-family: 'Poppins', sans-serif;
 font-size: 28px;
@@ -90,6 +114,119 @@ background: linear-gradient(45deg, #facc15, #ff9800);
 letter-spacing: 2px;
 filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
 }
+
+/* ================= 1. Kick Live Status Badge ================= */
+.kick-status-badge {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+padding: 6px 18px;
+border-radius: 20px;
+text-decoration: none;
+font-family: 'Poppins', system-ui, sans-serif;
+font-size: 13px;
+font-weight: 700;
+letter-spacing: 1.5px;
+direction: ltr;
+transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+cursor: pointer;
+box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+margin-top: 2px;
+}
+
+.kick-status-badge:hover {
+transform: scale(1.06);
+filter: brightness(1.15);
+}
+
+/* מצב Offline: רקע כהה/אפור, טקסט אדום ונקודה אדומה קבועה */
+.kick-status-badge.offline {
+background-color: #1c182b;
+border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.kick-status-badge.offline .status-text {
+color: #ff3333;
+}
+
+.kick-status-badge.offline .status-dot {
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background-color: #ff3333;
+display: inline-block;
+}
+
+/* מצב Live: טקסט LIVE ירוק, ונקודה אדומה מהבהבת עם Pulse Effect */
+.kick-status-badge.live {
+background-color: #122114;
+border: 1px solid rgba(83, 252, 24, 0.4);
+box-shadow: 0 0 15px rgba(83, 252, 24, 0.3), 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.kick-status-badge.live .status-text {
+color: #53fc18;
+}
+
+.kick-status-badge.live .status-dot {
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background-color: #ff0000;
+display: inline-block;
+animation: liveRecPulse 1.4s infinite ease-in-out;
+}
+
+@keyframes liveRecPulse {
+0% {
+  transform: scale(0.95);
+  box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.75);
+}
+70% {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 7px rgba(255, 34, 34, 0);
+}
+100% {
+  transform: scale(0.95);
+  box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+}
+}
+/* ============================================================== */
+
+/* ================= תמונת רכב ניסאן GT-R בצד שמאל ================= */
+.side-car-left {
+position: fixed;
+left: 0;
+bottom: calc(85px + 2vh); /* קו אפס בצד שמאל, 10% מעל כפתור הנגישות כדי לא להסתיר */
+width: 420px;
+max-width: 32vw;
+height: auto;
+z-index: 0;
+pointer-events: none; /* מאפשר לחיצה על כפתור הנגישות ללא חסימות */
+-webkit-user-drag: none;
+user-select: none;
+filter: drop-shadow(0 0 25px rgba(0, 140, 255, 0.35));
+transition: width 0.3s ease, bottom 0.3s ease;
+mix-blend-mode: screen; /* הופך את הרקע השחור לשקוף ומשתלב ברקע הדף */
+}
+
+@media (max-width: 1024px) {
+.side-car-left {
+  width: 300px;
+  max-width: 34vw;
+}
+}
+
+@media (max-width: 768px) {
+.side-car-left {
+  width: 165px;
+  max-width: 42vw;
+  bottom: 90px;
+}
+}
+/* ================================================================ */
+
 .footer-container {
 position: absolute;
 bottom: 15px;
@@ -104,7 +241,9 @@ color: #ffffff;
 z-index: 10;
 opacity: 0.9;
 }
+
 .footer-credit { letter-spacing: 1px; }
+
 .footer-links {
 display: flex;
 align-items: center;
@@ -112,60 +251,152 @@ gap: 12px;
 flex-wrap: wrap;
 justify-content: center;
 }
+
 .footer-links a {
 color: #ffffff;
 text-decoration: none;
 transition: color 0.2s;
 opacity: 0.8;
 }
+
 .footer-links a:hover { color: #facc15; opacity: 1; }
 .footer-links .separator { opacity: 0.5; }
-.profile-pic {
-width: 180px;
-height: 180px;
-border-radius: 50%;
-object-fit: cover;
-border: 3px solid #555;
-box-shadow: 0 4px 15px rgba(0,0,0,0.5);
--webkit-user-drag: none;
-}
+
+/* ================= 2. Animated Glowing Borders ================= */
 .links-container {
 display: flex;
 flex-direction: column;
-gap: 15px;
+gap: 18px;
 width: 100%;
 max-width: 320px;
 padding: 0 20px;
 box-sizing: border-box;
 z-index: 1;
 }
+
 .link-btn {
+position: relative;
 display: flex;
 justify-content: center;
 align-items: center;
 gap: 10px;
 width: 100%;
 padding: 16px;
-border-radius: 8px;
+border-radius: 10px;
 text-decoration: none;
 font-weight: bold;
 font-size: 16px;
 transition: transform 0.2s, filter 0.2s;
 box-sizing: border-box;
-border: 2px solid transparent;
+border: none;
+z-index: 1;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
+
 .link-btn:hover, .link-btn:focus {
 transform: scale(1.04);
 filter: brightness(1.15);
 outline: none;
 }
-.btn-kick { background-color: #53fc18; color: #000000; }
-.btn-discord { background-color: #5865F2; color: #ffffff; }
-.btn-youtube { background-color: #FF0000; color: #ffffff; }
+
+/* מסגרת מסתובבת חדה */
+.link-btn::before {
+content: '';
+position: absolute;
+inset: -2.5px;
+border-radius: 12.5px;
+background: var(--border-glow);
+animation: rotateBorder 3s linear infinite;
+z-index: -1;
+}
+
+/* הילה זוהרת רכה (Bloom) */
+.link-btn::after {
+content: '';
+position: absolute;
+inset: -2.5px;
+border-radius: 12.5px;
+background: var(--border-glow);
+animation: rotateBorder 3s linear infinite;
+z-index: -2;
+filter: blur(8px);
+opacity: 0.7;
+transition: opacity 0.2s, filter 0.2s;
+}
+
+.link-btn:hover::after {
+opacity: 1;
+filter: blur(12px);
+}
+
+@keyframes rotateBorder {
+to {
+  --angle: 360deg;
+}
+}
+
+/* כפתור 1: Kick - מסגרת ירוק ניאון (Neon Green) */
+.btn-kick {
+background-color: #53fc18;
+color: #000000;
+--border-glow: conic-gradient(
+  from var(--angle),
+  transparent 0%,
+  transparent 40%,
+  #00ff55 70%,
+  #ffffff 90%,
+  #53fc18 97%,
+  transparent 100%
+);
+}
+
+/* כפתור 2: Discord - מסגרת Blurple כחול/סגול */
+.btn-discord {
+background-color: #5865F2;
+color: #ffffff;
+--border-glow: conic-gradient(
+  from var(--angle),
+  transparent 0%,
+  transparent 40%,
+  #3b429f 70%,
+  #ffffff 90%,
+  #5865F2 97%,
+  transparent 100%
+);
+}
+
+/* כפתור 3: YouTube - מסגרת אדום בוהק (Bright Red) */
+.btn-youtube {
+background-color: #FF0000;
+color: #ffffff;
+--border-glow: conic-gradient(
+  from var(--angle),
+  transparent 0%,
+  transparent 40%,
+  #cc0000 70%,
+  #ffffff 90%,
+  #FF0000 97%,
+  transparent 100%
+);
+}
+
+/* כפתור 4: Instagram - מסגרת גרדיאנט אינסטגרם (שילוב נע של סגול, ורוד וכתום) */
 .btn-instagram {
 background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 color: #ffffff;
+--border-glow: conic-gradient(
+  from var(--angle),
+  transparent 0%,
+  transparent 30%,
+  #f09433 50%,
+  #dc2743 70%,
+  #bc1888 88%,
+  #ffffff 96%,
+  transparent 100%
+);
 }
+/* =============================================================== */
+
 .accessibility-btn {
 position: fixed;
 bottom: 20px;
@@ -186,6 +417,7 @@ z-index: 1000;
 transition: transform 0.2s;
 }
 .accessibility-btn:hover { transform: scale(1.1); }
+
 .accessibility-menu {
 position: fixed;
 bottom: 90px;
@@ -201,6 +433,7 @@ box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 overflow: hidden;
 }
 .accessibility-menu.active { display: flex; }
+
 .acc-header {
 background-color: #e50000;
 color: white;
@@ -212,7 +445,9 @@ justify-content: space-between;
 align-items: center;
 }
 .acc-header button { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+
 .acc-content { padding: 15px; max-height: 60vh; overflow-y: auto; }
+
 .acc-section-title {
 font-size: 15px;
 font-weight: bold;
@@ -222,12 +457,14 @@ display: flex;
 align-items: center;
 gap: 8px;
 }
+
 .acc-grid {
 display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 10px;
 margin-bottom: 25px;
 }
+
 .acc-item {
 background-color: #fff;
 border: 1px solid #e0e0e0;
@@ -246,12 +483,23 @@ color: #555;
 }
 .acc-item i { font-size: 24px; color: #e50000; }
 .acc-item:hover, .acc-item.active { background-color: #fff5f5; border-color: #e50000; color: #e50000; }
+
 body.grayscale { filter: grayscale(100%); }
 body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; }
 body.high-contrast-mode .link-btn { border: 2px solid yellow; }
+body.high-contrast-mode .link-btn::before,
+body.high-contrast-mode .link-btn::after { display: none; }
+body.high-contrast-mode .kick-status-badge { border: 2px solid yellow; }
 body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; }
 body.large-text-mode { font-size: 1.2em; }
 body.large-text-mode .link-btn { font-size: 1.1em; }
+
+/* ביטול אנימציות עבור משתמשים עם העדפת תנועה מופחתת */
+@media (prefers-reduced-motion: reduce) {
+.link-btn::before, .link-btn::after { animation: none; }
+.kick-status-badge.live .status-dot { animation: none; }
+}
+
 #lightningCanvas {
 position: fixed;
 top: 0; left: 0;
@@ -265,6 +513,12 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 </head>
 <body>
 <canvas id="lightningCanvas"></canvas>
+
+<!-- תמונת הרכב והדמות בצד שמאל: צמוד לקו אפס, 10% מעל כפתור הנגישות, ללא חסימת לחיצות -->
+<img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
+     class="side-car-left" 
+     alt="Krav0n Skyline GT-R"
+     onerror="this.onerror=null; this.src='3.png';">
 
 <footer class="footer-container">
     <div class="footer-credit">Made by <span style="color: #facc15;">Krav0n</span></div>
@@ -280,10 +534,16 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 <div class="profile-section">
 <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true" class="profile-pic" alt="תמונת הפרופיל המאוירת של Krav0n">
 <div class="profile-name">Krav0n</div>
+
+<!-- תג סטטוס שידור מ-Kick -->
+<a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" id="kickStatusBadge" class="kick-status-badge offline" aria-label="Kick Live Status" title="Kick Stream Status">
+    <span class="status-dot"></span>
+    <span class="status-text" id="kickStatusText">OFFLINE</span>
+</a>
 </div>
 
 <div class="links-container">
-<a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAEs0lEQVR4AZyW0XXcRgxFH1ZJ/pR/Sw3o5F+uw04BbsAuRykgKUcqwEkBsvMb6TNHYu7FkFxutLJlzxngARgAfDPkkrv79e+z6Zi8neNvP4918bi8mkZ8i9pD3nx+isbefHo1ibtUpSULhlF6AwtgLmm62oT2OTqzl8bOSrC1/o/G7CHupmlKkCkzCtiECBPV38q8RpFWtri1qZzX5qg9rBBbyAB3ssiWKQFmmqFG0nYYxpI52Kh9KHrmbFHbWtEy7c4hsINEBkdgYYg5TgCDqQ1wIq1VyKi0disjyu7IMK7fgmIaWvvY96snAMkMxon2og/RlSFq17aobQ/RJtqdQ4BnQFIwhh662clslflURlYYJBLTV6w5xNkjzbW1jz7iBYx1FsZONhDJARrgUsaS2TlAY0PU5mxR21rRMu0VNeJwtdInEAZkJLcKobZlqn2IvRXC7jG5u07+ua4VtbsfGR6W9ooaxmfsE9CXZQuOeHu1y5CTFe+4SHoHg732PbE/3/2Qv5AFte9vqjNV9gtjYGE5B/YJyHAVmGmPiy8kBt6z07Fn9QSxQnZ2eyK+X+zjMTZ2X06uHepn7OrBLBk4mOXoqFTHq/H26iT3192io4eKnDLSCkNE+iKVhlS6usmEuwxBNNZzE+Ys3V5VPr47wfrSJPegnw7SF5vXsHdFj8Em8AnDCHB0Vufcsevnd74UklvarTBEpC9Wqaqg+BX0vQkDVuhxAjBt+1Dd8mBeX/zIsVN8uLR6Z+8fcvnx3/z8+pHbb59Z2K29fTZYYHI9YtyCpdkWF3vt+1XjlAsq+0R7bMQdpzIAJLGqfAZkGMYWF5vwC+fp5ZSL3x9y/uFhrph7sEt3zpYBd80ysV4F+wSKWDL0wMXOi4YXPX09hQ2Rv9TO2EFsEcGKiQtCAFY8B9CLoifivGieXj7m7P3j/p6zK+v7XtO3kZjYQtctQkAue9FKhs4Lhw+nv4xYxy7FBvxGlB2rioir6VFoCEzAXrTcAcEXzfubXT795gvJdlSzW+sHcJ6EvP8D8OmqDXA+8SEs7L1opXnmm4Yk/BbcQSjUV9EJQeMWEQBdCXov/COSj8wWbP75nuFp3PNx6h1zBNt7vXQn3DvvNYL9JgycZLbgsPNk+LT7kvHBe7I4BzyJm19+6pdVVdE5B6JTYbCmzQngwAkyGJ5E8DCPTNm76k/uSyTWUgrsuxWbE6YNUeY3nYCkA+3zD4+5+GN54eT5QYG73QrlIRyV2CfgvmW1IsxyZJjj/YU+MPH7f2g5ktqhcZ/tSgXFTI2uRTGn9Ak0QxQzQcnMj4r3XFzEo4+LqQiexCnfgDwzyjiJC2YYCTFUkvJrCKkg7JqJwcQYF3/sd7sX0vcLB22zZyCRuRDc4imvZpZoxtRw++L+Ieg+z55AYNdEwfSQPtLBSlUFxSt4giRE+Qyf80o+b3wIqy0qU6MyGNVenvwndGuShTemlGfpIPdTRJ7c33QFNSLSOQatGeging7nMPruJCS5FTVISeOeaeakAZVKUlWp5EB0jIW1VNKrI5AQKGRgGJUdVCQGZaakDMTRzhzEZkcmCo2dsuyHNHyy2lhyRiuizF4gsFR0Tqb8BwAA//+KAJAAAAAABklEQVQDAGepFNaHJGKPAAAAAElFTkSuQmCC" style="width: 22px; height: 22px; object-fit: contain; margin-left: 8px;"> Kick</a>
+<a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAEs0lEQVR4AZyW0XXcRgxFH1ZJ/pR/Sw3o5F+uw04BbsAuRykgKUcqwEkBsvMb6TNHYu7FkFxutLJlzxngARgAfDPkkrv79e+z6Zi8neNvP4918bi8mkZ8i9pD3nx+isbefHo1ibtUpSULhlF6AwtgLmm62oT2OTqzl8bOSrC1/o/G7CHupmlKkCkzCtiECBPV38q8RpFWtri1qZzX5qg9rBBbyAB3ssiWKQFmmqFG0nYYxpI52Kh9KHrmbFHbWtEy7c4hsINEBkdgYYg5TgCDqQ1wIq1VyKi0disjyu7IMK7fgmIaWvvY96snAMkMxon2og/RlSFq17aobQ/RJtqdQ4BnQFIwhh662clslflURlYYJBLTV6w5xNkjzbW1jz7iBYx1FsZONhDJARrgUsaS2TlAY0PU5mxR21rRMu0VNeJwtdInEAZkJLcKobZlqn2IvRXC7jG5u07+ua4VtbsfGR6W9ooaxmfsE9CXZQuOeHu1y5CTFe+4SHoHg732PbE/3/2Qv5AFte9vqjNV9gtjYGE5B/YJyHAVmGmPiy8kBt6z07Fn9QSxQnZ2eyK+X+zjMTZ2X06uHepn7OrBLBk4mOXoqFTHq/H26iT3192io4eKnDLSCkNE+iKVhlS6usmEuwxBNNZzE+Ys3V5VPr47wfrSJPegnw7SF5vXsHdFj8Em8AnDCHB0Vufcsevnd74UklvarTBEpC9Wqaqg+BX0vQkDVuhxAjBt+1Dd8mBeX/zIsVN8uLR6Z+8fcvnx3/z8+pHbb59Z2K29fTZYYHI9YtyCpdkWF3vt+1XjlAsq+0R7bMQdpzIAJLGqfAZkGMYWF5vwC+fp5ZSL3x9y/uFhrph7sEt3zpYBd80ysV4F+wSKWDL0wMXOi4YXPX09hQ2Rv9TO2EFsEcGKiQtCAFY8B9CLoifivGieXj7m7P3j/p6zK+v7XtO3kZjYQtctQkAue9FKhs4Lhw+nv4xYxy7FBvxGlB2rioir6VFoCEzAXrTcAcEXzfubXT795gvJdlSzW+sHcJ6EvP8D8OmqDXA+8SEs7L1opXnmm4Yk/BbcQSjUV9EJQeMWEQBdCXov/COSj8wWbP75nuFupndcZkGMYWF5vwC+fp5ZSL3x9y/uFhrph7sEt3zpYBd80ysV4F+wSKWDL0wMXOi4YXPX09hQ2Rv9TO2EFsEcGKiQtCAFY8B9CLoifivGieXj7m7P3j/p6zK+v7XtO3kZjYQtctQkAue9FKhs4Lhw+nv4xYxy7FBvxGlB2rioir6VFoCEzAXrTcAcEXzfubXT795gvJdlSzW+sHcJ6EvP8D8OmqDXA+8SEs7L1opXnmm4Yk/BbcQSjUV9EJQeMWEQBdCXov/COSj8wWbP75nuFupnd" style="width: 22px; height: 22px; object-fit: contain; margin-left: 8px;"> Kick</a>
 <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord"><i class="fa-brands fa-discord"></i> Discord</a>
 <a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube"><i class="fa-brands fa-youtube"></i> YouTube</a>
 <a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
@@ -314,6 +574,7 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 </div>
 
 <script>
+// מניעת פתיחת כלי פיתוח ותפריט קליק ימני
 document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 document.addEventListener('keydown', function(e) {
     if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
@@ -322,6 +583,51 @@ document.addEventListener('keydown', function(e) {
     if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) { e.preventDefault(); }
     if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); }
 });
+
+// בדיקת סטטוס שידור מול Kick API צד-לקוח
+async function checkKickLiveStatus() {
+    const badge = document.getElementById('kickStatusBadge');
+    const textSpan = document.getElementById('kickStatusText');
+    if (!badge || !textSpan) return;
+
+    try {
+        const response = await fetch('https://kick.com/api/v2/channels/krav0n', {
+            headers: { 'Accept': 'application/json' },
+            cache: 'no-store'
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const isLive = Boolean(data && data.livestream);
+
+            if (isLive) {
+                badge.classList.remove('offline');
+                badge.classList.add('live');
+                textSpan.textContent = 'LIVE';
+                badge.title = 'Krav0n is LIVE on Kick!';
+            } else {
+                badge.classList.remove('live');
+                badge.classList.add('offline');
+                textSpan.textContent = 'OFFLINE';
+                badge.title = 'Krav0n is OFFLINE';
+            }
+        } else {
+            badge.classList.remove('live');
+            badge.classList.add('offline');
+            textSpan.textContent = 'OFFLINE';
+        }
+    } catch (err) {
+        console.warn('Kick status check error:', err);
+        badge.classList.remove('live');
+        badge.classList.add('offline');
+        textSpan.textContent = 'OFFLINE';
+    }
+}
+
+checkKickLiveStatus();
+setInterval(checkKickLiveStatus, 60000);
+
+// קנבס אפקט הברקים ברקע
 const canvas = document.getElementById('lightningCanvas');
 const ctx = canvas.getContext('2d');
 function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -370,11 +676,15 @@ setTimeout(strike, 2000 + Math.random() * 6000);
 }, 100);
 }
 setTimeout(strike, 1500);
+
+// אפקט הספוטלייט בעקבות סמן העכבר
 const spotlight = document.getElementById('spotlight');
 document.addEventListener('mousemove', (e) => {
 spotlight.style.setProperty('--x', `${e.clientX}px`);
 spotlight.style.setProperty('--y', `${e.clientY}px`);
 });
+
+// תפריט נגישות
 const accBtn = document.getElementById('accBtn');
 const accMenu = document.getElementById('accMenu');
 const closeAccBtn = document.getElementById('closeAccBtn');
