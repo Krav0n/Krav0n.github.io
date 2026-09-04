@@ -20,13 +20,6 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
-/* רישום משתנה זווית עבור אנימציית מסגרת חלקה ב-GPU ללא עומס על המעבד */
-@property --angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
 :root {
 --bg-color: #2b233d;
 --text-color: #ffffff;
@@ -130,20 +123,22 @@ font-weight: 700;
 letter-spacing: 1.5px;
 direction: ltr;
 transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-cursor: pointer;
-box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 margin-top: 2px;
+user-select: none;
 }
 
-.kick-status-badge:hover {
-transform: scale(1.06);
-filter: brightness(1.15);
-}
-
-/* מצב Offline: רקע כהה/אפור, טקסט אדום ונקודה אדומה קבועה */
+/* מצב Offline: לא לחיץ כלל, רקע כהה/אפור, טקסט אדום ונקודה אדומה קבועה */
 .kick-status-badge.offline {
 background-color: #1c182b;
 border: 1px solid rgba(255, 255, 255, 0.12);
+cursor: default !important;
+pointer-events: none; /* מונע לחיצות */
+box-shadow: none;
+}
+
+.kick-status-badge.offline:hover {
+transform: none !important;
+filter: none !important;
 }
 
 .kick-status-badge.offline .status-text {
@@ -158,11 +153,18 @@ background-color: #ff3333;
 display: inline-block;
 }
 
-/* מצב Live: טקסט LIVE ירוק, ונקודה אדומה מהבהבת עם Pulse Effect */
+/* מצב Live: לחיץ לפתיחת הערוץ, טקסט LIVE ירוק, ונקודה אדומה מהבהבת */
 .kick-status-badge.live {
 background-color: #122114;
 border: 1px solid rgba(83, 252, 24, 0.4);
 box-shadow: 0 0 15px rgba(83, 252, 24, 0.3), 0 4px 12px rgba(0,0,0,0.4);
+cursor: pointer;
+pointer-events: auto; /* לחיץ */
+}
+
+.kick-status-badge.live:hover {
+transform: scale(1.06);
+filter: brightness(1.15);
 }
 
 .kick-status-badge.live .status-text {
@@ -194,27 +196,29 @@ animation: liveRecPulse 1.4s infinite ease-in-out;
 }
 /* ============================================================== */
 
-/* ================= תמונת רכב ניסאן GT-R בצד שמאל ================= */
+/* ================= תמונת רכב ניסאן GT-R (3.png) בצד שמאל ================= */
 .side-car-left {
 position: fixed;
 left: 0;
-bottom: calc(85px + 2vh); /* קו אפס בצד שמאל, 10% מעל כפתור הנגישות כדי לא להסתיר */
+/* קו אפס משמאל, מוגבה 10% נוספים מעל כפתור הנגישות */
+bottom: calc(85px + 12vh);
 width: 420px;
 max-width: 32vw;
 height: auto;
 z-index: 0;
-pointer-events: none; /* מאפשר לחיצה על כפתור הנגישות ללא חסימות */
+pointer-events: none; /* מונע כל חסימה של לחיצות על כפתור הנגישות */
 -webkit-user-drag: none;
 user-select: none;
 filter: drop-shadow(0 0 25px rgba(0, 140, 255, 0.35));
 transition: width 0.3s ease, bottom 0.3s ease;
-mix-blend-mode: screen; /* הופך את הרקע השחור לשקוף ומשתלב ברקע הדף */
+mix-blend-mode: screen; /* הופך את הרקע השחור לשקוף */
 }
 
 @media (max-width: 1024px) {
 .side-car-left {
   width: 300px;
   max-width: 34vw;
+  bottom: calc(85px + 10vh);
 }
 }
 
@@ -222,10 +226,10 @@ mix-blend-mode: screen; /* הופך את הרקע השחור לשקוף ומשת
 .side-car-left {
   width: 165px;
   max-width: 42vw;
-  bottom: 90px;
+  bottom: 140px; /* מרווח בטוח וגבוה מעל כפתור הנגישות בנייד */
 }
 }
-/* ================================================================ */
+/* ========================================================================= */
 
 .footer-container {
 position: absolute;
@@ -262,7 +266,16 @@ opacity: 0.8;
 .footer-links a:hover { color: #facc15; opacity: 1; }
 .footer-links .separator { opacity: 0.5; }
 
-/* ================= 2. Animated Glowing Borders ================= */
+/* ================= 2. Animated Glowing Borders (תנועה סיבובית רציפה) ================= */
+@keyframes spinBorder {
+0% {
+  transform: rotate(0deg);
+}
+100% {
+  transform: rotate(360deg);
+}
+}
+
 .links-container {
 display: flex;
 flex-direction: column;
@@ -279,119 +292,119 @@ position: relative;
 display: flex;
 justify-content: center;
 align-items: center;
-gap: 10px;
 width: 100%;
 padding: 16px;
 border-radius: 10px;
 text-decoration: none;
-font-weight: bold;
-font-size: 16px;
-transition: transform 0.2s, filter 0.2s;
 box-sizing: border-box;
-border: none;
+overflow: hidden; /* חותך את המסגרת המסתובבת בדיוק לפי פינות הכפתור */
+transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 15px var(--glow-color);
 z-index: 1;
-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
 .link-btn:hover, .link-btn:focus {
 transform: scale(1.04);
 filter: brightness(1.15);
+box-shadow: 0 6px 22px rgba(0, 0, 0, 0.5), 0 0 25px var(--glow-color);
 outline: none;
 }
 
-/* מסגרת מסתובבת חדה */
+/* שכבת הקרן המסתובבת בתנועה רציפה וחלקה */
 .link-btn::before {
 content: '';
 position: absolute;
-inset: -2.5px;
-border-radius: 12.5px;
+top: -150%;
+left: -50%;
+width: 200%;
+height: 400%;
 background: var(--border-glow);
-animation: rotateBorder 3s linear infinite;
-z-index: -1;
+animation: spinBorder 3s linear infinite;
+z-index: 0;
 }
 
-/* הילה זוהרת רכה (Bloom) */
+/* שכבת הרקע הפנימי של הכפתור - משאירה שוליים של 2.5px למסגרת */
 .link-btn::after {
 content: '';
 position: absolute;
-inset: -2.5px;
-border-radius: 12.5px;
-background: var(--border-glow);
-animation: rotateBorder 3s linear infinite;
-z-index: -2;
-filter: blur(8px);
-opacity: 0.7;
-transition: opacity 0.2s, filter 0.2s;
+inset: 2.5px;
+border-radius: 7.5px;
+background: var(--btn-bg);
+z-index: 1;
 }
 
-.link-btn:hover::after {
-opacity: 1;
-filter: blur(12px);
+/* תוכן הכפתור (אייקון + טקסט) - מוצג תמיד מעל כל השכבות */
+.btn-content {
+position: relative;
+z-index: 2;
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+font-weight: bold;
+font-size: 16px;
+color: var(--text-color-btn, #ffffff);
+width: 100%;
 }
 
-@keyframes rotateBorder {
-to {
-  --angle: 360deg;
-}
-}
-
-/* כפתור 1: Kick - מסגרת ירוק ניאון (Neon Green) */
+/* כפתור 1: Kick - ירוק ניאון */
 .btn-kick {
-background-color: #53fc18;
-color: #000000;
+--btn-bg: #53fc18;
+--text-color-btn: #000000;
+--glow-color: rgba(83, 252, 24, 0.45);
 --border-glow: conic-gradient(
-  from var(--angle),
+  from 0deg,
   transparent 0%,
-  transparent 40%,
-  #00ff55 70%,
-  #ffffff 90%,
-  #53fc18 97%,
+  transparent 65%,
+  #00ff55 80%,
+  #ffffff 95%,
   transparent 100%
 );
 }
 
-/* כפתור 2: Discord - מסגרת Blurple כחול/סגול */
+/* כפתור 2: Discord - כחול/סגול Blurple */
 .btn-discord {
-background-color: #5865F2;
-color: #ffffff;
+--btn-bg: #5865F2;
+--text-color-btn: #ffffff;
+--glow-color: rgba(88, 101, 242, 0.5);
 --border-glow: conic-gradient(
-  from var(--angle),
+  from 0deg,
   transparent 0%,
-  transparent 40%,
-  #3b429f 70%,
-  #ffffff 90%,
-  #5865F2 97%,
+  transparent 65%,
+  #3b429f 80%,
+  #ffffff 95%,
   transparent 100%
 );
 }
 
-/* כפתור 3: YouTube - מסגרת אדום בוהק (Bright Red) */
+/* כפתור 3: YouTube - אדום בוהק */
 .btn-youtube {
-background-color: #FF0000;
-color: #ffffff;
+--btn-bg: #FF0000;
+--text-color-btn: #ffffff;
+--glow-color: rgba(255, 0, 0, 0.5);
 --border-glow: conic-gradient(
-  from var(--angle),
+  from 0deg,
   transparent 0%,
-  transparent 40%,
-  #cc0000 70%,
-  #ffffff 90%,
-  #FF0000 97%,
+  transparent 65%,
+  #cc0000 80%,
+  #ffffff 95%,
   transparent 100%
 );
 }
 
-/* כפתור 4: Instagram - מסגרת גרדיאנט אינסטגרם (שילוב נע של סגול, ורוד וכתום) */
+/* כפתור 4: Instagram - גרדיאנט אינסטגרם (שילוב נע של סגול, ורוד וכתום) */
 .btn-instagram {
-background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-color: #ffffff;
+--btn-bg: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+--text-color-btn: #ffffff;
+--glow-color: rgba(220, 39, 67, 0.5);
 --border-glow: conic-gradient(
-  from var(--angle),
+  from 0deg,
   transparent 0%,
-  transparent 30%,
-  #f09433 50%,
-  #dc2743 70%,
-  #bc1888 88%,
-  #ffffff 96%,
+  transparent 45%,
+  #f09433 65%,
+  #dc2743 80%,
+  #bc1888 92%,
+  #ffffff 98%,
   transparent 100%
 );
 }
@@ -486,17 +499,15 @@ color: #555;
 
 body.grayscale { filter: grayscale(100%); }
 body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; }
-body.high-contrast-mode .link-btn { border: 2px solid yellow; }
-body.high-contrast-mode .link-btn::before,
-body.high-contrast-mode .link-btn::after { display: none; }
+body.high-contrast-mode .link-btn { border: 2px solid yellow; box-shadow: none; }
+body.high-contrast-mode .link-btn::before { display: none; }
 body.high-contrast-mode .kick-status-badge { border: 2px solid yellow; }
 body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; }
 body.large-text-mode { font-size: 1.2em; }
 body.large-text-mode .link-btn { font-size: 1.1em; }
 
-/* ביטול אנימציות עבור משתמשים עם העדפת תנועה מופחתת */
 @media (prefers-reduced-motion: reduce) {
-.link-btn::before, .link-btn::after { animation: none; }
+.link-btn::before { animation: none; }
 .kick-status-badge.live .status-dot { animation: none; }
 }
 
@@ -514,7 +525,7 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 <body>
 <canvas id="lightningCanvas"></canvas>
 
-<!-- תמונת הרכב והדמות בצד שמאל: צמוד לקו אפס, 10% מעל כפתור הנגישות, ללא חסימת לחיצות -->
+<!-- תמונת הרכב והדמות (3.png) בצד שמאל: פונה ישירות ל-GitHub עם גיבוי לקובץ מקומי -->
 <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
      class="side-car-left" 
      alt="Krav0n Skyline GT-R"
@@ -535,18 +546,26 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true" class="profile-pic" alt="תמונת הפרופיל המאוירת של Krav0n">
 <div class="profile-name">Krav0n</div>
 
-<!-- תג סטטוס שידור מ-Kick -->
-<a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" id="kickStatusBadge" class="kick-status-badge offline" aria-label="Kick Live Status" title="Kick Stream Status">
+<!-- תג סטטוס שידור מ-Kick: לא לחיץ במצב Offline (ללא href), לחיץ רק כאשר Live -->
+<a id="kickStatusBadge" class="kick-status-badge offline" aria-label="Kick Live Status" title="Krav0n is OFFLINE">
     <span class="status-dot"></span>
     <span class="status-text" id="kickStatusText">OFFLINE</span>
 </a>
 </div>
 
 <div class="links-container">
-<a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAEs0lEQVR4AZyW0XXcRgxFH1ZJ/pR/Sw3o5F+uw04BbsAuRykgKUcqwEkBsvMb6TNHYu7FkFxutLJlzxngARgAfDPkkrv79e+z6Zi8neNvP4918bi8mkZ8i9pD3nx+isbefHo1ibtUpSULhlF6AwtgLmm62oT2OTqzl8bOSrC1/o/G7CHupmlKkCkzCtiECBPV38q8RpFWtri1qZzX5qg9rBBbyAB3ssiWKQFmmqFG0nYYxpI52Kh9KHrmbFHbWtEy7c4hsINEBkdgYYg5TgCDqQ1wIq1VyKi0disjyu7IMK7fgmIaWvvY96snAMkMxon2og/RlSFq17aobQ/RJtqdQ4BnQFIwhh662clslflURlYYJBLTV6w5xNkjzbW1jz7iBYx1FsZONhDJARrgUsaS2TlAY0PU5mxR21rRMu0VNeJwtdInEAZkJLcKobZlqn2IvRXC7jG5u07+ua4VtbsfGR6W9ooaxmfsE9CXZQuOeHu1y5CTFe+4SHoHg732PbE/3/2Qv5AFte9vqjNV9gtjYGE5B/YJyHAVmGmPiy8kBt6z07Fn9QSxQnZ2eyK+X+zjMTZ2X06uHepn7OrBLBk4mOXoqFTHq/H26iT3192io4eKnDLSCkNE+iKVhlS6usmEuwxBNNZzE+Ys3V5VPr47wfrSJPegnw7SF5vXsHdFj8Em8AnDCHB0Vufcsevnd74UklvarTBEpC9Wqaqg+BX0vQkDVuhxAjBt+1Dd8mBeX/zIsVN8uLR6Z+8fcvnx3/z8+pHbb59Z2K29fTZYYHI9YtyCpdkWF3vt+1XjlAsq+0R7bMQdpzIAJLGqfAZkGMYWF5vwC+fp5ZSL3x9y/uFhrph7sEt3zpYBd80ysV4F+wSKWDL0wMXOi4YXPX09hQ2Rv9TO2EFsEcGKiQtCAFY8B9CLoifivGieXj7m7P3j/p6zK+v7XtO3kZjYQtctQkAue9FKhs4Lhw+nv4xYxy7FBvxGlB2rioir6VFoCEzAXrTcAcEXzfubXT795gvJdlSzW+sHcJ6EvP8D8OmqDXA+8SEs7L1opXnmm4Yk/BbcQSjUV9EJQeMWEQBdCXov/COSj8wWbP75nuFupndcZkGMYWF5vwC+fp5ZSL3x9y/uFhrph7sEt3zpYBd80ysV4F+wSKWDL0wMXOi4YXPX09hQ2Rv9TO2EFsEcGKiQtCAFY8B9CLoifivGieXj7m7P3j/p6zK+v7XtO3kZjYQtctQkAue9FKhs4Lhw+nv4xYxy7FBvxGlB2rioir6VFoCEzAXrTcAcEXzfubXT795gvJdlSzW+sHcJ6EvP8D8OmqDXA+8SEs7L1opXnmm4Yk/BbcQSjUV9EJQeMWEQBdCXov/COSj8wWbP75nuFupnd" style="width: 22px; height: 22px; object-fit: contain; margin-left: 8px;"> Kick</a>
-<a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord"><i class="fa-brands fa-discord"></i> Discord</a>
-<a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube"><i class="fa-brands fa-youtube"></i> YouTube</a>
-<a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
+<a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick">
+    <div class="btn-content"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAEs0lEQVR4AZyW0XXcRgxFH1ZJ/pR/Sw3o5F+uw04BbsAuRykgKUcqwEkBsvMb6TNHYu7FkFxutLJlzxngARgAfDPkkrv79e+z6Zi8neNvP4918bi8mkZ8i9pD3nx+isbefHo1ibtUpSULhlF6AwtgLmm62oT2OTqzl8bOSrC1/o/G7CHupmlKkCkzCtiECBPV38q8RpFWtri1qZzX5qg9rBBbyAB3ssiWKQFmmqFG0nYYxpI52Kh9KHrmbFHbWtEy7c4hsINEBkdgYYg5TgCDqQ1wIq1VyKi0disjyu7IMK7fgmIaWvvY96snAMkMxon2og/RlSFq17aobQ/RJtqdQ4BnQFIwhh662clslflURlYYJBLTV6w5xNkjzbW1jz7iBYx1FsZONhDJARrgUsaS2TlAY0PU5mxR21rRMu0VNeJwtdInEAZkJLcKobZlqn2IvRXC7jG5u07+ua4VtbsfGR6W9ooaxmfsE9CXZQuOeHu1y5CTFe+4SHoHg732PbE/3/2Qv5AFte9vqjNV9gtjYGE5B/YJyHAVmGmPiy8kBt6z07Fn9QSxQnZ2eyK+X+zjMTZ2X06uHepn7OrBLBk4mOXoqFTHq/H26iT3192io4eKnDLSCkNE+iKVhlS6usmEuwxBNNZzE+Ys3V5VPr47wfrSJPegnw7SF5vXsHdFj8Em8AnDCHB0Vufcsevnd74UklvarTBEpC9Wqaqg+BX0vQkDVuhxAjBt+1Dd8mBeX/zIsVN8uLR6Z+8fcvnx3/z8+pHbb59Z2K29fTZYYHI9YtyCpdkWF3vt+1XjlAsq+0R7bMQdpzIAJLGqfAZkGMYWF5vwC+fp5ZSL3x9y/uFhrph7sEt3zpYBd80ysV4F+wSKWDL0wMXOi4YXPX09hQ2Rv9TO2EFsEcGKiQtCAFY8B9CLoifivGieXj7m7P3j/p6zK+v7XtO3kZjYQtctQkAue9FKhs4Lhw+nv4xYxy7FBvxGlB2rioir6VFoCEzAXrTcAcEXzfubXT795gvJdlSzW+sHcJ6EvP8D8OmqDXA+8SEs7L1opXnmm4Yk/BbcQSjUV9EJQeMWEQBdCXov/COSj8wWbP75nuFupndcZkGMYWF5vwC+fp5ZSL3x9y/uFhrph7sEt3zpYBd80ysV4F+wSKWDL0wMXOi4YXPX09hQ2Rv9TO2EFsEcGKiQtCAFY8B9CLoifivGieXj7m7P3j/p6zK+v7XtO3kZjYQtctQkAue9FKhs4Lhw+nv4xYxy7FBvxGlB2rioir6VFoCEzAXrTcAcEXzfubXT795gvJdlSzW+sHcJ6EvP8D8OmqDXA+8SEs7L1opXnmm4Yk/BbcQSjUV9EJQeMWEQBdCXov/COSj8wWbP75nuFupnd" style="width: 22px; height: 22px; object-fit: contain; margin-left: 8px;"> Kick</div>
+</a>
+<a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord">
+    <div class="btn-content"><i class="fa-brands fa-discord"></i> Discord</div>
+</a>
+<a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube">
+    <div class="btn-content"><i class="fa-brands fa-youtube"></i> YouTube</div>
+</a>
+<a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram">
+    <div class="btn-content"><i class="fa-brands fa-instagram"></i> Instagram</div>
+</a>
 </div>
 
 <button class="accessibility-btn" id="accBtn" aria-label="תפריט נגישות">
@@ -584,7 +603,7 @@ document.addEventListener('keydown', function(e) {
     if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); }
 });
 
-// בדיקת סטטוס שידור מול Kick API צד-לקוח
+// לוגיקת בדיקת סטטוס שידור מול Kick API: לא לחיץ ב-Offline, לחיץ ב-Live בלבד
 async function checkKickLiveStatus() {
     const badge = document.getElementById('kickStatusBadge');
     const textSpan = document.getElementById('kickStatusText');
@@ -601,26 +620,35 @@ async function checkKickLiveStatus() {
             const isLive = Boolean(data && data.livestream);
 
             if (isLive) {
+                // מצב LIVE - לחיץ לפתיחת הזרמת השידור
                 badge.classList.remove('offline');
                 badge.classList.add('live');
                 textSpan.textContent = 'LIVE';
-                badge.title = 'Krav0n is LIVE on Kick!';
+                badge.href = 'https://kick.com/krav0n';
+                badge.target = '_blank';
+                badge.rel = 'noopener noreferrer';
+                badge.title = 'Krav0n is LIVE on Kick! Click to watch';
             } else {
+                // מצב OFFLINE - אינו לחיץ
                 badge.classList.remove('live');
                 badge.classList.add('offline');
                 textSpan.textContent = 'OFFLINE';
+                badge.removeAttribute('href');
+                badge.removeAttribute('target');
                 badge.title = 'Krav0n is OFFLINE';
             }
         } else {
             badge.classList.remove('live');
             badge.classList.add('offline');
             textSpan.textContent = 'OFFLINE';
+            badge.removeAttribute('href');
         }
     } catch (err) {
         console.warn('Kick status check error:', err);
         badge.classList.remove('live');
         badge.classList.add('offline');
         textSpan.textContent = 'OFFLINE';
+        badge.removeAttribute('href');
     }
 }
 
