@@ -45,6 +45,14 @@ body {
   overflow-x: hidden;
   line-height: 1.7;
   transition: background-color 0.3s ease, filter 0.3s ease;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .spotlight {
@@ -104,17 +112,11 @@ body {
   font-family: 'Poppins', system-ui, sans-serif;
   font-size: 32px;
   font-weight: 700;
-  margin: 0 0 6px 0;
+  margin: 0;
   background: linear-gradient(45deg, var(--accent-gold), var(--accent-orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 1px;
-}
-
-.page-subtitle {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin: 0;
 }
 
 .content-card {
@@ -233,6 +235,17 @@ body {
   color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(88, 101, 242, 0.4);
+}
+
+.card-update-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0.65;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  letter-spacing: 0.5px;
 }
 
 .footer-container {
@@ -360,8 +373,10 @@ body.grayscale { filter: grayscale(100%); }
 body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; --text-muted: #ffff88; --card-bg: #000000; --card-border: yellow; }
 body.high-contrast-mode .section-title, body.high-contrast-mode .section-text, body.high-contrast-mode .contact-item { color: yellow; }
 body.high-contrast-mode .nav-back { border-color: yellow; color: yellow; }
+body.high-contrast-mode .card-update-note { color: yellow; opacity: 0.85; border-color: rgba(255, 255, 0, 0.3); }
 body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; --text-muted: #333333; --card-bg: #f5f5f5; --card-border: #cccccc; }
 body.light-contrast-mode .section-title, body.light-contrast-mode .page-title, body.light-contrast-mode .section-text, body.light-contrast-mode .contact-item { color: #000000; }
+body.light-contrast-mode .card-update-note { color: #555555; opacity: 0.85; border-color: rgba(0, 0, 0, 0.15); }
 body.large-text-mode { font-size: 1.2em; }
 body.large-text-mode .section-text { font-size: 1.15em; }
 
@@ -388,7 +403,6 @@ body.large-text-mode .section-text { font-size: 1.15em; }
   <header class="header-section">
     <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true" class="header-avatar" alt="Krav0n Avatar" onerror="this.onerror=null; this.src='2.png';">
     <h1 class="page-title">מדיניות פרטיות</h1>
-    <p class="page-subtitle">עודכן לאחרונה: ספטמבר 2026</p>
   </header>
 
   <main class="content-card">
@@ -460,6 +474,7 @@ body.large-text-mode .section-text { font-size: 1.15em; }
           </a>
         </li>
       </ul>
+      <div class="card-update-note">עודכן לאחרונה: ספטמבר 2026</div>
     </section>
   </main>
 
@@ -499,14 +514,19 @@ body.large-text-mode .section-text { font-size: 1.15em; }
 </div>
 
 <script>
-// מניעת פתיחת כלי פיתוח ותפריט קליק ימני
+// מניעת העתקה, סימון, פתיחת כלי פיתוח ותפריט קליק ימני
 document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+document.addEventListener('copy', function(e) { e.preventDefault(); });
+document.addEventListener('selectstart', function(e) { e.preventDefault(); });
 document.addEventListener('keydown', function(e) {
   if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
   if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) { e.preventDefault(); }
   if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) { e.preventDefault(); }
   if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) { e.preventDefault(); }
   if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); }
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.keyCode === 67)) { e.preventDefault(); }
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'a' || e.key === 'A' || e.keyCode === 65)) { e.preventDefault(); }
+  if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S' || e.keyCode === 83)) { e.preventDefault(); }
 });
 
 // אפקט הספוטלייט בעקבות סמן העכבר
