@@ -217,67 +217,45 @@ position: relative;
 z-index: 2;
 }
 
-/* ================= תאורת ניאון כחולה בדיוק מתחת לקווים שסומנו בירוק =================
-   התאורה ממוקמת ישירות מתחת לקווי החצאית והספוילר, ומאירה / מהבהבת אך ורק כלפי מטה לכביש.
-   הדמות במרכז מסתירה לחלוטין את החלק שמאחוריה. */
+/* ================= תאורת ניאון כחולה ריאליסטית מתחת לרכב =================
+   ללא קווים מלאכותיים!
+   האור הוא זוהר ניאון רך שנשפך אך ורק כלפי מטה אל הכביש.
+   הרגליים והנעליים של הדמות נקיות ב-100% מכל אור (מרווח מוגן של 29% במרכז). */
 
-.neon-strip {
+.car-neon-down {
 position: absolute;
-height: 3px;
-background: #00f0ff;
-border-radius: 2px;
-pointer-events: none;
-z-index: 1;
-transform-origin: top center;
-animation: neonFlickerDown 2.2s ease-in-out infinite;
-box-shadow: 
-  0 4px 10px rgba(0, 240, 255, 0.95), 
-  0 10px 20px rgba(0, 150, 255, 0.7), 
-  0 20px 32px rgba(0, 90, 255, 0.35);
-}
-
-/* אלומת ניאון שנשפכת אך ורק כלפי מטה לכיוון הכביש */
-.neon-strip::after {
-content: '';
-position: absolute;
-top: 100%;
-left: -5%;
-width: 110%;
-height: 36px;
+height: 32px;
+border-radius: 0 0 50% 50%;
 background: linear-gradient(to bottom, 
-  rgba(0, 240, 255, 0.9) 0%, 
-  rgba(0, 150, 255, 0.55) 35%, 
-  rgba(0, 80, 255, 0.18) 70%, 
+  rgba(0, 235, 255, 0.95) 0%, 
+  rgba(0, 150, 255, 0.6) 35%, 
+  rgba(0, 80, 255, 0.2) 70%, 
   transparent 100%
 );
 filter: blur(8px);
-border-radius: 0 0 50% 50%;
+mix-blend-mode: screen;
 pointer-events: none;
+z-index: 1;
+transform-origin: top center;
+animation: neonGlowDown 2.2s ease-in-out infinite;
 }
 
-/* 1. חצאית שמאל (מאחורי הגלגל) */
-.neon-side-skirt {
-bottom: 20.8%;
+/* צד שמאל - מתחת לחצאית, לגלגל ולספוילר השמאלי (נעצר לחלוטין לפני רגלי הדמות ב-38%) */
+.car-neon-down.left {
+bottom: 17%;
 left: 0;
-width: 20%;
+width: 38%;
 }
 
-/* 2. ספוילר קדמי שמאל (מהגלגל ועד לנעליים של הדמות) */
-.neon-front-left {
-bottom: 18.5%;
-left: 20%;
-width: 24%;
+/* צד ימין - מתחת לפינת הטמבון הימנית (מתחיל רק אחרי רגלי הדמות ב-67%) */
+.car-neon-down.right {
+bottom: 17%;
+left: 67%;
+width: 14%;
 }
 
-/* 3. ספוילר קדמי ימין (מנעלי הדמות ועד פינת הטמבון הימנית) */
-.neon-front-right {
-bottom: 18.5%;
-left: 58%;
-width: 25%;
-}
-
-/* אנימציית הבהוב אך ורק לכיוון מטה */
-@keyframes neonFlickerDown {
+/* אנימציית עמעום והבהוב שנשפכת אך ורק כלפי מטה */
+@keyframes neonGlowDown {
 0%, 100% {
   opacity: 0;
   transform: scaleY(0.2);
@@ -325,11 +303,8 @@ filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.45));
   height: 180px;
   max-height: 25vh;
 }
-.neon-strip {
-  height: 2px;
-}
-.neon-strip::after {
-  height: 20px;
+.car-neon-down {
+  height: 18px;
   filter: blur(5px);
 }
 }
@@ -594,7 +569,7 @@ body.large-text-mode .link-btn { font-size: 1.1em; }
 @media (prefers-reduced-motion: reduce) {
 .link-btn { animation: none; }
 .kick-status-badge.live .status-dot { animation: none; }
-.neon-strip { animation: none; }
+.car-neon-down { animation: none; }
 }
 
 #lightningCanvas {
@@ -617,11 +592,10 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
      alt="Krav0n Character"
      onerror="this.onerror=null; this.src='1.png';">
 
-<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) עם תאורת ניאון כחולה בדיוק מתחת לקווים שסומנו בירוק שמהבהבת רק כלפי מטה -->
+<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) עם תאורת ניאון כחולה שמהבהבת רק כלפי מטה (אפס אור על רגלי הדמות) -->
 <div class="side-car-container">
-    <div class="neon-strip neon-side-skirt"></div>
-    <div class="neon-strip neon-front-left"></div>
-    <div class="neon-strip neon-front-right"></div>
+    <div class="car-neon-down left"></div>
+    <div class="car-neon-down right"></div>
     <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
          class="side-car-left" 
          alt="Krav0n Skyline GT-R"
