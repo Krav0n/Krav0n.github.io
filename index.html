@@ -89,7 +89,7 @@ object-fit: cover;
 border: 3px solid rgba(255, 255, 255, 0.3);
 box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 -webkit-user-drag: none;
-animation: profileLedBlink 2s ease-in-out infinite;
+animation: profileLedBlink 2.4s ease-in-out infinite;
 }
 
 /* אפקט לד לבן חלש מהבהב על מסגרת העיגול של תמונת הפרופיל (2.png) */
@@ -205,8 +205,8 @@ animation: liveRecPulse 1.4s infinite ease-in-out;
 }
 /* ============================================================== */
 
-/* ================= איזון ויישור שתי התמונות בצדדים עם אפקט לד לבן חלש מהבהב מסביב ================= */
-.side-car-left,
+/* ================= איזון ויישור שתי התמונות בצדדים ================= */
+.side-car-container,
 .side-char-right {
 position: fixed;
 /* שתיהן בדיוק באותו גובה מעל כפתור הנגישות */
@@ -216,45 +216,84 @@ pointer-events: none; /* מונע כל חסימה של לחיצה על כפתו�
 -webkit-user-drag: none;
 user-select: none;
 transition: bottom 0.3s ease, width 0.3s ease, height 0.3s ease;
-animation: whiteLedBlink 2s ease-in-out infinite;
 }
 
-/* תמונת רכב ניסאן GT-R (3.png) בצד שמאל - עם אפקט לד מהבהב מסביב בצבע לבן חלש */
-.side-car-left {
+/* מיקום מעטפת הרכב (3.png) בצד שמאל */
+.side-car-container {
 left: 0;
 width: 390px;
 max-width: 29vw;
 height: auto;
+}
+
+/* תמונת רכב ניסאן GT-R (3.png) - בסיס חד ונקי */
+.side-car-left {
+display: block;
+width: 100%;
+height: auto;
 mix-blend-mode: screen;
 }
 
-/* תמונת הדמות Krav0n (1.png) בצד ימין - עם אפקט לד מהבהב מסביב בצבע לבן חלש */
+/* שכבת לד מהבהב אך ורק בחלק התחתון של רכב 3.png */
+.side-car-bottom-led {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: -20px;
+pointer-events: none;
+-webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,0) 42%);
+mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,0) 42%);
+}
+
+.side-car-bottom-led img {
+display: block;
+width: 100%;
+height: auto;
+mix-blend-mode: screen;
+pointer-events: none;
+animation: carBottomLedBlink 2.4s ease-in-out infinite;
+}
+
+/* אנימציית לד מהבהב לתחתית הרכב */
+@keyframes carBottomLedBlink {
+0%, 100% {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.15))
+          drop-shadow(0 0 5px rgba(255, 255, 255, 0.08));
+}
+50% {
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.75))
+          drop-shadow(0 0 10px rgba(255, 255, 255, 0.4))
+          drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+}
+}
+
+/* תמונת הדמות Krav0n (1.png) בצד ימין - היבהוב עדין ומאופק מאוד (פחות בולט) */
 .side-char-right {
 right: 0;
 height: 430px;
 max-height: 48vh;
 width: auto;
+animation: subtleCharLedBlink 2.4s ease-in-out infinite;
 }
 
-/* אנימציית לד מהבהב מסביב לתמונות בצבע לבן רך ועדין */
-@keyframes whiteLedBlink {
+/* אנימציית לד עדין מסביב לדמות (פחות בולט בהתאם לבקשה) */
+@keyframes subtleCharLedBlink {
 0%, 100% {
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.15))
-          drop-shadow(0 0 6px rgba(255, 255, 255, 0.1))
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.08))
+          drop-shadow(0 0 3px rgba(255, 255, 255, 0.04))
           drop-shadow(0 4px 18px rgba(0, 0, 0, 0.45));
-  opacity: 0.94;
 }
 50% {
-  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
-          drop-shadow(0 0 10px rgba(255, 255, 255, 0.45))
-          drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.35))
+          drop-shadow(0 0 6px rgba(255, 255, 255, 0.18))
+          drop-shadow(0 0 12px rgba(255, 255, 255, 0.08))
           drop-shadow(0 4px 18px rgba(0, 0, 0, 0.45));
-  opacity: 1;
 }
 }
 
 @media (max-width: 1024px) {
-.side-car-left {
+.side-car-container {
   width: 300px;
   max-width: 34vw;
 }
@@ -265,11 +304,11 @@ width: auto;
 }
 
 @media (max-width: 768px) {
-.side-car-left,
+.side-car-container,
 .side-char-right {
   bottom: 105px; /* מרווח נקי ובטוח מעל כפתור הנגישות בנייד */
 }
-.side-car-left {
+.side-car-container {
   width: 160px;
   max-width: 40vw;
 }
@@ -540,7 +579,7 @@ body.large-text-mode .link-btn { font-size: 1.1em; }
 @media (prefers-reduced-motion: reduce) {
 .link-btn { animation: none; }
 .kick-status-badge.live .status-dot { animation: none; }
-.side-char-right, .side-car-left, .profile-pic { animation: none; }
+.side-char-right, .side-car-bottom-led img, .profile-pic { animation: none; }
 }
 
 #lightningCanvas {
@@ -557,17 +596,25 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 <body>
 <canvas id="lightningCanvas"></canvas>
 
-<!-- תמונה צד ימין: דמות Krav0n (1.png) מאוזנת באותו גובה עם אפקט לד לבן חלש מהבהב מסביב -->
+<!-- תמונה צד ימין: דמות Krav0n (1.png) מאוזנת באותו גובה עם לד עדין ומאופק (פחות בולט) -->
 <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/1.png?raw=true" 
      class="side-char-right" 
      alt="Krav0n Character"
      onerror="this.onerror=null; this.src='1.png';">
 
-<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) מאוזן באותו גובה עם אפקט לד לבן חלש מהבהב מסביב -->
-<img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
-     class="side-car-left" 
-     alt="Krav0n Skyline GT-R"
-     onerror="this.onerror=null; this.src='3.png';">
+<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) עם לד מהבהב אך ורק בחלק התחתון של הרכב -->
+<div class="side-car-container">
+    <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
+         class="side-car-left" 
+         alt="Krav0n Skyline GT-R"
+         onerror="this.onerror=null; this.src='3.png';">
+    <div class="side-car-bottom-led">
+        <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
+             alt="" 
+             aria-hidden="true"
+             onerror="this.onerror=null; this.src='3.png';">
+    </div>
+</div>
 
 <footer class="footer-container">
     <div class="footer-credit">Made by <span style="color: #facc15;">Krav0n</span></div>
