@@ -255,16 +255,17 @@ pointer-events: none;
 animation: carBottomLedBlink 2.4s ease-in-out infinite;
 }
 
-/* אנימציית לד מהבהב לתחתית הרכב */
+/* אנימציית לד מהבהב בצבע כחול בהיר לתחתית הרכב */
 @keyframes carBottomLedBlink {
 0%, 100% {
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.15))
-          drop-shadow(0 0 5px rgba(255, 255, 255, 0.08));
+  filter: drop-shadow(0 0 2px rgba(0, 220, 255, 0.2))
+          drop-shadow(0 0 5px rgba(0, 160, 255, 0.1));
 }
 50% {
-  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.75))
-          drop-shadow(0 0 10px rgba(255, 255, 255, 0.4))
-          drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+  filter: drop-shadow(0 0 3px rgba(180, 245, 255, 0.95))
+          drop-shadow(0 0 8px rgba(0, 210, 255, 0.8))
+          drop-shadow(0 0 16px rgba(0, 160, 255, 0.5))
+          drop-shadow(0 0 26px rgba(0, 120, 255, 0.25));
 }
 }
 
@@ -602,7 +603,7 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
      alt="Krav0n Character"
      onerror="this.onerror=null; this.src='1.png';">
 
-<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) עם לד מהבהב אך ורק בחלק התחתון של הרכב -->
+<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) עם לד כחול בהיר מהבהב אך ורק בחלק התחתון -->
 <div class="side-car-container">
     <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
          class="side-car-left" 
