@@ -217,46 +217,47 @@ position: relative;
 z-index: 2;
 }
 
-/* אפקט תאורת ניאון כחולה ריאליסטית מתחת לרכב:
-   הדמות עומדת בחזית ומסתירה את האור מאחוריה,
-   לכן הניאון מחולק לשני מוקדים מדויקים מתחת לספוילר הקדמי והגלגלים בלבד משני צידי הדמות */
+/* אפקט תאורת ניאון כחולה ריאליסטית שנשפכת על הכביש מתחת לגחון הרכב בלבד:
+   1. צד שמאל - הילת ניאון רחבה ורכה על הכביש מתחת לחצאית, הגלגל והספוילר השמאלי
+   2. צד ימין - הילת ניאון רכה על הכביש מתחת לפינה הימנית
+   3. במרכז - הדמות עומדת מקדימה ומסתירה לחלוטין את התאורה מאחוריה */
 
-/* 1. ניאון מתחת לגחון ולגלגל בצד שמאל - על הכביש מתחת לרכב */
+/* 1. ניאון אמיתי שנשפך על הכביש מתחת לרכב בצד שמאל */
 .car-underglow-left {
 position: absolute;
-bottom: 12%;
-left: 3%;
-width: 33%;
-height: 22px;
+bottom: 6%;
+left: 0;
+width: 46%;
+height: 45px;
 border-radius: 50%;
-background: radial-gradient(ellipse at 50% 50%, 
-  rgba(0, 235, 255, 0.95) 0%, 
-  rgba(0, 160, 255, 0.75) 45%, 
-  rgba(0, 90, 255, 0.2) 70%, 
-  transparent 85%
+background: radial-gradient(ellipse at 45% 45%, 
+  rgba(0, 230, 255, 0.95) 0%, 
+  rgba(0, 150, 255, 0.7) 35%, 
+  rgba(0, 80, 255, 0.25) 65%, 
+  transparent 80%
 );
-filter: blur(7px) drop-shadow(0 0 12px rgba(0, 220, 255, 0.9));
+filter: blur(14px);
 mix-blend-mode: screen;
 pointer-events: none;
 z-index: 1;
 animation: realisticNeonBlink 2.2s ease-in-out infinite;
 }
 
-/* 2. ניאון מתחת לספוילר בצד ימין - על הכביש מתחת לרכב */
+/* 2. ניאון אמיתי שנשפך על הכביש מתחת לפינה הימנית של הרכב */
 .car-underglow-right {
 position: absolute;
-bottom: 14%;
+bottom: 8%;
 left: 64%;
-width: 18%;
-height: 18px;
+width: 22%;
+height: 35px;
 border-radius: 50%;
-background: radial-gradient(ellipse at 50% 50%, 
-  rgba(0, 235, 255, 0.95) 0%, 
-  rgba(0, 160, 255, 0.75) 45%, 
-  rgba(0, 90, 255, 0.2) 70%, 
-  transparent 85%
+background: radial-gradient(ellipse at 50% 45%, 
+  rgba(0, 230, 255, 0.9) 0%, 
+  rgba(0, 140, 255, 0.6) 35%, 
+  rgba(0, 70, 255, 0.2) 65%, 
+  transparent 80%
 );
-filter: blur(6px) drop-shadow(0 0 10px rgba(0, 220, 255, 0.85));
+filter: blur(12px);
 mix-blend-mode: screen;
 pointer-events: none;
 z-index: 1;
@@ -312,12 +313,12 @@ filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.45));
   max-height: 25vh;
 }
 .car-underglow-left {
-  height: 10px;
-  filter: blur(4px) drop-shadow(0 0 6px rgba(0, 220, 255, 0.8));
+  height: 22px;
+  filter: blur(8px);
 }
 .car-underglow-right {
-  height: 8px;
-  filter: blur(3px) drop-shadow(0 0 5px rgba(0, 220, 255, 0.8));
+  height: 18px;
+  filter: blur(7px);
 }
 }
 /* =================================================================== */
