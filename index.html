@@ -86,9 +86,29 @@ width: 180px;
 height: 180px;
 border-radius: 50%;
 object-fit: cover;
-border: 3px solid #555;
+border: 3px solid rgba(255, 255, 255, 0.3);
 box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 -webkit-user-drag: none;
+animation: profileLedBlink 2s ease-in-out infinite;
+}
+
+/* אפקט לד לבן חלש מהבהב על מסגרת העיגול של תמונת הפרופיל (2.png) */
+@keyframes profileLedBlink {
+0%, 100% {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 0 4px rgba(255, 255, 255, 0.2), 
+    0 0 8px rgba(255, 255, 255, 0.1), 
+    0 4px 15px rgba(0, 0, 0, 0.5);
+}
+50% {
+  border-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 0 6px rgba(255, 255, 255, 0.8), 
+    0 0 16px rgba(255, 255, 255, 0.45), 
+    0 0 26px rgba(255, 255, 255, 0.2), 
+    0 4px 15px rgba(0, 0, 0, 0.5);
+}
 }
 
 .profile-name {
@@ -185,7 +205,7 @@ animation: liveRecPulse 1.4s infinite ease-in-out;
 }
 /* ============================================================== */
 
-/* ================= איזון ויישור שתי התמונות בצדדים ================= */
+/* ================= איזון ויישור שתי התמונות בצדדים עם אפקט לד לבן חלש מהבהב מסביב ================= */
 .side-car-left,
 .side-char-right {
 position: fixed;
@@ -196,9 +216,10 @@ pointer-events: none; /* מונע כל חסימה של לחיצה על כפתו�
 -webkit-user-drag: none;
 user-select: none;
 transition: bottom 0.3s ease, width 0.3s ease, height 0.3s ease;
+animation: whiteLedBlink 2s ease-in-out infinite;
 }
 
-/* תמונת רכב ניסאן GT-R (3.png) בצד שמאל - נקייה לחלוטין ללא שום ניאון */
+/* תמונת רכב ניסאן GT-R (3.png) בצד שמאל - עם אפקט לד מהבהב מסביב בצבע לבן חלש */
 .side-car-left {
 left: 0;
 width: 390px;
@@ -213,10 +234,9 @@ right: 0;
 height: 430px;
 max-height: 48vh;
 width: auto;
-animation: whiteLedBlink 2s ease-in-out infinite;
 }
 
-/* אנימציית לד מהבהב מסביב לדמות בצבע לבן רך ועדין */
+/* אנימציית לד מהבהב מסביב לתמונות בצבע לבן רך ועדין */
 @keyframes whiteLedBlink {
 0%, 100% {
   filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.15))
@@ -512,6 +532,7 @@ body.grayscale { filter: grayscale(100%); }
 body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; }
 body.high-contrast-mode .link-btn { border: 2px solid yellow; box-shadow: none; }
 body.high-contrast-mode .kick-status-badge { border: 2px solid yellow; }
+body.high-contrast-mode .profile-pic { border: 2px solid yellow; box-shadow: none; animation: none; }
 body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; }
 body.large-text-mode { font-size: 1.2em; }
 body.large-text-mode .link-btn { font-size: 1.1em; }
@@ -519,7 +540,7 @@ body.large-text-mode .link-btn { font-size: 1.1em; }
 @media (prefers-reduced-motion: reduce) {
 .link-btn { animation: none; }
 .kick-status-badge.live .status-dot { animation: none; }
-.side-char-right { animation: none; }
+.side-char-right, .side-car-left, .profile-pic { animation: none; }
 }
 
 #lightningCanvas {
@@ -542,7 +563,7 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
      alt="Krav0n Character"
      onerror="this.onerror=null; this.src='1.png';">
 
-<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) נקי לחלוטין ללא שום ניאון -->
+<!-- תמונה צד שמאל: רכב ניסאן GT-R (3.png) מאוזן באותו גובה עם אפקט לד לבן חלש מהבהב מסביב -->
 <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true" 
      class="side-car-left" 
      alt="Krav0n Skyline GT-R"
