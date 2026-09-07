@@ -21,14 +21,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 :root {
---bg-color: #0c0a14;
+--bg-color: #2b233d;
 --text-color: #ffffff;
 }
 
 body {
 background-color: var(--bg-color);
-background-image: radial-gradient(ellipse 85% 75% at 50% 18%, #1e1834 0%, #120e20 48%, #08060e 100%);
-background-attachment: fixed;
 color: var(--text-color);
 font-family: system-ui, -apple-system, sans-serif;
 display: flex;
@@ -91,7 +89,7 @@ object-fit: cover;
 border: 3px solid rgba(255, 255, 255, 0.3);
 box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 -webkit-user-drag: none;
-animation: profileLedBlink 2s ease-in-out infinite;
+animation: profileLedBlink 2.4s ease-in-out infinite;
 }
 
 /* אפקט לד לבן חלש מהבהב על מסגרת העיגול של תמונת הפרופיל (2.png) */
@@ -214,7 +212,7 @@ position: fixed;
 /* שתיהן בדיוק באותו גובה מעל כפתור הנגישות */
 bottom: calc(85px + 3vh);
 z-index: 0;
-pointer-events: none;
+pointer-events: none; /* מונע כל חסימה של לחיצה על כפתור הנגישות */
 -webkit-user-drag: none;
 user-select: none;
 transition: bottom 0.3s ease, width 0.3s ease, height 0.3s ease;
@@ -280,7 +278,7 @@ width: auto;
 animation: subtleCharLedBlink 2.4s ease-in-out infinite;
 }
 
-/* אנימציית לד עדין מסביב לדמות */
+/* אנימציית לד עדין מסביב לדמות (פחות בולט בהתאם לבקשה) */
 @keyframes subtleCharLedBlink {
 0%, 100% {
   filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.08))
@@ -309,7 +307,7 @@ animation: subtleCharLedBlink 2.4s ease-in-out infinite;
 @media (max-width: 768px) {
 .side-car-container,
 .side-char-right {
-  bottom: 105px;
+  bottom: 105px; /* מרווח נקי ובטוח מעל כפתור הנגישות בנייד */
 }
 .side-car-container {
   width: 160px;
@@ -330,11 +328,11 @@ display: flex;
 flex-direction: column;
 align-items: center;
 gap: 8px;
-font-family: 'Poppins', sans-serif;
+font-family: 'Poppins', sans-serif, system-ui;
 font-size: 13px;
 color: #ffffff;
+z-index: 10;
 opacity: 0.9;
-z-index: 1;
 }
 
 .footer-credit { letter-spacing: 1px; }
@@ -391,6 +389,8 @@ text-decoration: none;
 font-weight: bold;
 font-size: 16px;
 box-sizing: border-box;
+
+/* מסגרת 2.5px שבה עובר הניאון הזז לצדדים, בעוד שטח הכפתור הפנימי נשאר נקי וחלק */
 border: 2.5px solid transparent;
 background-clip: padding-box, border-box;
 background-origin: padding-box, border-box;
@@ -405,6 +405,8 @@ background-image:
   );
 background-size: 100% 100%, 200% 100%;
 animation: neonWaveMove 3s linear infinite;
+
+/* אפקט הילת ניאון זוהרת מסביב למסגרת */
 box-shadow: 
   0 0 12px var(--neon-glow), 
   0 0 24px var(--neon-glow), 
@@ -424,7 +426,7 @@ box-shadow:
 outline: none;
 }
 
-/* 1. כפתור Kick */
+/* 1. כפתור Kick - מסגרת ניאון ירוק זוהרת שזזה לצדדים */
 .btn-kick {
 --btn-surface: linear-gradient(#53fc18, #53fc18);
 --text-color-btn: #000000;
@@ -433,7 +435,7 @@ outline: none;
 --neon-glow: rgba(83, 252, 24, 0.55);
 }
 
-/* 2. כפתור Discord */
+/* 2. כפתור Discord - מסגרת ניאון כחול/סגול Blurple זוהרת שזזה לצדדים */
 .btn-discord {
 --btn-surface: linear-gradient(#5865F2, #5865F2);
 --text-color-btn: #ffffff;
@@ -442,33 +444,43 @@ outline: none;
 --neon-glow: rgba(88, 101, 242, 0.55);
 }
 
-/* 3. YouTube */
+/* 3. YouTube - מסגרת ניאון אדום בוהק זוהרת שזזה לצדדים */
 .btn-youtube {
 --btn-surface: linear-gradient(#FF0000, #FF0000);
 --text-color-btn: #ffffff;
---neon-main: #ff4d4d;
+--neon-main: #ff3333;
 --neon-dim: rgba(255, 0, 0, 0.25);
 --neon-glow: rgba(255, 0, 0, 0.55);
 }
 
-/* 4. Instagram */
+/* 4. Instagram - מסגרת ניאון אינסטגרם שזזה לצדדים */
 .btn-instagram {
 --btn-surface: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 --text-color-btn: #ffffff;
---neon-main: #ff6097;
---neon-dim: rgba(220, 39, 67, 0.25);
+--neon-dim: rgba(220, 39, 67, 0.3);
+--neon-main: #fc1076;
 --neon-glow: rgba(220, 39, 67, 0.55);
+background-image: 
+  var(--btn-surface),
+  linear-gradient(90deg, 
+    #f09433 0%, 
+    #dc2743 30%, 
+    #ffffff 50%, 
+    #bc1888 70%, 
+    #f09433 100%
+  );
 }
 
+/* הגדרת לוגו וקטורי Kick */
 .kick-svg-icon {
 width: 20px;
 height: 20px;
-fill: currentColor;
 display: inline-block;
 vertical-align: middle;
+fill: currentColor;
 }
+/* =================================================================== */
 
-/* ================= כפתור ותפריט נגישות ================= */
 .accessibility-btn {
 position: fixed;
 bottom: 20px;
@@ -557,11 +569,11 @@ color: #555;
 .acc-item:hover, .acc-item.active { background-color: #fff5f5; border-color: #e50000; color: #e50000; }
 
 body.grayscale { filter: grayscale(100%); }
-body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; background-image: none !important; }
+body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; }
 body.high-contrast-mode .link-btn { border: 2px solid yellow; box-shadow: none; }
 body.high-contrast-mode .kick-status-badge { border: 2px solid yellow; }
 body.high-contrast-mode .profile-pic { border: 2px solid yellow; box-shadow: none; animation: none; }
-body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; background-image: none !important; }
+body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; }
 body.large-text-mode { font-size: 1.2em; }
 body.large-text-mode .link-btn { font-size: 1.1em; }
 
@@ -575,7 +587,7 @@ body.large-text-mode .link-btn { font-size: 1.1em; }
 position: fixed;
 top: 0; left: 0;
 width: 100vw; height: 100vh;
-z-index: 0;
+z-index: -2;
 pointer-events: none;
 -webkit-mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
@@ -674,51 +686,76 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 // מניעת פתיחת כלי פיתוח ותפריט קליק ימני
 document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); }
+    if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) { e.preventDefault(); }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) { e.preventDefault(); }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) { e.preventDefault(); }
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); }
 });
 
-// ================= בדיקת סטטוס שידור ישיר מ-Kick API =================
-const KICK_CHANNEL = 'krav0n';
-const kickBadge = document.getElementById('kickStatusBadge');
-const kickText = document.getElementById('kickStatusText');
-
+// לוגיקת בדיקת סטטוס שידור מול Kick API: לא לחיץ ב-Offline, לחיץ ב-Live בלבד
 async function checkKickLiveStatus() {
-  try {
-    const response = await fetch(`https://kick.com/api/v2/channels/${KICK_CHANNEL}`);
-    if (!response.ok) return;
-    const data = await response.json();
-    const isLive = Boolean(data && data.livestream && data.livestream.is_live);
-    if (isLive) {
-      kickBadge.className = 'kick-status-badge live';
-      kickBadge.title = 'Krav0n is LIVE on Kick! לחץ לצפייה בשידור';
-      kickText.textContent = 'LIVE';
-      kickBadge.onclick = () => window.open(`https://kick.com/${KICK_CHANNEL}`, '_blank');
-    } else {
-      kickBadge.className = 'kick-status-badge offline';
-      kickBadge.title = 'Krav0n is OFFLINE';
-      kickText.textContent = 'OFFLINE';
-      kickBadge.onclick = null;
+    const badge = document.getElementById('kickStatusBadge');
+    const textSpan = document.getElementById('kickStatusText');
+    if (!badge || !textSpan) return;
+
+    try {
+        const response = await fetch('https://kick.com/api/v2/channels/krav0n', {
+            headers: { 'Accept': 'application/json' },
+            cache: 'no-store'
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const isLive = Boolean(data && data.livestream);
+
+            if (isLive) {
+                // מצב LIVE - הופך ללחיץ לפתיחת השידור ב-KICK
+                badge.classList.remove('offline');
+                badge.classList.add('live');
+                textSpan.textContent = 'LIVE';
+                badge.style.pointerEvents = 'auto';
+                badge.style.cursor = 'pointer';
+                badge.onclick = function() {
+                    window.open('https://kick.com/krav0n', '_blank', 'noopener,noreferrer');
+                };
+                badge.title = 'Krav0n is LIVE on Kick! Click to watch';
+            } else {
+                // מצב OFFLINE - אינו לחיץ כלל
+                badge.classList.remove('live');
+                badge.classList.add('offline');
+                textSpan.textContent = 'OFFLINE';
+                badge.style.pointerEvents = 'none';
+                badge.style.cursor = 'default';
+                badge.onclick = null;
+                badge.title = 'Krav0n is OFFLINE';
+            }
+        } else {
+            badge.classList.remove('live');
+            badge.classList.add('offline');
+            textSpan.textContent = 'OFFLINE';
+            badge.style.pointerEvents = 'none';
+            badge.style.cursor = 'default';
+            badge.onclick = null;
+        }
+    } catch (err) {
+        console.warn('Kick status check error:', err);
+        badge.classList.remove('live');
+        badge.classList.add('offline');
+        textSpan.textContent = 'OFFLINE';
+        badge.style.pointerEvents = 'none';
+        badge.style.cursor = 'default';
+        badge.onclick = null;
     }
-  } catch (err) {
-    console.debug('Kick status check error:', err);
-  }
 }
 
 checkKickLiveStatus();
 setInterval(checkKickLiveStatus, 60000);
-// ====================================================================
 
-// אנימציית ברקים
+// קנבס אפקט הברקים ברקע
 const canvas = document.getElementById('lightningCanvas');
 const ctx = canvas.getContext('2d');
-function resizeCanvas() {
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-}
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 function drawBolt(startX, startY, length, angle, branchProbability, depth) {
