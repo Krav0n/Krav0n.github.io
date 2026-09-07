@@ -21,17 +21,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
 
 :root {
-  --bg-color: #2b233d;
+  --bg-color: #0c0a14;
   --text-color: #ffffff;
   --text-muted: #d1cbe0;
   --accent-gold: #facc15;
   --accent-orange: #ff9800;
-  --card-bg: rgba(28, 24, 43, 0.85);
+  --card-bg: rgba(22, 18, 34, 0.88);
   --card-border: rgba(255, 255, 255, 0.12);
 }
 
 body {
   background-color: var(--bg-color);
+  background-image: radial-gradient(ellipse 85% 75% at 50% 18%, #1e1834 0%, #120e20 48%, #08060e 100%);
+  background-attachment: fixed;
   color: var(--text-color);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 0;
@@ -60,8 +62,28 @@ img {
   top: 0; left: 0;
   width: 100vw; height: 100vh;
   pointer-events: none;
-  background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255, 255, 255, 0.04) 0%, transparent 80px);
+  background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255, 255, 255, 0.05) 0%, transparent 80px);
   z-index: 0;
+  animation: lightningFlicker 2s infinite;
+}
+
+@keyframes lightningFlicker {
+  0%, 94%, 100% { opacity: 1; }
+  95% { opacity: 1.8; }
+  96% { opacity: 0.4; }
+  97% { opacity: 2.2; }
+  98% { opacity: 0.6; }
+  99% { opacity: 1.5; }
+}
+
+#lightningCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
+  mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 }
 
 .page-wrapper {
@@ -112,11 +134,17 @@ img {
   font-family: 'Poppins', system-ui, sans-serif;
   font-size: 32px;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 6px 0;
   background: linear-gradient(45deg, var(--accent-gold), var(--accent-orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 1px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .content-card {
@@ -370,11 +398,11 @@ img {
 .acc-item:hover, .acc-item.active { background-color: #fff5f5; border-color: #e50000; color: #e50000; }
 
 body.grayscale { filter: grayscale(100%); }
-body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; --text-muted: #ffff88; --card-bg: #000000; --card-border: yellow; }
+body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; --text-muted: #ffff88; --card-bg: #000000; --card-border: yellow; background-image: none !important; }
 body.high-contrast-mode .section-title, body.high-contrast-mode .section-text, body.high-contrast-mode .contact-item { color: yellow; }
 body.high-contrast-mode .nav-back { border-color: yellow; color: yellow; }
 body.high-contrast-mode .card-update-note { color: yellow; opacity: 0.85; border-color: rgba(255, 255, 0, 0.3); }
-body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; --text-muted: #333333; --card-bg: #f5f5f5; --card-border: #cccccc; }
+body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; --text-muted: #333333; --card-bg: #f5f5f5; --card-border: #cccccc; background-image: none !important; }
 body.light-contrast-mode .section-title, body.light-contrast-mode .page-title, body.light-contrast-mode .section-text, body.light-contrast-mode .contact-item { color: #000000; }
 body.light-contrast-mode .card-update-note { color: #555555; opacity: 0.85; border-color: rgba(0, 0, 0, 0.15); }
 body.large-text-mode { font-size: 1.2em; }
@@ -392,6 +420,7 @@ body.large-text-mode .section-text { font-size: 1.15em; }
 </style>
 </head>
 <body>
+<canvas id="lightningCanvas"></canvas>
 <div class="spotlight" id="spotlight"></div>
 
 <div class="page-wrapper">
@@ -479,7 +508,7 @@ body.large-text-mode .section-text { font-size: 1.15em; }
   </main>
 
   <footer class="footer-container">
-    <div class="footer-credit">Made by <span style="color: #facc15;">Krav0n</span></div>
+    <div class="footer-credit">Made by <span style="color: #facc15;">Krav0n</span>&nbsp;&nbsp;<span style="opacity:0.45; font-size:11px; letter-spacing:0.3px;">© 2026</span></div>
     <div class="footer-links">
       <a href="accessibility.html">הצהרת נגישות</a>
       <span class="separator">|</span>
@@ -549,6 +578,56 @@ document.getElementById('contrastLight').addEventListener('click', function() { 
 document.getElementById('contrastGray').addEventListener('click', function() { body.className = ''; body.classList.add('grayscale'); clearActiveButtons(); this.classList.add('active'); });
 document.getElementById('textLarge').addEventListener('click', function() { body.classList.toggle('large-text-mode'); this.classList.toggle('active'); });
 document.getElementById('accReset').addEventListener('click', function() { body.className = ''; clearActiveButtons(); });
+
+// קנבס אפקט הברקים ברקע
+const canvas = document.getElementById('lightningCanvas');
+const ctx = canvas.getContext('2d');
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+function drawBolt(startX, startY, length, angle, branchProbability, depth) {
+  if (depth > 3) return;
+  let currentX = startX, currentY = startY;
+  ctx.beginPath();
+  ctx.moveTo(currentX, currentY);
+  ctx.shadowBlur = depth === 0 ? 15 : 5;
+  ctx.shadowColor = "#facc15";
+  ctx.strokeStyle = `rgba(255, 255, 255, ${1 - depth * 0.2})`;
+  ctx.lineWidth = Math.max(1, 3 - depth);
+  let segments = Math.floor(length / 10);
+  for (let i = 0; i < segments; i++) {
+    let segmentAngle = angle + (Math.random() - 0.5) * 1.5;
+    currentX += Math.cos(segmentAngle) * 10;
+    currentY += Math.sin(segmentAngle) * 10;
+    ctx.lineTo(currentX, currentY);
+    if (Math.random() < branchProbability) {
+      let newAngle = angle + (Math.random() > 0.5 ? 1 : -1) * (0.5 + Math.random() * 0.5);
+      drawBolt(currentX, currentY, length * 0.5, newAngle, branchProbability * 0.5, depth + 1);
+      ctx.moveTo(currentX, currentY);
+    }
+  }
+  ctx.stroke();
+}
+function strike() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let startX, startY, angle;
+  const edge = Math.random();
+  if (edge < 0.25) { startX = Math.random() * canvas.width; startY = 0; angle = Math.PI / 2; }
+  else if (edge < 0.5) { startX = canvas.width; startY = Math.random() * canvas.height; angle = Math.PI; }
+  else if (edge < 0.75) { startX = Math.random() * canvas.width; startY = canvas.height; angle = -Math.PI / 2; }
+  else { startX = 0; startY = Math.random() * canvas.height; angle = 0; }
+  let centerX = canvas.width / 2, centerY = canvas.height / 2;
+  angle = Math.atan2(centerY - startY, centerX - startX) + (Math.random() - 0.5) * 0.5;
+  drawBolt(startX, startY, canvas.height * 0.6, angle, 0.1, 0);
+  ctx.fillStyle = "rgba(255, 255, 150, 0.03)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  setTimeout(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (Math.random() < 0.3) { setTimeout(strike, 50 + Math.random() * 100); return; }
+    setTimeout(strike, 2000 + Math.random() * 6000);
+  }, 100);
+}
+setTimeout(strike, 1500);
 </script>
 </body>
 </html>
