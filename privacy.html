@@ -6,7 +6,6 @@
 <title>מדיניות פרטיות | Krav0n</title>
 <link rel="icon" type="image/png" href="favicon.png?v=2">
 
-<!-- === Google Analytics 4 (Private Analytics) === -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-N1LLZ9CNJF"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -14,7 +13,6 @@
   gtag('js', new Date());
   gtag('config', 'G-N1LLZ9CNJF');
 </script>
-<!-- ============================================== -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -52,17 +50,13 @@ body {
   user-select: none;
 }
 
-img {
-  -webkit-user-drag: none;
-  user-select: none;
-}
+img { -webkit-user-drag: none; user-select: none; }
 
 .spotlight {
-  position: fixed;
-  top: 0; left: 0;
+  position: fixed; top: 0; left: 0;
   width: 100vw; height: 100vh;
   pointer-events: none;
-  background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255, 255, 255, 0.05) 0%, transparent 80px);
+  background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255,255,255,0.05) 0%, transparent 80px);
   z-index: 0;
   animation: lightningFlicker 2s infinite;
 }
@@ -77,336 +71,202 @@ img {
 }
 
 #lightningCanvas {
-  position: fixed;
-  top: 0; left: 0;
+  position: fixed; top: 0; left: 0;
   width: 100vw; height: 100vh;
-  z-index: 0;
-  pointer-events: none;
+  z-index: 0; pointer-events: none;
   -webkit-mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
   mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 }
 
-.page-wrapper {
-  width: 100%;
-  max-width: 780px;
-  position: relative;
-  z-index: 1;
-}
+.page-wrapper { width: 100%; max-width: 780px; position: relative; z-index: 1; }
 
 .nav-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 25px;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  transition: all 0.2s ease;
+  display: inline-flex; align-items: center; gap: 10px;
+  color: #ffffff; text-decoration: none;
+  font-size: 14px; font-weight: 600;
+  margin-bottom: 25px; padding: 8px 16px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px; transition: all 0.2s ease;
 }
+.nav-back:hover { background: rgba(255,255,255,0.15); transform: translateX(4px); color: var(--accent-gold); }
 
-.nav-back:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateX(4px);
-  color: var(--accent-gold);
-}
-
-.header-section {
-  text-align: center;
-  margin-bottom: 35px;
-}
+.header-section { text-align: center; margin-bottom: 35px; }
 
 .header-avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.3), 0 4px 15px rgba(0, 0, 0, 0.5);
+  width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.4);
+  box-shadow: 0 0 16px rgba(255,255,255,0.3), 0 4px 15px rgba(0,0,0,0.5);
   margin-bottom: 12px;
 }
 
 .page-title {
   font-family: 'Poppins', system-ui, sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  margin: 0 0 6px 0;
+  font-size: 32px; font-weight: 700; margin: 0 0 6px 0;
   background: linear-gradient(45deg, var(--accent-gold), var(--accent-orange));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   letter-spacing: 1px;
 }
 
-.page-subtitle {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin: 0;
-}
+.page-subtitle { font-size: 14px; color: var(--text-muted); margin: 0; }
 
 .content-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 35px 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 16px; padding: 35px 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
 
 .policy-section {
-  margin-bottom: 30px;
-  padding-bottom: 25px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 30px; padding-bottom: 25px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
+.policy-section:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
 
-.policy-section:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 
 .section-number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
   background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
-  color: #000000;
-  font-weight: 700;
-  font-size: 14px;
-  font-family: 'Poppins', sans-serif;
-  flex-shrink: 0;
+  color: #000000; font-weight: 700; font-size: 14px;
+  font-family: 'Poppins', sans-serif; flex-shrink: 0;
 }
 
-.section-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0;
-}
+.section-title { font-size: 18px; font-weight: 700; color: #ffffff; margin: 0; }
+.section-text { font-size: 15px; color: var(--text-muted); margin: 0; line-height: 1.8; }
 
-.section-text {
-  font-size: 15px;
-  color: var(--text-muted);
-  margin: 0;
-  line-height: 1.8;
-}
-
-.contact-list {
-  list-style: none;
-  padding: 0;
-  margin: 15px 0 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.contact-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 15px;
-  color: #ffffff;
-  flex-wrap: wrap;
-}
-
-.contact-item i {
-  color: var(--accent-gold);
-  width: 20px;
-  text-align: center;
-}
-
-.contact-link {
-  color: var(--accent-gold);
-  text-decoration: none;
-  font-weight: 600;
-  transition: opacity 0.2s;
-}
-
-.contact-link:hover {
-  opacity: 0.8;
-  text-decoration: underline;
-}
+.contact-list { list-style: none; padding: 0; margin: 15px 0 0 0; display: flex; flex-direction: column; gap: 12px; }
+.contact-item { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: #ffffff; flex-wrap: wrap; }
+.contact-item i { color: var(--accent-gold); width: 20px; text-align: center; }
+.contact-link { color: var(--accent-gold); text-decoration: none; font-weight: 600; transition: opacity 0.2s; }
+.contact-link:hover { opacity: 0.8; text-decoration: underline; }
 
 .contact-discord-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(88, 101, 242, 0.25);
-  border: 1px solid rgba(88, 101, 242, 0.55);
-  padding: 4px 12px;
-  border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  color: #c7d2fe;
-  text-decoration: none;
-  direction: ltr;
-  transition: all 0.2s ease;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(88,101,242,0.25); border: 1px solid rgba(88,101,242,0.55);
+  padding: 4px 12px; border-radius: 8px;
+  font-family: 'Poppins', sans-serif; font-size: 14px; color: #c7d2fe;
+  text-decoration: none; direction: ltr; transition: all 0.2s ease;
 }
-
 .contact-discord-link:hover {
-  background: rgba(88, 101, 242, 0.55);
-  border-color: #5865f2;
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(88, 101, 242, 0.4);
+  background: rgba(88,101,242,0.55); border-color: #5865f2; color: #ffffff;
+  transform: translateY(-2px); box-shadow: 0 4px 12px rgba(88,101,242,0.4);
 }
 
 .card-update-note {
-  text-align: center;
-  font-size: 12px;
-  color: var(--text-muted);
-  opacity: 0.65;
-  margin-top: 25px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  letter-spacing: 0.5px;
+  text-align: center; font-size: 12px; color: var(--text-muted); opacity: 0.65;
+  margin-top: 25px; padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,0.08); letter-spacing: 0.5px;
 }
 
 .footer-container {
-  margin-top: 50px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Poppins', sans-serif, system-ui;
-  font-size: 13px;
-  color: #ffffff;
-  opacity: 0.9;
+  margin-top: 50px; width: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px; font-family: 'Poppins', sans-serif, system-ui;
+  font-size: 13px; color: #ffffff; opacity: 0.9;
 }
-
 .footer-credit { letter-spacing: 1px; }
-
-.footer-links {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.footer-links a {
-  color: #ffffff;
-  text-decoration: none;
-  transition: color 0.2s;
-  opacity: 0.8;
-}
-
+.footer-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.footer-links a { color: #ffffff; text-decoration: none; transition: color 0.2s; opacity: 0.8; }
 .footer-links a:hover { color: var(--accent-gold); opacity: 1; }
 .footer-links .separator { opacity: 0.5; }
 
-/* ================= כפתור ותפריט נגישות ================= */
-.accessibility-btn {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: #e50000;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  z-index: 1000;
-  transition: transform 0.2s;
+/* ===== תפריט נגישות חדש ===== */
+.accessibility-open {
+  position: fixed; left: 20px; bottom: 20px;
+  width: 58px; height: 58px; border: 0;
+  border-radius: 50%; background: #2161ff; color: #fff;
+  cursor: pointer; z-index: 999999;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; box-shadow: 0 4px 18px rgba(0,0,0,.25); transition: .15s;
 }
-.accessibility-btn:hover { transform: scale(1.1); }
+.accessibility-open:hover { transform: scale(1.05); }
 
-.accessibility-menu {
-  position: fixed;
-  bottom: 90px;
-  left: 20px;
-  background-color: #ffffff;
-  color: #333;
-  border-radius: 8px;
-  width: 320px;
-  display: none;
-  flex-direction: column;
-  z-index: 999;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  overflow: hidden;
+.accessibility-panel {
+  position: fixed; left: 0; top: 0;
+  width: 380px; max-width: 100vw; height: 100vh;
+  background: #fff; z-index: 1000000;
+  box-shadow: 5px 0 25px rgba(0,0,0,.25);
+  transform: translateX(-100%); transition: transform .25s ease;
+  display: flex; flex-direction: column;
+  font-family: Arial,"Segoe UI",sans-serif; direction: rtl;
 }
-.accessibility-menu.active { display: flex; }
+.accessibility-panel.open { transform: translateX(0); }
 
-.acc-header {
-  background-color: #e50000;
-  color: white;
-  padding: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.accessibility-header {
+  height: 60px; min-height: 60px; background: #2161ff; color: #fff;
+  display: flex; align-items: center; position: relative; padding: 0 18px;
 }
-.acc-header button { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+.accessibility-title { width: 100%; text-align: center; font-size: 22px; font-weight: bold; }
 
-.acc-content { padding: 15px; max-height: 60vh; overflow-y: auto; }
+.accessibility-close {
+  position: absolute; left: 10px; top: 10px;
+  width: 38px; height: 38px; border: 0;
+  border-radius: 9px; background: rgba(255,255,255,.15); color: #fff;
+  font-size: 30px; line-height: 30px; cursor: pointer;
+}
+.accessibility-close:hover { background: rgba(255,255,255,.25); }
 
-.acc-section-title {
-  font-size: 15px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  color: #444;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.accessibility-content { overflow-y: auto; overflow-x: hidden; flex: 1; padding: 15px 18px 20px; }
+.accessibility-content::-webkit-scrollbar { width: 8px; }
+.accessibility-content::-webkit-scrollbar-thumb { background: #999; border-radius: 10px; }
+
+.accessibility-section-title { font-size: 14px; font-weight: bold; color: #666; margin: 12px 5px 10px; text-align: right; }
+.accessibility-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.accessibility-item {
+  min-height: 108px; border: 0; border-radius: 14px; background: #f2f4fa;
+  cursor: pointer; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font-family: inherit;
+  transition: background .15s, transform .15s; color: #333;
+}
+.accessibility-item:hover { background: #e9edfa; }
+.accessibility-item:active { transform: scale(.98); }
+.accessibility-item.active { background: #e3ebff; box-shadow: inset 0 0 0 2px #2161ff; }
+
+.accessibility-icon { width: 30px; height: 30px; margin-bottom: 10px; color: #2161ff; font-size: 28px; display: flex; align-items: center; justify-content: center; }
+.accessibility-label { font-size: 15px; color: #222; font-weight: 500; line-height: 1.3; }
+
+.accessibility-reset {
+  width: 100%; height: 50px; margin-top: 18px;
+  background: #fff; border: 2px solid #e0e3ea;
+  border-radius: 10px; font-family: inherit;
+  font-size: 16px; font-weight: bold; color: #222; cursor: pointer;
+}
+.accessibility-reset:hover { background: #f5f6f8; }
+
+.accessibility-statement { display: block; text-align: center; margin-top: 14px; margin-bottom: 5px; color: #777; font-size: 13px; text-decoration: underline; cursor: pointer; }
+
+body.access-large-text { font-size: 120% !important; }
+body.access-line-spacing * { line-height: 2 !important; }
+body.access-readable-font, body.access-readable-font * { font-family: Arial,sans-serif !important; }
+body.access-letter-spacing * { letter-spacing: 2px !important; }
+body.access-headings h1, body.access-headings h2, body.access-headings h3,
+body.access-headings h4, body.access-headings h5, body.access-headings h6 { outline: 3px solid #2161ff !important; outline-offset: 3px !important; }
+body.access-links a { text-decoration: underline !important; font-weight: bold !important; }
+body.access-high-contrast { filter: contrast(160%) !important; }
+body.access-invert { filter: invert(1) hue-rotate(180deg) !important; }
+body.access-grayscale { filter: grayscale(100%) !important; }
+body.access-saturation { filter: saturate(180%) !important; }
+body.access-hide-images img { visibility: hidden !important; }
+body.access-no-animation *, body.access-no-animation *::before, body.access-no-animation *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+body.access-focus *:focus { outline: 4px solid #2161ff !important; outline-offset: 3px !important; }
+body.access-big-cursor, body.access-big-cursor * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M4 2L42 25L27 28L38 43L31 47L20 32L12 42Z' fill='black' stroke='white' stroke-width='3'/%3E%3C/svg%3E") 4 2, auto !important;
 }
 
-.acc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 25px;
-}
+#reading-guide { position: fixed; left: 0; right: 0; height: 4px; background: #2161ff; pointer-events: none; z-index: 999999; display: none; }
+#reading-mask { position: fixed; left: 0; right: 0; top: 40%; height: 80px; background: rgba(0,0,0,.15); border-top: 3px solid #2161ff; border-bottom: 3px solid #2161ff; pointer-events: none; z-index: 999998; display: none; }
+.speech-status { position: fixed; bottom: 90px; left: 20px; max-width: 320px; padding: 12px 18px; background: #2161ff; color: #fff; border-radius: 10px; font-family: Arial,sans-serif; font-size: 14px; z-index: 1000001; display: none; box-shadow: 0 4px 15px rgba(0,0,0,.25); }
 
-.acc-item {
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  padding: 12px 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: center;
-  font-size: 13px;
-  color: #555;
+@media(max-width: 500px) {
+  .accessibility-panel { width: 100%; }
+  .accessibility-grid { gap: 8px; }
+  .accessibility-item { min-height: 100px; }
+  .accessibility-open { left: 15px; bottom: 15px; }
 }
-.acc-item i { font-size: 24px; color: #e50000; }
-.acc-item:hover, .acc-item.active { background-color: #fff5f5; border-color: #e50000; color: #e50000; }
-
-body.grayscale { filter: grayscale(100%); }
-body.high-contrast-mode { --bg-color: #000000; --text-color: #ffff00; --text-muted: #ffff88; --card-bg: #000000; --card-border: yellow; background-image: none !important; }
-body.high-contrast-mode .section-title, body.high-contrast-mode .section-text, body.high-contrast-mode .contact-item { color: yellow; }
-body.high-contrast-mode .nav-back { border-color: yellow; color: yellow; }
-body.high-contrast-mode .card-update-note { color: yellow; opacity: 0.85; border-color: rgba(255, 255, 0, 0.3); }
-body.light-contrast-mode { --bg-color: #ffffff; --text-color: #000000; --text-muted: #333333; --card-bg: #f5f5f5; --card-border: #cccccc; background-image: none !important; }
-body.light-contrast-mode .section-title, body.light-contrast-mode .page-title, body.light-contrast-mode .section-text, body.light-contrast-mode .contact-item { color: #000000; }
-body.light-contrast-mode .card-update-note { color: #555555; opacity: 0.85; border-color: rgba(0, 0, 0, 0.15); }
-body.large-text-mode { font-size: 1.2em; }
-body.large-text-mode .section-text { font-size: 1.15em; }
 
 @media (max-width: 768px) {
   body { padding: 25px 15px 60px 15px; }
@@ -414,12 +274,11 @@ body.large-text-mode .section-text { font-size: 1.15em; }
   .page-title { font-size: 26px; }
   .section-title { font-size: 16px; }
   .section-text { font-size: 14px; }
-  .accessibility-btn { bottom: 15px; left: 15px; width: 50px; height: 50px; font-size: 25px; }
-  .accessibility-menu { bottom: 75px; left: 15px; width: 290px; }
 }
 </style>
 </head>
 <body>
+
 <canvas id="lightningCanvas"></canvas>
 <div class="spotlight" id="spotlight"></div>
 
@@ -435,59 +294,44 @@ body.large-text-mode .section-text { font-size: 1.15em; }
   </header>
 
   <main class="content-card">
-    <!-- סעיף 1 -->
     <section class="policy-section">
       <div class="section-header">
         <span class="section-number">1</span>
         <h2 class="section-title">איסוף נתונים אוטומטי על ידי פלטפורמת האחסון</h2>
       </div>
-      <p class="section-text">
-        האתר מאוחסן ומורץ באמצעות שירות GitHub Pages (המופעל על ידי GitHub, Inc.). מערכות GitHub עשויות לאסוף ולשמור באופן אוטומטי פרטים טכניים מסוימים מהדפדפן שלך, הכוללים: כתובת IP, סוג דפדפן ומערכת הפעלה, תאריך ושעת הביקור, והדפים שבהם צפית. מידע זה משמש לצורכי אבטחה, מניעת הונאות וניטור תקינות השרתים בלבד.
-      </p>
+      <p class="section-text">האתר מאוחסן ומורץ באמצעות שירות GitHub Pages (המופעל על ידי GitHub, Inc.). מערכות GitHub עשויות לאסוף ולשמור באופן אוטומטי פרטים טכניים מסוימים מהדפדפן שלך, הכוללים: כתובת IP, סוג דפדפן ומערכת הפעלה, תאריך ושעת הביקור, והדפים שבהם צפית. מידע זה משמש לצורכי אבטחה, מניעת הונאות וניטור תקינות השרתים בלבד.</p>
     </section>
 
-    <!-- סעיף 2 -->
     <section class="policy-section">
       <div class="section-header">
         <span class="section-number">2</span>
         <h2 class="section-title">מידע שנמסר על ידך מרצון</h2>
       </div>
-      <p class="section-text">
-        במידה ותבחר לפנות אלינו באמצעות כתובת האימייל המופיעה באתר, כל מידע שתבחר למסור יישמר אצלנו אך ורק לצורך טיפול ומענה לפנייתך. אנו מתחייבים שלא למכור, לשכור או לשתף את פרטי הקשר שלך עם גורמים מסחריים חיצוניים למטרות שיווק.
-      </p>
+      <p class="section-text">במידה ותבחר לפנות אלינו באמצעות כתובת האימייל המופיעה באתר, כל מידע שתבחר למסור יישמר אצלנו אך ורק לצורך טיפול ומענה לפנייתך. אנו מתחייבים שלא למכור, לשכור או לשתף את פרטי הקשר שלך עם גורמים מסחריים חיצוניים למטרות שיווק.</p>
     </section>
 
-    <!-- סעיף 3 -->
     <section class="policy-section">
       <div class="section-header">
         <span class="section-number">3</span>
         <h2 class="section-title">קובצי עוגיות (Cookies) וטכנולוגיות מעקב</h2>
       </div>
-      <p class="section-text">
-        האתר עושה שימוש בקוד מעקב של Google Analytics במטרה להבין טוב יותר את העדפות הגולשים ולשפר את מבנה האתר. הנתונים הנאספים באמצעות כלי זה מועברים לחברת Google ומעובדים על ידה לצורך הפקת דוחות סטטיסטיים ואנונימיים בלבד (כמו כמות כניסות וארץ הגלישה), ואינם משמשים אותנו לזיהוי אישי שלך. באפשרותך לחסום או למחוק קבצים אלו בכל עת דרך הגדרות הדפדפן שלך.
-      </p>
+      <p class="section-text">האתר עושה שימוש בקוד מעקב של Google Analytics במטרה להבין טוב יותר את העדפות הגולשים ולשפר את מבנה האתר. הנתונים הנאספים באמצעות כלי זה מועברים לחברת Google ומעובדים על ידה לצורך הפקת דוחות סטטיסטיים ואנונימיים בלבד (כמו כמות כניסות וארץ הגלישה), ואינם משמשים אותנו לזיהוי אישי שלך. באפשרותך לחסום או למחוק קבצים אלו בכל עת דרך הגדרות הדפדפן שלך.</p>
     </section>
 
-    <!-- סעיף 4 -->
     <section class="policy-section">
       <div class="section-header">
         <span class="section-number">4</span>
         <h2 class="section-title">שינויים ותוקף המדיניות</h2>
       </div>
-      <p class="section-text">
-        אנו שומרים לעצמנו את הזכות לעדכן מסמך זה מעת לעת. מומלץ לבקר בדף זה מדי פעם כדי להתעדכן בשינויים.
-      </p>
+      <p class="section-text">אנו שומרים לעצמנו את הזכות לעדכן מסמך זה מעת לעת. מומלץ לבקר בדף זה מדי פעם כדי להתעדכן בשינויים.</p>
     </section>
 
-    <!-- סעיף 5 -->
     <section class="policy-section">
       <div class="section-header">
         <span class="section-number">5</span>
         <h2 class="section-title">יצירת קשר בנושאי פרטיות</h2>
       </div>
-      <p class="section-text">
-        בכל שאלה הנוגעת לשמירה על הפרטיות שלך באתר, או בבקשה לעיון ומחיקת מידע שנמסר על ידך, ניתן לפנות אלינו ישירות בערוצים הבאים:
-      </p>
+      <p class="section-text">בכל שאלה הנוגעת לשמירה על הפרטיות שלך באתר, או בבקשה לעיון ומחיקת מידע שנמסר על ידך, ניתן לפנות אלינו ישירות בערוצים הבאים:</p>
       <ul class="contact-list">
         <li class="contact-item">
           <i class="fa-solid fa-envelope"></i>
@@ -499,7 +343,7 @@ body.large-text-mode .section-text { font-size: 1.15em; }
           <span>דיסקורד:</span>
           <a href="https://discord.com/users/1446068764910157925" target="_blank" rel="noopener noreferrer" class="contact-discord-link" title="פתיחת שיחה ישירה עם Krav0n בדיסקורד">
             <span>krav0n</span>
-            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
           </a>
         </li>
       </ul>
@@ -508,78 +352,79 @@ body.large-text-mode .section-text { font-size: 1.15em; }
   </main>
 
   <footer class="footer-container">
-    <div class="footer-credit">Made by <span style="color: #facc15;">Krav0n</span>&nbsp;&nbsp;<span style="opacity:0.45; font-size:11px; letter-spacing:0.3px;">© 2026</span></div>
+    <div class="footer-credit">Made by <span style="color:#facc15;">Krav0n</span>&nbsp;&nbsp;<span style="opacity:0.45;font-size:11px;letter-spacing:0.3px;">© 2026</span></div>
     <div class="footer-links">
       <a href="accessibility.html">הצהרת נגישות</a>
       <span class="separator">|</span>
-      <a href="privacy.html" style="color: var(--accent-gold);">מדיניות פרטיות</a>
+      <a href="privacy.html" style="color:var(--accent-gold);">מדיניות פרטיות</a>
     </div>
   </footer>
 </div>
 
-<!-- כפתור ותפריט נגישות -->
-<button class="accessibility-btn" id="accBtn" aria-label="תפריט נגישות">
-  <i class="fa-solid fa-universal-access"></i>
-</button>
+<!-- ===== כפתור ופאנל נגישות ===== -->
+<button class="accessibility-open" id="accessibilityOpen" aria-label="פתיחת כלי נגישות" title="כלי נגישות">♿</button>
 
-<div class="accessibility-menu" id="accMenu">
-  <div class="acc-header">
-    <span>תפריט נגישות</span>
-    <button id="closeAccBtn">&times;</button>
+<div class="accessibility-panel" id="accessibilityPanel" aria-label="כלי נגישות">
+  <div class="accessibility-header">
+    <div class="accessibility-title">כלי נגישות</div>
+    <button class="accessibility-close" id="accessibilityClose" aria-label="סגירת כלי נגישות">×</button>
   </div>
-  <div class="acc-content">
-    <div class="acc-section-title">התאמות ניגודיות</div>
-    <div class="acc-grid">
-      <div class="acc-item" id="contrastDark"><i class="fa-solid fa-moon"></i>ניגודיות כהה</div>
-      <div class="acc-item" id="contrastLight"><i class="fa-solid fa-sun"></i>ניגודיות בהירה</div>
-      <div class="acc-item" id="contrastGray"><i class="fa-solid fa-eye-dropper"></i>מונוכרום</div>
+  <div class="accessibility-content">
+    <div class="accessibility-section-title">טקסט וקריאה</div>
+    <div class="accessibility-grid">
+      <button class="accessibility-item" data-action="text-to-speech"><div class="accessibility-icon">🔊</div><div class="accessibility-label">הקראת טקסט</div></button>
+      <button class="accessibility-item" data-action="large-text"><div class="accessibility-icon">A⁺</div><div class="accessibility-label">הגדלת טקסט</div></button>
+      <button class="accessibility-item" data-action="line-spacing"><div class="accessibility-icon">☰</div><div class="accessibility-label">מרווח שורות</div></button>
+      <button class="accessibility-item" data-action="readable-font"><div class="accessibility-icon">T</div><div class="accessibility-label">גופן קריא</div></button>
+      <button class="accessibility-item" data-action="letter-spacing"><div class="accessibility-icon">#</div><div class="accessibility-label">ריווח אותיות</div></button>
+      <button class="accessibility-item" data-action="headings"><div class="accessibility-icon">H</div><div class="accessibility-label">הדגשת כותרות</div></button>
+      <button class="accessibility-item" data-action="links"><div class="accessibility-icon">🔗</div><div class="accessibility-label">הדגשת קישורים</div></button>
+      <button class="accessibility-item" data-action="align"><div class="accessibility-icon">≡</div><div class="accessibility-label">יישור טקסט</div></button>
     </div>
-    <div class="acc-section-title">הגדלת הטקסט והגופן</div>
-    <div class="acc-grid">
-      <div class="acc-item" id="textLarge"><i class="fa-solid fa-text-height"></i>הגדלת טקסט</div>
-      <div class="acc-item" id="accReset"><i class="fa-solid fa-arrow-rotate-left"></i>איפוס הגדרות</div>
+    <div class="accessibility-section-title">צבע וניגודיות</div>
+    <div class="accessibility-grid">
+      <button class="accessibility-item" data-action="contrast"><div class="accessibility-icon">◐</div><div class="accessibility-label">ניגודיות</div></button>
+      <button class="accessibility-item" data-action="invert"><div class="accessibility-icon">◑</div><div class="accessibility-label">היפוך צבעים</div></button>
+      <button class="accessibility-item" data-action="grayscale"><div class="accessibility-icon">◯</div><div class="accessibility-label">גווני אפור</div></button>
+      <button class="accessibility-item" data-action="saturation"><div class="accessibility-icon">◉</div><div class="accessibility-label">רוויה</div></button>
+      <button class="accessibility-item" data-action="hide-images"><div class="accessibility-icon">▧</div><div class="accessibility-label">הסתרת תמונות</div></button>
     </div>
+    <div class="accessibility-section-title">ניווט וסיוע</div>
+    <div class="accessibility-grid">
+      <button class="accessibility-item" data-action="big-cursor"><div class="accessibility-icon">↖</div><div class="accessibility-label">סמן גדול</div></button>
+      <button class="accessibility-item" data-action="no-animation"><div class="accessibility-icon">▥</div><div class="accessibility-label">עצירת אנימציות</div></button>
+      <button class="accessibility-item" data-action="reading-guide"><div class="accessibility-icon">↔</div><div class="accessibility-label">מדריך קריאה</div></button>
+      <button class="accessibility-item" data-action="focus"><div class="accessibility-icon">⛶</div><div class="accessibility-label">הדגשת פוקוס</div></button>
+      <button class="accessibility-item" data-action="reading-mask"><div class="accessibility-icon">▤</div><div class="accessibility-label">מסכת קריאה</div></button>
+    </div>
+    <button class="accessibility-reset" id="accessibilityReset">איפוס כל ההגדרות</button>
+    <a class="accessibility-statement" href="accessibility.html">הצהרת נגישות</a>
   </div>
 </div>
 
+<div id="reading-guide"></div>
+<div id="reading-mask"></div>
+<div id="speechStatus" class="speech-status">🔊 הקראת טקסט פעילה</div>
+
 <script>
-// מניעת העתקה, סימון, פתיחת כלי פיתוח ותפריט קליק ימני
+// מניעת העתקה וכלי פיתוח
 document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 document.addEventListener('copy', function(e) { e.preventDefault(); });
 document.addEventListener('selectstart', function(e) { e.preventDefault(); });
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.keyCode === 67)) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && (e.key === 'a' || e.key === 'A' || e.keyCode === 65)) { e.preventDefault(); }
-  if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S' || e.keyCode === 83)) { e.preventDefault(); }
+  if (e.key==='F12'||e.keyCode===123) { e.preventDefault(); }
+  if ((e.ctrlKey||e.metaKey)&&e.shiftKey&&[73,74,67].includes(e.keyCode)) { e.preventDefault(); }
+  if ((e.ctrlKey||e.metaKey)&&[85,67,65,83].includes(e.keyCode)) { e.preventDefault(); }
 });
 
-// אפקט הספוטלייט בעקבות סמן העכבר
+// ספוטלייט
 const spotlight = document.getElementById('spotlight');
 document.addEventListener('mousemove', (e) => {
   spotlight.style.setProperty('--x', `${e.clientX}px`);
   spotlight.style.setProperty('--y', `${e.clientY}px`);
 });
 
-// תפריט נגישות
-const accBtn = document.getElementById('accBtn');
-const accMenu = document.getElementById('accMenu');
-const closeAccBtn = document.getElementById('closeAccBtn');
-accBtn.addEventListener('click', () => accMenu.classList.toggle('active'));
-closeAccBtn.addEventListener('click', () => accMenu.classList.remove('active'));
-const body = document.body;
-function clearActiveButtons() { document.querySelectorAll('.acc-item').forEach(btn => btn.classList.remove('active')); }
-document.getElementById('contrastDark').addEventListener('click', function() { body.className = ''; body.classList.add('high-contrast-mode'); clearActiveButtons(); this.classList.add('active'); });
-document.getElementById('contrastLight').addEventListener('click', function() { body.className = ''; body.classList.add('light-contrast-mode'); clearActiveButtons(); this.classList.add('active'); });
-document.getElementById('contrastGray').addEventListener('click', function() { body.className = ''; body.classList.add('grayscale'); clearActiveButtons(); this.classList.add('active'); });
-document.getElementById('textLarge').addEventListener('click', function() { body.classList.toggle('large-text-mode'); this.classList.toggle('active'); });
-document.getElementById('accReset').addEventListener('click', function() { body.className = ''; clearActiveButtons(); });
-
-// קנבס אפקט הברקים ברקע
+// ברקים
 const canvas = document.getElementById('lightningCanvas');
 const ctx = canvas.getContext('2d');
 function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -588,21 +433,17 @@ resizeCanvas();
 function drawBolt(startX, startY, length, angle, branchProbability, depth) {
   if (depth > 3) return;
   let currentX = startX, currentY = startY;
-  ctx.beginPath();
-  ctx.moveTo(currentX, currentY);
-  ctx.shadowBlur = depth === 0 ? 15 : 5;
-  ctx.shadowColor = "#facc15";
-  ctx.strokeStyle = `rgba(255, 255, 255, ${1 - depth * 0.2})`;
-  ctx.lineWidth = Math.max(1, 3 - depth);
+  ctx.beginPath(); ctx.moveTo(currentX, currentY);
+  ctx.shadowBlur = depth===0 ? 15 : 5; ctx.shadowColor = "#facc15";
+  ctx.strokeStyle = `rgba(255,255,255,${1 - depth * 0.2})`; ctx.lineWidth = Math.max(1, 3 - depth);
   let segments = Math.floor(length / 10);
   for (let i = 0; i < segments; i++) {
     let segmentAngle = angle + (Math.random() - 0.5) * 1.5;
-    currentX += Math.cos(segmentAngle) * 10;
-    currentY += Math.sin(segmentAngle) * 10;
+    currentX += Math.cos(segmentAngle) * 10; currentY += Math.sin(segmentAngle) * 10;
     ctx.lineTo(currentX, currentY);
     if (Math.random() < branchProbability) {
       let newAngle = angle + (Math.random() > 0.5 ? 1 : -1) * (0.5 + Math.random() * 0.5);
-      drawBolt(currentX, currentY, length * 0.5, newAngle, branchProbability * 0.5, depth + 1);
+      drawBolt(currentX, currentY, length*0.5, newAngle, branchProbability*0.5, depth+1);
       ctx.moveTo(currentX, currentY);
     }
   }
@@ -612,22 +453,142 @@ function strike() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   let startX, startY, angle;
   const edge = Math.random();
-  if (edge < 0.25) { startX = Math.random() * canvas.width; startY = 0; angle = Math.PI / 2; }
-  else if (edge < 0.5) { startX = canvas.width; startY = Math.random() * canvas.height; angle = Math.PI; }
-  else if (edge < 0.75) { startX = Math.random() * canvas.width; startY = canvas.height; angle = -Math.PI / 2; }
-  else { startX = 0; startY = Math.random() * canvas.height; angle = 0; }
-  let centerX = canvas.width / 2, centerY = canvas.height / 2;
-  angle = Math.atan2(centerY - startY, centerX - startX) + (Math.random() - 0.5) * 0.5;
-  drawBolt(startX, startY, canvas.height * 0.6, angle, 0.1, 0);
-  ctx.fillStyle = "rgba(255, 255, 150, 0.03)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  if (edge < 0.25) { startX = Math.random()*canvas.width; startY = 0; angle = Math.PI/2; }
+  else if (edge < 0.5) { startX = canvas.width; startY = Math.random()*canvas.height; angle = Math.PI; }
+  else if (edge < 0.75) { startX = Math.random()*canvas.width; startY = canvas.height; angle = -Math.PI/2; }
+  else { startX = 0; startY = Math.random()*canvas.height; angle = 0; }
+  angle = Math.atan2(canvas.height/2 - startY, canvas.width/2 - startX) + (Math.random()-0.5)*0.5;
+  drawBolt(startX, startY, canvas.height*0.6, angle, 0.1, 0);
+  ctx.fillStyle = "rgba(255,255,150,0.03)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
   setTimeout(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (Math.random() < 0.3) { setTimeout(strike, 50 + Math.random() * 100); return; }
-    setTimeout(strike, 2000 + Math.random() * 6000);
+    if (Math.random() < 0.3) { setTimeout(strike, 50+Math.random()*100); return; }
+    setTimeout(strike, 2000+Math.random()*6000);
   }, 100);
 }
 setTimeout(strike, 1500);
+
+// ===== נגישות =====
+const openButton = document.getElementById("accessibilityOpen");
+const closeButton = document.getElementById("accessibilityClose");
+const panel = document.getElementById("accessibilityPanel");
+const speechStatus = document.getElementById("speechStatus");
+const readingGuide = document.getElementById("reading-guide");
+const readingMask = document.getElementById("reading-mask");
+const items = document.querySelectorAll(".accessibility-item");
+
+openButton.addEventListener("click", () => { panel.classList.add("open"); });
+closeButton.addEventListener("click", () => { panel.classList.remove("open"); });
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") { panel.classList.remove("open"); window.speechSynthesis.cancel(); }
+});
+
+items.forEach(item => {
+  item.addEventListener("click", () => { handleAccessibilityAction(item.dataset.action, item); });
+});
+
+function handleAccessibilityAction(action, item) {
+  switch(action) {
+    case "text-to-speech": toggleTextToSpeech(item); break;
+    case "large-text": document.body.classList.toggle("access-large-text"); item.classList.toggle("active"); break;
+    case "line-spacing": document.body.classList.toggle("access-line-spacing"); item.classList.toggle("active"); break;
+    case "readable-font": document.body.classList.toggle("access-readable-font"); item.classList.toggle("active"); break;
+    case "letter-spacing": document.body.classList.toggle("access-letter-spacing"); item.classList.toggle("active"); break;
+    case "headings": document.body.classList.toggle("access-headings"); item.classList.toggle("active"); break;
+    case "links": document.body.classList.toggle("access-links"); item.classList.toggle("active"); break;
+    case "contrast": document.body.classList.toggle("access-high-contrast"); item.classList.toggle("active"); break;
+    case "invert": document.body.classList.toggle("access-invert"); item.classList.toggle("active"); break;
+    case "grayscale": document.body.classList.toggle("access-grayscale"); item.classList.toggle("active"); break;
+    case "saturation": document.body.classList.toggle("access-saturation"); item.classList.toggle("active"); break;
+    case "hide-images": document.body.classList.toggle("access-hide-images"); item.classList.toggle("active"); break;
+    case "big-cursor": document.body.classList.toggle("access-big-cursor"); item.classList.toggle("active"); break;
+    case "no-animation": document.body.classList.toggle("access-no-animation"); item.classList.toggle("active"); break;
+    case "focus": document.body.classList.toggle("access-focus"); item.classList.toggle("active"); break;
+    case "reading-guide": toggleReadingGuide(item); break;
+    case "reading-mask": toggleReadingMask(item); break;
+    case "align": toggleTextAlignment(item); break;
+  }
+}
+
+let textToSpeechEnabled = false;
+let speechUtterance = null;
+
+function toggleTextToSpeech(item) {
+  textToSpeechEnabled = !textToSpeechEnabled;
+  item.classList.toggle("active", textToSpeechEnabled);
+  speechStatus.style.display = textToSpeechEnabled ? "block" : "none";
+  if (!textToSpeechEnabled) { window.speechSynthesis.cancel(); }
+}
+
+function speakText(text) {
+  if (!text || !text.trim()) return;
+  window.speechSynthesis.cancel();
+  speechUtterance = new SpeechSynthesisUtterance(text.trim());
+  speechUtterance.lang = "he-IL";
+  speechUtterance.rate = 0.9;
+  speechUtterance.pitch = 1;
+  speechUtterance.volume = 1;
+  window.speechSynthesis.speak(speechUtterance);
+}
+
+document.addEventListener("click", (event) => {
+  if (!textToSpeechEnabled) return;
+  if (event.target.closest(".accessibility-panel")) return;
+  if (event.target.closest(".accessibility-open")) return;
+  let text = (event.target.innerText || event.target.textContent || "").trim();
+  if (text.length > 0) { speakText(text); }
+}, true);
+
+document.addEventListener("mouseup", () => {
+  if (!textToSpeechEnabled) return;
+  const selection = window.getSelection();
+  if (!selection) return;
+  const selectedText = selection.toString().trim();
+  if (selectedText.length > 0) { speakText(selectedText); }
+});
+
+let guideEnabled = false;
+function toggleReadingGuide(item) {
+  guideEnabled = !guideEnabled;
+  readingGuide.style.display = guideEnabled ? "block" : "none";
+  item.classList.toggle("active", guideEnabled);
+}
+document.addEventListener("mousemove", (event) => {
+  if (guideEnabled) readingGuide.style.top = (event.clientY - 2) + "px";
+});
+
+let maskEnabled = false;
+function toggleReadingMask(item) {
+  maskEnabled = !maskEnabled;
+  readingMask.style.display = maskEnabled ? "block" : "none";
+  item.classList.toggle("active", maskEnabled);
+}
+document.addEventListener("mousemove", (event) => {
+  if (maskEnabled) readingMask.style.top = (event.clientY - 40) + "px";
+});
+
+let currentAlignment = 0;
+function toggleTextAlignment(item) {
+  currentAlignment++;
+  if (currentAlignment > 3) { currentAlignment = 0; }
+  const aligns = ["", "right", "center", "left"];
+  document.body.style.textAlign = aligns[currentAlignment];
+  item.classList.toggle("active", currentAlignment !== 0);
+}
+
+document.getElementById("accessibilityReset").addEventListener("click", () => {
+  ["access-large-text","access-line-spacing","access-readable-font","access-letter-spacing",
+   "access-headings","access-links","access-high-contrast","access-invert","access-grayscale",
+   "access-saturation","access-hide-images","access-big-cursor","access-no-animation","access-focus"
+  ].forEach(c => document.body.classList.remove(c));
+  currentAlignment = 0; document.body.style.textAlign = "";
+  guideEnabled = false; readingGuide.style.display = "none";
+  maskEnabled = false; readingMask.style.display = "none";
+  textToSpeechEnabled = false; speechStatus.style.display = "none";
+  window.speechSynthesis.cancel();
+  items.forEach(item => item.classList.remove("active"));
+});
 </script>
 </body>
 </html>
