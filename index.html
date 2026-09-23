@@ -35,10 +35,10 @@ font-family: system-ui, -apple-system, sans-serif;
 display: flex;
 flex-direction: column;
 align-items: center;
-justify-content: flex-start; /* שונה כדי לתת מקום לתפריט למעלה */
+justify-content: flex-start;
 min-height: 100vh;
 margin: 0;
-padding: 110px 0 60px 0; /* הוגדל הרווח למעלה */
+padding: 110px 0 60px 0;
 box-sizing: border-box;
 transition: background-color 0.3s ease, filter 0.3s ease;
 position: relative;
@@ -301,7 +301,7 @@ padding-bottom: 6px; letter-spacing: 0.5px;
 .spec-label { font-weight: 700; color: #a19bb5; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .spec-value { color: #ffffff; font-weight: 600; font-family: system-ui, sans-serif; }
 
-/* Subscriber Badges */
+/* Subscriber Badges החדש עם תמונות */
 .badges-container {
 display: flex;
 justify-content: center;
@@ -314,23 +314,21 @@ display: flex;
 flex-direction: column;
 align-items: center;
 gap: 10px;
+width: 70px;
 }
-.badge-icon {
-width: 60px; height: 60px;
-border-radius: 50%;
-display: flex; align-items: center; justify-content: center;
-font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 22px; color: #fff;
-box-shadow: 0 6px 15px rgba(0,0,0,0.5);
-text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-border: 2px solid rgba(255,255,255,0.2);
+.badge-img {
+width: 55px; height: 55px;
+object-fit: contain;
+filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+transition: transform 0.2s ease;
 }
-.badge-1 { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-.badge-3 { background: linear-gradient(135deg, #10b981, #047857); }
-.badge-6 { background: linear-gradient(135deg, #f59e0b, #b45309); }
-.badge-12 { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+.badge-img:hover {
+transform: scale(1.1);
+}
 .badge-item span {
 font-family: 'Poppins', sans-serif;
-font-size: 14px; font-weight: 600; color: #d1cbe0;
+font-size: 13px; font-weight: 600; color: #d1cbe0;
+text-align: center;
 }
 
 @media (max-width: 600px) {
@@ -341,7 +339,11 @@ font-size: 14px; font-weight: 600; color: #d1cbe0;
 .avatar-snake-wrap { width: 155px; height: 155px; }
 .profile-pic { width: 145px; height: 145px; }
 .top-navbar { width: 90%; justify-content: center; }
-.nav-tab { padding: 10px 20px; flex: 1; }
+.nav-tab { padding: 10px 20px; flex: 1; text-align: center;}
+.badges-container { gap: 12px; }
+.badge-item { width: 60px; }
+.badge-img { width: 45px; height: 45px; }
+.badge-item span { font-size: 11px; }
 }
 
 .footer-container {
@@ -510,10 +512,38 @@ body.access-big-cursor, body.access-big-cursor * { cursor: url("data:image/svg+x
   <div class="info-bubble">
     <div class="info-bubble-title"><i class="fa-solid fa-medal"></i> Subscriber Badges</div>
     <div class="badges-container">
-      <div class="badge-item"><div class="badge-icon badge-1">1</div><span>1 Month</span></div>
-      <div class="badge-item"><div class="badge-icon badge-3">3</div><span>3 Months</span></div>
-      <div class="badge-item"><div class="badge-icon badge-6">6</div><span>6 Months</span></div>
-      <div class="badge-item"><div class="badge-icon badge-12">1Y</div><span>1 Year</span></div>
+      <div class="badge-item">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_base.png?raw=true" alt="Base">
+        <span>Base</span>
+      </div>
+      <div class="badge-item">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2m.png?raw=true" alt="2-Month">
+        <span>2 Months</span>
+      </div>
+      <div class="badge-item">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_3m.png?raw=true" alt="3-Month">
+        <span>3 Months</span>
+      </div>
+      <div class="badge-item">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_6m.png?raw=true" alt="6-Month">
+        <span>6 Months</span>
+      </div>
+      <div class="badge-item">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_9m.png?raw=true" alt="9-Month">
+        <span>9 Months</span>
+      </div>
+      <div class="badge-item">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1y.png?raw=true" alt="1-Year">
+        <span>1 Year</span>
+      </div>
+      <div class="badge-item">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1_5y.png?raw=true" alt="1.5-Year">
+        <span>1.5 Years</span>
+      </div>
+      <div class="badge-item">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2y.png?raw=true" alt="2-Year">
+        <span>2 Years</span>
+      </div>
     </div>
   </div>
   
