@@ -46,9 +46,10 @@ overflow-x: hidden;
 -webkit-user-select: none;
 -ms-user-select: none;
 user-select: none;
+zoom: 0.9; /* הקטנת האתר ב-10% */
 }
 
-/* תפריט עליון (Navbar) - הוגדל */
+/* תפריט עליון (Navbar) */
 .top-navbar {
 position: absolute;
 top: 30px;
@@ -227,11 +228,11 @@ flex-direction: column;
 justify-content: center;
 gap: 20px; 
 width: 100%; 
-max-width: 440px; /* רוחב יפה לכפתור ארוך */
+max-width: 440px; 
 direction: ltr;
 }
 
-/* כפתורים - הוגדלו ב-10% נוספים */
+/* כפתורים */
 .link-btn {
 position: relative;
 display: flex; justify-content: center; align-items: center; gap: 14px;
@@ -256,7 +257,7 @@ background: var(--btn-bg); z-index: 1; pointer-events: none; transition: backgro
 }
 .link-btn > * { position: relative; z-index: 2; color: var(--text-color-btn, #ffffff); }
 .link-btn span { letter-spacing: 0.5px; }
-.link-btn i { font-size: 24px; } /* אייקונים הוגדלו */
+.link-btn i { font-size: 24px; } 
 
 .btn-kick { --btn-bg: #0d1e11; --text-color-btn: #53fc18; --snake-main: #53fc18; --snake-tail: rgba(83,252,24,0.3); --snake-glow: rgba(83,252,24,0.45); }
 .kick-svg-icon { width: 24px; height: 24px; fill: currentColor; display: inline-block; vertical-align: middle; }
@@ -328,6 +329,7 @@ width: 55px; height: 55px;
 object-fit: contain;
 filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
 transition: transform 0.2s ease;
+-webkit-user-drag: none; /* חסימת גרירה בדפדפנים */
 }
 .badge-img:hover {
 transform: scale(1.1);
@@ -372,7 +374,7 @@ z-index: 0; pointer-events: none;
 mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 }
 
-/* ===== תפריט נגישות - הוגדל והאייקון שופר ===== */
+/* ===== תפריט נגישות ===== */
 .accessibility-open {
 position: fixed; left: 20px; bottom: 20px;
 width: 65px; height: 65px; border: 0;
@@ -453,8 +455,10 @@ body.access-big-cursor, body.access-big-cursor * { cursor: url("data:image/svg+x
 <div id="homeView" class="view-section active">
   <div class="profile-section">
     <div class="avatar-snake-wrap">
+      <!-- הוספתי draggable="false" לתמונת הפרופיל -->
       <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true"
            class="profile-pic" alt="תמונת הפרופיל המאוירת של Krav0n"
+           draggable="false"
            onerror="this.onerror=null; this.src='2.png';">
     </div>
     <div class="profile-name">Krav0n</div>
@@ -464,7 +468,6 @@ body.access-big-cursor, body.access-big-cursor * { cursor: url("data:image/svg+x
     </div>
   </div>
 
-  <!-- הכפתורים ממוקמים בטור אחד לפי הסדר המבוקש -->
   <div class="links-list">
     <a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick">
       <svg class="kick-svg-icon" viewBox="0 0 24 24" role="img" aria-label="Kick Logo"><path d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg>
@@ -516,36 +519,37 @@ body.access-big-cursor, body.access-big-cursor * { cursor: url("data:image/svg+x
   <div class="info-bubble">
     <div class="info-bubble-title"><i class="fa-solid fa-medal"></i> Subscriber Badges</div>
     <div class="badges-container">
+      <!-- הוספתי draggable="false" לכל התמונות -->
       <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_base.png?raw=true" alt="Base">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_base.png?raw=true" alt="Base" draggable="false">
         <span>Base</span>
       </div>
       <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2m.png?raw=true" alt="2-Month">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2m.png?raw=true" alt="2-Month" draggable="false">
         <span>2 Months</span>
       </div>
       <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_3m.png?raw=true" alt="3-Month">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_3m.png?raw=true" alt="3-Month" draggable="false">
         <span>3 Months</span>
       </div>
       <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_6m.png?raw=true" alt="6-Month">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_6m.png?raw=true" alt="6-Month" draggable="false">
         <span>6 Months</span>
       </div>
       <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_9m.png?raw=true" alt="9-Month">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_9m.png?raw=true" alt="9-Month" draggable="false">
         <span>9 Months</span>
       </div>
       <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1y.png?raw=true" alt="1-Year">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1y.png?raw=true" alt="1-Year" draggable="false">
         <span>1 Year</span>
       </div>
       <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1_5y.png?raw=true" alt="1.5-Year">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1_5y.png?raw=true" alt="1.5-Year" draggable="false">
         <span>1.5 Years</span>
       </div>
       <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2y.png?raw=true" alt="2-Year">
+        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2y.png?raw=true" alt="2-Year" draggable="false">
         <span>2 Years</span>
       </div>
     </div>
@@ -563,7 +567,6 @@ body.access-big-cursor, body.access-big-cursor * { cursor: url("data:image/svg+x
 </footer>
 
 <!-- ===== כפתור ופאנל נגישות ===== -->
-<!-- הוחלף האימוג'י באייקון אוניברסלי מובנה שייראה מעולה -->
 <button class="accessibility-open" id="accessibilityOpen" aria-label="פתיחת כלי נגישות" title="כלי נגישות">
   <i class="fa-solid fa-universal-access"></i>
 </button>
