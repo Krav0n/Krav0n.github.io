@@ -32,21 +32,26 @@ background-position: center;
 background-attachment: fixed;
 color: var(--text-color);
 font-family: system-ui, -apple-system, sans-serif;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: flex-start;
-min-height: 100vh;
 margin: 0;
-padding: 110px 0 60px 0;
-box-sizing: border-box;
-transition: background-color 0.3s ease, filter 0.3s ease;
-position: relative;
+padding: 0;
 overflow-x: hidden;
 -webkit-user-select: none;
 -ms-user-select: none;
 user-select: none;
-zoom: 0.9; /* הקטנת האתר ב-10% */
+}
+
+/* מעטפת התוכן של האתר - כאן אנחנו מקטינים ב-10% בלי לפגוע בברקים ובעכבר */
+.site-wrapper {
+zoom: 0.9;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+width: 100%;
+min-height: 111.11vh; /* מבטיח שהפוטר יידבק תמיד למטה בלי גלילה */
+position: relative;
+padding-top: 100px;
+box-sizing: border-box;
 }
 
 /* תפריט עליון (Navbar) */
@@ -134,7 +139,7 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 gap: 12px;
-margin-bottom: 38px;
+margin-bottom: 60px; /* הוגדל משמעותית כדי לדחוף את הכפתורים למטה */
 }
 
 .avatar-snake-wrap {
@@ -293,10 +298,7 @@ letter-spacing: 0.5px;
 }
 .info-bubble-title i { color: #facc15; }
 
-/* Setup בפנים הבועה */
-.setup-inner-grid {
-display: flex; flex-direction: row; gap: 24px;
-}
+.setup-inner-grid { display: flex; flex-direction: row; gap: 24px; }
 .setup-col { flex: 1; display: flex; flex-direction: column; gap: 12px; }
 .setup-divider { width: 1px; background: rgba(255,255,255,0.1); }
 .specs-title {
@@ -309,36 +311,17 @@ padding-bottom: 6px; letter-spacing: 0.5px;
 .spec-label { font-weight: 700; color: #a19bb5; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .spec-value { color: #ffffff; font-weight: 600; font-family: system-ui, sans-serif; }
 
-/* Subscriber Badges */
 .badges-container {
-display: flex;
-justify-content: center;
-flex-wrap: wrap;
-gap: 20px;
-padding-top: 10px;
+display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding-top: 10px;
 }
-.badge-item {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 10px;
-width: 70px;
-}
+.badge-item { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 70px; }
 .badge-img {
-width: 55px; height: 55px;
-object-fit: contain;
-filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-transition: transform 0.2s ease;
--webkit-user-drag: none; /* חסימת גרירה בדפדפנים */
+width: 55px; height: 55px; object-fit: contain;
+filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); transition: transform 0.2s ease;
+-webkit-user-drag: none;
 }
-.badge-img:hover {
-transform: scale(1.1);
-}
-.badge-item span {
-font-family: 'Poppins', sans-serif;
-font-size: 13px; font-weight: 600; color: #d1cbe0;
-text-align: center;
-}
+.badge-img:hover { transform: scale(1.1); }
+.badge-item span { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; color: #d1cbe0; text-align: center; }
 
 @media (max-width: 600px) {
 .links-list { gap: 14px; }
@@ -355,18 +338,21 @@ text-align: center;
 .badge-item span { font-size: 11px; }
 }
 
+/* הפוטר תמיד נדבק הכי למטה שאפשר */
 .footer-container {
-margin-top: auto; padding-top: 50px; padding-bottom: 20px;
-width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px;
-font-family: 'Poppins', sans-serif, system-ui; font-size: 15px; color: #ffffff;
-font-weight: 600; z-index: 10; opacity: 1; text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+margin-top: auto; 
+padding-bottom: 25px;
+width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px;
+font-family: 'Poppins', sans-serif, system-ui; font-size: 14px; color: #ffffff;
+font-weight: 600; z-index: 10; text-shadow: 0 2px 6px rgba(0,0,0,0.9);
 }
-.footer-credit span:last-child { font-size: 13px; opacity: 0.8; font-weight: 500; }
-.footer-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.footer-credit span:last-child { font-size: 12.5px; opacity: 0.8; font-weight: 500; }
+.footer-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; }
 .footer-links a { color: #ffffff; text-decoration: none; transition: color 0.2s; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,0.9); }
 .footer-links a:hover { color: #facc15; }
 .footer-links .separator { opacity: 0.7; }
 
+/* הברקים ימלאו 100% מהמסך ללא קווים חתוכים */
 #lightningCanvas {
 position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
 z-index: 0; pointer-events: none;
@@ -377,11 +363,11 @@ mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 /* ===== תפריט נגישות ===== */
 .accessibility-open {
 position: fixed; left: 20px; bottom: 20px;
-width: 65px; height: 65px; border: 0;
+width: 58px; height: 58px; border: 0;
 border-radius: 50%; background: #facc15; color: #0c0a14;
 cursor: pointer; z-index: 999999;
 display: flex; align-items: center; justify-content: center;
-font-size: 30px; box-shadow: 0 4px 18px rgba(0,0,0,.35); transition: .15s;
+font-size: 28px; box-shadow: 0 4px 18px rgba(0,0,0,.35); transition: .15s;
 }
 .accessibility-open:hover { transform: scale(1.05); background: #ffbe00; }
 
@@ -443,128 +429,127 @@ body.access-big-cursor, body.access-big-cursor * { cursor: url("data:image/svg+x
 </head>
 <body>
 
-<nav class="top-navbar">
-  <button class="nav-tab active" data-target="homeView">HOME</button>
-  <button class="nav-tab" data-target="infoView">INFO</button>
-</nav>
-
+<!-- ברקים וספוטלייט מחוץ למעטפת ההקטנה כדי שיישארו תואמים במדויק למסך ולעכבר -->
 <canvas id="lightningCanvas"></canvas>
 <div class="spotlight" id="spotlight"></div>
 
-<!-- דף ראשי (HOME) -->
-<div id="homeView" class="view-section active">
-  <div class="profile-section">
-    <div class="avatar-snake-wrap">
-      <!-- הוספתי draggable="false" לתמונת הפרופיל -->
-      <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true"
-           class="profile-pic" alt="תמונת הפרופיל המאוירת של Krav0n"
-           draggable="false"
-           onerror="this.onerror=null; this.src='2.png';">
+<div class="site-wrapper">
+  <nav class="top-navbar">
+    <button class="nav-tab active" data-target="homeView">HOME</button>
+    <button class="nav-tab" data-target="infoView">INFO</button>
+  </nav>
+
+  <!-- דף ראשי (HOME) -->
+  <div id="homeView" class="view-section active">
+    <div class="profile-section">
+      <div class="avatar-snake-wrap">
+        <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/2.png?raw=true"
+             class="profile-pic" alt="תמונת הפרופיל המאוירת של Krav0n"
+             draggable="false"
+             onerror="this.onerror=null; this.src='2.png';">
+      </div>
+      <div class="profile-name">Krav0n</div>
+      <div id="kickStatusBadge" class="kick-status-badge offline" aria-label="Kick Live Status" title="Krav0n is OFFLINE">
+        <span class="status-dot"></span>
+        <span class="status-text" id="kickStatusText">OFFLINE</span>
+      </div>
     </div>
-    <div class="profile-name">Krav0n</div>
-    <div id="kickStatusBadge" class="kick-status-badge offline" aria-label="Kick Live Status" title="Krav0n is OFFLINE">
-      <span class="status-dot"></span>
-      <span class="status-text" id="kickStatusText">OFFLINE</span>
+
+    <div class="links-list">
+      <a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick">
+        <svg class="kick-svg-icon" viewBox="0 0 24 24" role="img" aria-label="Kick Logo"><path d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg>
+        <span>Kick</span>
+      </a>
+      <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord">
+        <i class="fa-brands fa-discord"></i>
+        <span>Discord</span>
+      </a>
+      <a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube">
+        <i class="fa-brands fa-youtube"></i>
+        <span>YouTube</span>
+      </a>
+      <a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram">
+        <i class="fa-brands fa-instagram"></i>
+        <span>Instagram</span>
+      </a>
     </div>
   </div>
 
-  <div class="links-list">
-    <a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick">
-      <svg class="kick-svg-icon" viewBox="0 0 24 24" role="img" aria-label="Kick Logo"><path d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg>
-      <span>Kick</span>
-    </a>
-    <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord">
-      <i class="fa-brands fa-discord"></i>
-      <span>Discord</span>
-    </a>
-    <a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube">
-      <i class="fa-brands fa-youtube"></i>
-      <span>YouTube</span>
-    </a>
-    <a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram">
-      <i class="fa-brands fa-instagram"></i>
-      <span>Instagram</span>
-    </a>
+  <!-- דף מידע (INFO) -->
+  <div id="infoView" class="view-section">
+    <div class="info-bubble">
+      <div class="info-bubble-title"><i class="fa-solid fa-desktop"></i> Setup Specs</div>
+      <div class="setup-inner-grid">
+        <div class="setup-col">
+          <div class="specs-title"><i class="fa-solid fa-microchip"></i><span>PC Specs:</span></div>
+          <ul class="specs-list">
+            <li><span class="spec-label">CPU:</span><span class="spec-value">Intel Core i9-13900K</span></li>
+            <li><span class="spec-label">Motherboard:</span><span class="spec-value">Gigabyte Z790</span></li>
+            <li><span class="spec-label">GPU:</span><span class="spec-value">NVIDIA GeForce RTX 4090</span></li>
+            <li><span class="spec-label">RAM:</span><span class="spec-value">Corsair 32GB DDR5</span></li>
+          </ul>
+        </div>
+        <div class="setup-divider"></div>
+        <div class="setup-col">
+          <div class="specs-title"><i class="fa-solid fa-headphones"></i><span>Peripherals:</span></div>
+          <ul class="specs-list">
+            <li><span class="spec-label">Keyboard:</span><span class="spec-value">Logitech G915 X Lightspeed</span></li>
+            <li><span class="spec-label">Mouse:</span><span class="spec-value">Logitech G502 X Plus</span></li>
+            <li><span class="spec-label">Headphones:</span><span class="spec-value">Logitech G733</span></li>
+            <li><span class="spec-label">Microphone:</span><span class="spec-value">Elgato Wave 3</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-bubble">
+      <div class="info-bubble-title"><i class="fa-solid fa-medal"></i> Subscriber Badges</div>
+      <div class="badges-container">
+        <div class="badge-item">
+          <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_base.png?raw=true" alt="Base" draggable="false">
+          <span>Base</span>
+        </div>
+        <div class="badge-item">
+          <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2m.png?raw=true" alt="2-Month" draggable="false">
+          <span>2 Months</span>
+        </div>
+        <div class="badge-item">
+          <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_3m.png?raw=true" alt="3-Month" draggable="false">
+          <span>3 Months</span>
+        </div>
+        <div class="badge-item">
+          <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_6m.png?raw=true" alt="6-Month" draggable="false">
+          <span>6 Months</span>
+        </div>
+        <div class="badge-item">
+          <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_9m.png?raw=true" alt="9-Month" draggable="false">
+          <span>9 Months</span>
+        </div>
+        <div class="badge-item">
+          <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1y.png?raw=true" alt="1-Year" draggable="false">
+          <span>1 Year</span>
+        </div>
+        <div class="badge-item">
+          <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1_5y.png?raw=true" alt="1.5-Year" draggable="false">
+          <span>1.5 Years</span>
+        </div>
+        <div class="badge-item">
+          <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2y.png?raw=true" alt="2-Year" draggable="false">
+          <span>2 Years</span>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <footer class="footer-container">
+    <div class="footer-credit">Made by <span style="color:#facc15;">Krav0n</span>&nbsp;&nbsp;<span>© 2026</span></div>
+    <div class="footer-links">
+      <a href="accessibility.html">הצהרת נגישות</a>
+      <span class="separator">|</span>
+      <a href="privacy.html">מדיניות פרטיות</a>
+    </div>
+  </footer>
 </div>
-
-<!-- דף מידע (INFO) -->
-<div id="infoView" class="view-section">
-  
-  <div class="info-bubble">
-    <div class="info-bubble-title"><i class="fa-solid fa-desktop"></i> Setup Specs</div>
-    <div class="setup-inner-grid">
-      <div class="setup-col">
-        <div class="specs-title"><i class="fa-solid fa-microchip"></i><span>PC Specs:</span></div>
-        <ul class="specs-list">
-          <li><span class="spec-label">CPU:</span><span class="spec-value">Intel Core i9-13900K</span></li>
-          <li><span class="spec-label">Motherboard:</span><span class="spec-value">Gigabyte Z790</span></li>
-          <li><span class="spec-label">GPU:</span><span class="spec-value">NVIDIA GeForce RTX 4090</span></li>
-          <li><span class="spec-label">RAM:</span><span class="spec-value">Corsair 32GB DDR5</span></li>
-        </ul>
-      </div>
-      <div class="setup-divider"></div>
-      <div class="setup-col">
-        <div class="specs-title"><i class="fa-solid fa-headphones"></i><span>Peripherals:</span></div>
-        <ul class="specs-list">
-          <li><span class="spec-label">Keyboard:</span><span class="spec-value">Logitech G915 X Lightspeed</span></li>
-          <li><span class="spec-label">Mouse:</span><span class="spec-value">Logitech G502 X Plus</span></li>
-          <li><span class="spec-label">Headphones:</span><span class="spec-value">Logitech G733</span></li>
-          <li><span class="spec-label">Microphone:</span><span class="spec-value">Elgato Wave 3</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="info-bubble">
-    <div class="info-bubble-title"><i class="fa-solid fa-medal"></i> Subscriber Badges</div>
-    <div class="badges-container">
-      <!-- הוספתי draggable="false" לכל התמונות -->
-      <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_base.png?raw=true" alt="Base" draggable="false">
-        <span>Base</span>
-      </div>
-      <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2m.png?raw=true" alt="2-Month" draggable="false">
-        <span>2 Months</span>
-      </div>
-      <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_3m.png?raw=true" alt="3-Month" draggable="false">
-        <span>3 Months</span>
-      </div>
-      <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_6m.png?raw=true" alt="6-Month" draggable="false">
-        <span>6 Months</span>
-      </div>
-      <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_9m.png?raw=true" alt="9-Month" draggable="false">
-        <span>9 Months</span>
-      </div>
-      <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1y.png?raw=true" alt="1-Year" draggable="false">
-        <span>1 Year</span>
-      </div>
-      <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1_5y.png?raw=true" alt="1.5-Year" draggable="false">
-        <span>1.5 Years</span>
-      </div>
-      <div class="badge-item">
-        <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2y.png?raw=true" alt="2-Year" draggable="false">
-        <span>2 Years</span>
-      </div>
-    </div>
-  </div>
-  
-</div>
-
-<footer class="footer-container">
-  <div class="footer-credit">Made by <span style="color:#facc15;">Krav0n</span>&nbsp;&nbsp;<span>© 2026</span></div>
-  <div class="footer-links">
-    <a href="accessibility.html">הצהרת נגישות</a>
-    <span class="separator">|</span>
-    <a href="privacy.html">מדיניות פרטיות</a>
-  </div>
-</footer>
 
 <!-- ===== כפתור ופאנל נגישות ===== -->
 <button class="accessibility-open" id="accessibilityOpen" aria-label="פתיחת כלי נגישות" title="כלי נגישות">
