@@ -53,7 +53,6 @@ position: fixed;
 top: 0; left: 0;
 width: 100vw; height: 100vh;
 pointer-events: none;
-/* הוגדל ב-10% וחוזק ב-7% (0.12) */
 background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255,255,255,0.12) 0%, transparent 120px);
 z-index: 0;
 animation: lightningFlicker 2s infinite;
@@ -175,7 +174,7 @@ animation: liveRecPulse 1.4s infinite ease-in-out;
 .footer-links { gap: 10px; }
 }
 
-/* Footer - הוגדל והובלט */
+/* Footer */
 .footer-container {
 margin-top: auto;
 padding-top: 50px; padding-bottom: 20px;
@@ -216,7 +215,6 @@ gap: 18px; width: 100%; direction: ltr;
 
 .links-col { display: flex; flex-direction: column; gap: 18px; flex: 1; }
 
-/* כפתורים - הוגדלו ב-10% */
 .link-btn {
 position: relative;
 display: flex; justify-content: center; align-items: center; gap: 12px;
@@ -316,7 +314,7 @@ z-index: 0; pointer-events: none;
 mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 }
 
-/* ===== תפריט נגישות - שונה לצהוב ===== */
+/* ===== תפריט נגישות ===== */
 .accessibility-open {
 position: fixed; left: 20px; bottom: 20px;
 width: 58px; height: 58px; border: 0;
@@ -614,7 +612,7 @@ async function checkKickLiveStatus() {
 checkKickLiveStatus();
 setInterval(checkKickLiveStatus, 60000);
 
-// ברקים שמותאמים לרקע החדש (תכלת משמאל, צהוב-כתום מימין)
+// ברקים
 const canvas = document.getElementById('lightningCanvas');
 const ctx = canvas.getContext('2d');
 function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -651,7 +649,6 @@ function strike() {
   else { startX = 0; startY = Math.random()*canvas.height; angle = 0; }
   angle = Math.atan2(canvas.height/2 - startY, canvas.width/2 - startX) + (Math.random()-0.5)*0.5;
   
-  // בחירת צבע הברק בהתאם לצד המסך (כחול לשמאל, כתום לימין)
   let lightningColor = startX < canvas.width / 2 ? "#00d2ff" : "#ff9800";
   let fillFlash = startX < canvas.width / 2 ? "rgba(0,210,255,0.03)" : "rgba(255,152,0,0.03)";
   
@@ -663,7 +660,7 @@ function strike() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (Math.random() < 0.3) { setTimeout(strike, 50 + Math.random()*100); return; }
     setTimeout(strike, 2000 + Math.random()*6000);
-  }, 100);
+  }, 1000); // 1000 = שניה שלמה!
 }
 setTimeout(strike, 1500);
 
