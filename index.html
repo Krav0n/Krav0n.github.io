@@ -1,3 +1,12 @@
+הנה קוד ה-`index.html` המעודכן שלך. 
+
+**מה עשיתי:**
+1. מחקתי את התמונות של הדמויות מהצדדים (תמונות `1.png` ו-`3.png`) ואת קוד ה-HTML שקשור אליהן.
+2. הגדרתי את תמונת הרקע החדשה תחת השם `1.png` על כל המסך (באמצעות `background-size: cover`).
+
+העתק את כל הקוד הזה והדבק אותו בקובץ ה-`index.html` שלך (אל תשכח להעלות את תמונת הרקע החדשה ל-GitHub תחת השם `1.png` כדי שזה יעבוד):
+
+```html
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -25,7 +34,9 @@
 
 body {
 background-color: var(--bg-color);
-background-image: radial-gradient(ellipse 85% 75% at 50% 18%, #1e1834 0%, #120e20 48%, #08060e 100%);
+background-image: url('https://github.com/Krav0n/Krav0n.github.io/blob/main/1.png?raw=true');
+background-size: cover;
+background-position: center;
 background-attachment: fixed;
 color: var(--text-color);
 font-family: system-ui, -apple-system, sans-serif;
@@ -186,56 +197,7 @@ animation: liveRecPulse 1.4s infinite ease-in-out;
 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255,0,0,0); }
 }
 
-.side-car-container, .side-char-right {
-position: fixed;
-bottom: calc(100px + 8vh);
-z-index: 0;
-pointer-events: none;
--webkit-user-drag: none;
-user-select: none;
-transition: bottom 0.3s ease, width 0.3s ease, height 0.3s ease;
-}
-
-.side-car-container { left: 0; width: 390px; max-width: 29vw; height: auto; }
-.side-car-left { display: block; width: 100%; height: auto; mix-blend-mode: screen; }
-
-.side-car-bottom-led {
-position: absolute;
-top: 0; left: 0; right: 0; bottom: -20px;
-pointer-events: none;
--webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,0) 42%);
-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,0) 42%);
-}
-.side-car-bottom-led img {
-display: block; width: 100%; height: auto;
-mix-blend-mode: screen; pointer-events: none;
-animation: carBottomLedBlink 2.4s ease-in-out infinite;
-}
-
-@keyframes carBottomLedBlink {
-0%, 100% { filter: drop-shadow(0 0 2px rgba(0,220,255,0.2)) drop-shadow(0 0 5px rgba(0,160,255,0.1)); }
-50% { filter: drop-shadow(0 0 3px rgba(180,245,255,0.95)) drop-shadow(0 0 8px rgba(0,210,255,0.8)) drop-shadow(0 0 16px rgba(0,160,255,0.5)) drop-shadow(0 0 26px rgba(0,120,255,0.25)); }
-}
-
-.side-char-right {
-right: 0; height: 430px; max-height: 48vh; width: auto;
-animation: subtleCharLedBlink 2.4s ease-in-out infinite;
-}
-
-@keyframes subtleCharLedBlink {
-0%, 100% { filter: drop-shadow(0 0 1px rgba(255,255,255,0.08)) drop-shadow(0 0 3px rgba(255,255,255,0.04)) drop-shadow(0 4px 18px rgba(0,0,0,0.45)); }
-50% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.35)) drop-shadow(0 0 6px rgba(255,255,255,0.18)) drop-shadow(0 0 12px rgba(255,255,255,0.08)) drop-shadow(0 4px 18px rgba(0,0,0,0.45)); }
-}
-
-@media (max-width: 1024px) {
-.side-car-container { width: 300px; max-width: 34vw; }
-.side-char-right { height: 330px; max-height: 40vh; }
-}
-
 @media (max-width: 768px) {
-.side-car-container, .side-char-right { bottom: 105px; }
-.side-car-container { width: 160px; max-width: 40vw; }
-.side-char-right { height: 180px; max-height: 25vh; }
 .footer-container { font-size: 12px; }
 .footer-links { gap: 8px; }
 }
@@ -350,7 +312,7 @@ padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); letter-spac
 
 @media (prefers-reduced-motion: reduce) {
 .link-btn::before, .avatar-snake-glow, .avatar-snake-core { animation: none; }
-.kick-status-badge.live .status-dot, .side-char-right, .side-car-bottom-led img { animation: none; }
+.kick-status-badge.live .status-dot { animation: none; }
 }
 
 @media (max-width: 600px) {
@@ -500,22 +462,6 @@ z-index: 1000001; display: none; box-shadow: 0 4px 15px rgba(0,0,0,.25);
 <body>
 
 <canvas id="lightningCanvas"></canvas>
-
-<img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/1.png?raw=true"
-     class="side-char-right" alt="Krav0n Character"
-     onerror="this.onerror=null; this.src='1.png';">
-
-<div class="side-car-container">
-  <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true"
-       class="side-car-left" alt="Krav0n Skyline GT-R"
-       onerror="this.onerror=null; this.src='3.png';">
-  <div class="side-car-bottom-led">
-    <img src="https://github.com/Krav0n/Krav0n.github.io/blob/main/3.png?raw=true"
-         alt="" aria-hidden="true"
-         onerror="this.onerror=null; this.src='3.png';">
-  </div>
-</div>
-
 <div class="spotlight" id="spotlight"></div>
 
 <div class="profile-section">
@@ -875,3 +821,4 @@ document.getElementById("accessibilityReset").addEventListener("click", () => {
 </script>
 </body>
 </html>
+```
