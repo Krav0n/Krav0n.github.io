@@ -48,7 +48,7 @@ overflow-x: hidden;
 user-select: none;
 }
 
-/* תפריט עליון (Navbar) */
+/* תפריט עליון (Navbar) - הוגדל */
 .top-navbar {
 position: absolute;
 top: 30px;
@@ -69,10 +69,10 @@ direction: ltr;
 background: transparent;
 color: #a19bb5;
 border: none;
-padding: 10px 28px;
+padding: 12px 32px;
 font-family: 'Poppins', sans-serif;
 font-weight: 700;
-font-size: 14px;
+font-size: 15.5px;
 border-radius: 30px;
 cursor: pointer;
 transition: all 0.3s ease;
@@ -220,17 +220,23 @@ animation: liveRecPulse 1.4s infinite ease-in-out;
 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255,0,0,0); }
 }
 
-.links-grid {
-display: flex; flex-direction: row; justify-content: center;
-gap: 18px; width: 100%; direction: ltr;
+/* סידור כפתורים בטור אחד */
+.links-list {
+display: flex; 
+flex-direction: column; 
+justify-content: center;
+gap: 20px; 
+width: 100%; 
+max-width: 440px; /* רוחב יפה לכפתור ארוך */
+direction: ltr;
 }
-.links-col { display: flex; flex-direction: column; gap: 18px; flex: 1; }
 
+/* כפתורים - הוגדלו ב-10% נוספים */
 .link-btn {
 position: relative;
-display: flex; justify-content: center; align-items: center; gap: 12px;
-padding: 18px 16px; border-radius: 12px; text-decoration: none;
-font-weight: 700; font-size: 16.5px; font-family: 'Poppins', system-ui, sans-serif;
+display: flex; justify-content: center; align-items: center; gap: 14px;
+padding: 20px 18px; border-radius: 12px; text-decoration: none;
+font-weight: 700; font-size: 18px; font-family: 'Poppins', system-ui, sans-serif;
 overflow: hidden;
 -webkit-clip-path: inset(0 round 12px); clip-path: inset(0 round 12px);
 box-shadow: 0 4px 15px rgba(0,0,0,0.4);
@@ -250,9 +256,10 @@ background: var(--btn-bg); z-index: 1; pointer-events: none; transition: backgro
 }
 .link-btn > * { position: relative; z-index: 2; color: var(--text-color-btn, #ffffff); }
 .link-btn span { letter-spacing: 0.5px; }
+.link-btn i { font-size: 24px; } /* אייקונים הוגדלו */
 
 .btn-kick { --btn-bg: #0d1e11; --text-color-btn: #53fc18; --snake-main: #53fc18; --snake-tail: rgba(83,252,24,0.3); --snake-glow: rgba(83,252,24,0.45); }
-.kick-svg-icon { width: 20px; height: 20px; fill: currentColor; display: inline-block; vertical-align: middle; }
+.kick-svg-icon { width: 24px; height: 24px; fill: currentColor; display: inline-block; vertical-align: middle; }
 .btn-discord { --btn-bg: #11142b; --text-color-btn: #8ea1ff; --snake-main: #5865f2; --snake-tail: rgba(88,101,242,0.3); --snake-glow: rgba(88,101,242,0.45); }
 .btn-youtube { --btn-bg: #220d0d; --text-color-btn: #ff5e5e; --snake-main: #ff0000; --snake-tail: rgba(255,0,0,0.3); --snake-glow: rgba(255,0,0,0.45); }
 .btn-instagram { --btn-bg: #220e1a; --text-color-btn: #ff6b9d; --snake-main: #e1306c; --snake-tail: rgba(240,148,51,0.35); --snake-glow: rgba(225,48,108,0.45); }
@@ -301,7 +308,7 @@ padding-bottom: 6px; letter-spacing: 0.5px;
 .spec-label { font-weight: 700; color: #a19bb5; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 .spec-value { color: #ffffff; font-weight: 600; font-family: system-ui, sans-serif; }
 
-/* Subscriber Badges החדש עם תמונות */
+/* Subscriber Badges */
 .badges-container {
 display: flex;
 justify-content: center;
@@ -332,8 +339,8 @@ text-align: center;
 }
 
 @media (max-width: 600px) {
-.links-grid, .links-col { gap: 12px; }
-.link-btn { padding: 15px 12px; font-size: 15px; }
+.links-list { gap: 14px; }
+.link-btn { padding: 18px 14px; font-size: 16px; }
 .setup-inner-grid { flex-direction: column; gap: 20px; }
 .setup-divider { width: 100%; height: 1px; }
 .avatar-snake-wrap { width: 155px; height: 155px; }
@@ -365,14 +372,14 @@ z-index: 0; pointer-events: none;
 mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
 }
 
-/* ===== תפריט נגישות ===== */
+/* ===== תפריט נגישות - הוגדל והאייקון שופר ===== */
 .accessibility-open {
 position: fixed; left: 20px; bottom: 20px;
-width: 58px; height: 58px; border: 0;
+width: 65px; height: 65px; border: 0;
 border-radius: 50%; background: #facc15; color: #0c0a14;
 cursor: pointer; z-index: 999999;
 display: flex; align-items: center; justify-content: center;
-font-size: 28px; box-shadow: 0 4px 18px rgba(0,0,0,.35); transition: .15s;
+font-size: 30px; box-shadow: 0 4px 18px rgba(0,0,0,.35); transition: .15s;
 }
 .accessibility-open:hover { transform: scale(1.05); background: #ffbe00; }
 
@@ -457,27 +464,24 @@ body.access-big-cursor, body.access-big-cursor * { cursor: url("data:image/svg+x
     </div>
   </div>
 
-  <div class="links-grid">
-    <div class="links-col">
-      <a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick">
-        <svg class="kick-svg-icon" viewBox="0 0 24 24" role="img" aria-label="Kick Logo"><path d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg>
-        <span>Kick</span>
-      </a>
-      <a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube">
-        <i class="fa-brands fa-youtube"></i>
-        <span>YouTube</span>
-      </a>
-    </div>
-    <div class="links-col">
-      <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord">
-        <i class="fa-brands fa-discord"></i>
-        <span>Discord</span>
-      </a>
-      <a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram">
-        <i class="fa-brands fa-instagram"></i>
-        <span>Instagram</span>
-      </a>
-    </div>
+  <!-- הכפתורים ממוקמים בטור אחד לפי הסדר המבוקש -->
+  <div class="links-list">
+    <a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick">
+      <svg class="kick-svg-icon" viewBox="0 0 24 24" role="img" aria-label="Kick Logo"><path d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg>
+      <span>Kick</span>
+    </a>
+    <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord">
+      <i class="fa-brands fa-discord"></i>
+      <span>Discord</span>
+    </a>
+    <a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube">
+      <i class="fa-brands fa-youtube"></i>
+      <span>YouTube</span>
+    </a>
+    <a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram">
+      <i class="fa-brands fa-instagram"></i>
+      <span>Instagram</span>
+    </a>
   </div>
 </div>
 
@@ -559,7 +563,10 @@ body.access-big-cursor, body.access-big-cursor * { cursor: url("data:image/svg+x
 </footer>
 
 <!-- ===== כפתור ופאנל נגישות ===== -->
-<button class="accessibility-open" id="accessibilityOpen" aria-label="פתיחת כלי נגישות" title="כלי נגישות">♿</button>
+<!-- הוחלף האימוג'י באייקון אוניברסלי מובנה שייראה מעולה -->
+<button class="accessibility-open" id="accessibilityOpen" aria-label="פתיחת כלי נגישות" title="כלי נגישות">
+  <i class="fa-solid fa-universal-access"></i>
+</button>
 
 <div class="accessibility-panel" id="accessibilityPanel" aria-label="כלי נגישות">
   <div class="accessibility-header">
