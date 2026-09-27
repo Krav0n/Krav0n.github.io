@@ -52,6 +52,7 @@ body {
   box-sizing: border-box;
 }
 
+/* ── Navbar ── */
 .top-navbar {
   position: absolute;
   top: 30px;
@@ -88,6 +89,7 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+/* ── View sections ── */
 .view-section {
   display: none;
   width: 100%;
@@ -106,6 +108,7 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Effects ── */
 .spotlight {
   position: fixed;
   top: 0; left: 0;
@@ -117,13 +120,14 @@ body {
 }
 @keyframes lightningFlicker {
   0%,94%,100% { opacity: 1; }
-  95% { opacity: 1.8; }
-  96% { opacity: 0.4; }
-  97% { opacity: 2.2; }
-  98% { opacity: 0.6; }
-  99% { opacity: 1.5; }
+  95%  { opacity: 1.8; }
+  96%  { opacity: 0.4; }
+  97%  { opacity: 2.2; }
+  98%  { opacity: 0.6; }
+  99%  { opacity: 1.5; }
 }
 
+/* ── Profile ── */
 .profile-section {
   display: flex;
   flex-direction: column;
@@ -166,6 +170,7 @@ body {
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
 }
 
+/* ── Live badge ── */
 .kick-status-badge {
   display: inline-flex;
   align-items: center;
@@ -210,6 +215,7 @@ body {
   100% { transform:scale(0.95); box-shadow: 0 0 0 0 rgba(255,0,0,0); }
 }
 
+/* ── Links list ── */
 .links-list {
   display: flex;
   flex-direction: column;
@@ -220,6 +226,7 @@ body {
   direction: ltr;
 }
 
+/* ── Snake buttons ── */
 .link-btn {
   position: relative;
   display: flex; justify-content: center; align-items: center; gap: 14px;
@@ -252,7 +259,9 @@ body {
 .btn-youtube   { --btn-bg:#220d0d; --text-color-btn:#ff5e5e; --snake-main:#ff0000; --snake-tail:rgba(255,0,0,0.3);    --snake-glow:rgba(255,0,0,0.45); }
 .btn-instagram { --btn-bg:#220e1a; --text-color-btn:#ff6b9d; --snake-main:#e1306c; --snake-tail:rgba(240,148,51,0.35);--snake-glow:rgba(225,48,108,0.45); }
 
-/* ══ ACCORDION ══ */
+/* ════════════════════════════════
+   ACCORDION — INFO TAB
+   ════════════════════════════════ */
 .accordion-list {
   width: 100%;
   display: flex;
@@ -260,6 +269,7 @@ body {
   gap: 12px;
 }
 
+/* ── Single accordion item ── */
 .acc-item {
   background: rgba(18,14,28,0.85);
   border: 1px solid rgba(255,255,255,0.1);
@@ -272,6 +282,7 @@ body {
 .acc-item:hover { border-color: rgba(255,255,255,0.18); }
 .acc-item.open  { border-color: rgba(250,204,21,0.35); }
 
+/* ── Header row (clickable) ── */
 .acc-header {
   display: flex;
   align-items: center;
@@ -320,6 +331,7 @@ body {
   margin-right: 8px;
 }
 
+/* ── Chevron arrow ── */
 .acc-chevron {
   width: 28px; height: 28px;
   border-radius: 8px;
@@ -338,12 +350,15 @@ body {
   border-color: rgba(250,204,21,0.22);
 }
 
+/* ── Collapsible body ── */
 .acc-body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.42s cubic-bezier(0.4,0,0.2,1);
 }
-.acc-item.open .acc-body { max-height: 900px; }
+.acc-item.open .acc-body {
+  max-height: 900px; /* big enough for any content */
+}
 
 .acc-inner {
   padding: 4px 20px 20px;
@@ -351,44 +366,85 @@ body {
   direction: ltr;
 }
 
-/* Setup Specs */
+/* ── Setup Specs ── */
 .setup-inner-grid { display:flex; flex-direction:row; gap:24px; padding-top:16px; }
 .setup-col        { flex:1; display:flex; flex-direction:column; gap:12px; }
 .setup-divider    { width:1px; background:rgba(255,255,255,0.08); }
-.specs-title { font-family:'Poppins',sans-serif; font-size:13px; font-weight:700; color:#a19bb5; display:flex; align-items:center; gap:8px; padding-bottom:6px; letter-spacing:0.5px; }
-.specs-list  { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
-.specs-list li { font-size:13px; line-height:1.5; display:flex; flex-direction:column; gap:2px; }
-.spec-label  { font-weight:700; color:#a19bb5; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
-.spec-value  { color:#ffffff; font-weight:600; font-family:system-ui,sans-serif; }
+.specs-title {
+  font-family:'Poppins',sans-serif; font-size:13px; font-weight:700;
+  color:#a19bb5; display:flex; align-items:center; gap:8px;
+  padding-bottom:6px; letter-spacing:0.5px;
+}
+.specs-list      { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
+.specs-list li   { font-size:13px; line-height:1.5; display:flex; flex-direction:column; gap:2px; }
+.spec-label      { font-weight:700; color:#a19bb5; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
+.spec-value      { color:#ffffff; font-weight:600; font-family:system-ui,sans-serif; }
 
-/* Badges */
-.badges-container { display:flex; justify-content:center; flex-wrap:wrap; gap:16px; padding-top:16px; }
+/* ── Subscriber Badges ── */
+.badges-container {
+  display:flex; justify-content:center; flex-wrap:wrap; gap:16px; padding-top:16px;
+}
 .badge-item { display:flex; flex-direction:column; align-items:center; gap:8px; width:65px; }
-.badge-img  { width:50px; height:50px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.5)); transition:transform 0.2s ease; -webkit-user-drag:none; }
+.badge-img  {
+  width:50px; height:50px; object-fit:contain;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,0.5)); transition:transform 0.2s ease;
+  -webkit-user-drag:none;
+}
 .badge-img:hover { transform:scale(1.12); }
 .badge-item span { font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#d1cbe0; text-align:center; }
 
-/* Leaderboard */
-.lb-refresh-row { display:flex; align-items:center; padding:12px 0 6px; }
-.lb-last-updated { font-size:11px; color:#a19bb5; font-family:'Poppins',sans-serif; }
+/* ── Leaderboard ── */
+.lb-refresh-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0 6px;
+}
+.lb-last-updated {
+  font-size: 11px;
+  color: #a19bb5;
+  font-family: 'Poppins', sans-serif;
+}
+
 .lb-columns { display:flex; gap:16px; padding-top:8px; }
 .lb-col { flex:1; display:flex; flex-direction:column; }
-.lb-col-title { font-family:'Poppins',sans-serif; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding-bottom:8px; margin-bottom:4px; display:flex; align-items:center; gap:6px; border-bottom:1px solid rgba(255,255,255,0.07); }
+.lb-col-title {
+  font-family:'Poppins',sans-serif;
+  font-size:14px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase;
+  padding-bottom:10px; margin-bottom:6px;
+  display:flex; align-items:center; gap:7px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
 .lb-col-title.kicks { color:#53fc18; }
 .lb-col-title.gifts { color:#facc15; }
-.lb-row { display:flex; align-items:center; gap:8px; padding:6px 4px; border-bottom:1px solid rgba(255,255,255,0.03); border-radius:6px; transition:background 0.15s; }
-.lb-row:hover { background:rgba(255,255,255,0.04); }
-.lb-row:last-child { border-bottom:none; }
-.lb-rank { font-family:'Poppins',sans-serif; font-size:11px; font-weight:700; width:20px; text-align:center; flex-shrink:0; color:#a19bb5; }
-.lb-name { flex:1; font-size:12px; font-weight:600; color:#e8e8ef; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.lb-val  { font-family:'Poppins',sans-serif; font-size:12px; font-weight:700; flex-shrink:0; }
+
+.lb-row {
+  display:flex; align-items:center; gap:10px;
+  padding:9px 6px;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  border-radius:8px;
+  transition:background 0.15s;
+}
+.lb-row:hover { background:rgba(255,255,255,0.06); }
+.lb-row:last-child { border-bottom: none; }
+
+.lb-rank { font-family:'Poppins',sans-serif; font-size:13px; font-weight:800; width:24px; text-align:center; flex-shrink:0; color:#a19bb5; }
+.lb-name { flex:1; font-size:14px; font-weight:700; color:#ffffff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lb-val  { font-family:'Poppins',sans-serif; font-size:14px; font-weight:800; flex-shrink:0; }
 .lb-val.kick-val { color:#53fc18; }
 .lb-val.gift-val { color:#facc15; }
-.lb-divider { width:1px; background:rgba(255,255,255,0.07); flex-shrink:0; }
-.lb-loading { text-align:center; padding:20px 0; color:#a19bb5; font-size:13px; font-family:'Poppins',sans-serif; }
-.lb-loading i { color:#53fc18; margin-bottom:6px; display:block; font-size:18px; }
+.lb-divider { width:1px; background:rgba(255,255,255,0.08); flex-shrink:0; }
 
-/* Footer */
+.lb-loading {
+  text-align: center;
+  padding: 20px 0;
+  color: #a19bb5;
+  font-size: 13px;
+  font-family: 'Poppins', sans-serif;
+}
+.lb-loading i { color: #53fc18; margin-bottom: 6px; display: block; font-size: 18px; }
+
+/* ── Footer ── */
 .footer-container {
   margin-top: auto;
   padding-bottom: 25px;
@@ -402,6 +458,7 @@ body {
 .footer-links a:hover { color:#facc15; }
 .footer-links .separator { opacity:0.7; }
 
+/* ── Lightning ── */
 #lightningCanvas {
   position:fixed; top:0; left:0; width:100vw; height:100vh;
   z-index:0; pointer-events:none;
@@ -409,10 +466,25 @@ body {
   mask-image:radial-gradient(ellipse at center, transparent 35%, black 75%);
 }
 
-/* Accessibility */
-.accessibility-open { position:fixed; left:20px; bottom:20px; width:58px; height:58px; border:0; border-radius:50%; background:#facc15; color:#0c0a14; cursor:pointer; z-index:999999; display:flex; align-items:center; justify-content:center; font-size:28px; box-shadow:0 4px 18px rgba(0,0,0,.35); transition:.15s; }
+/* ── Accessibility ── */
+.accessibility-open {
+  position:fixed; left:20px; bottom:20px;
+  width:58px; height:58px; border:0;
+  border-radius:50%; background:#facc15; color:#0c0a14;
+  cursor:pointer; z-index:999999;
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; box-shadow:0 4px 18px rgba(0,0,0,.35); transition:.15s;
+}
 .accessibility-open:hover { transform:scale(1.05); background:#ffbe00; }
-.accessibility-panel { position:fixed; left:0; top:0; width:380px; max-width:100vw; height:100vh; background:#fff; z-index:1000000; box-shadow:5px 0 25px rgba(0,0,0,.25); transform:translateX(-100%); transition:transform .25s ease; display:flex; flex-direction:column; font-family:Arial,"Segoe UI",sans-serif; direction:rtl; }
+.accessibility-panel {
+  position:fixed; left:0; top:0;
+  width:380px; max-width:100vw; height:100vh;
+  background:#fff; z-index:1000000;
+  box-shadow:5px 0 25px rgba(0,0,0,.25);
+  transform:translateX(-100%); transition:transform .25s ease;
+  display:flex; flex-direction:column;
+  font-family:Arial,"Segoe UI",sans-serif; direction:rtl;
+}
 .accessibility-panel.open { transform:translateX(0); }
 .accessibility-header { height:60px; min-height:60px; background:#2161ff; color:#fff; display:flex; align-items:center; position:relative; padding:0 18px; }
 .accessibility-title  { width:100%; text-align:center; font-size:22px; font-weight:bold; }
@@ -452,6 +524,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
 #reading-mask  { position:fixed; left:0; right:0; top:40%; height:80px; background:rgba(0,0,0,.15); border-top:3px solid #2161ff; border-bottom:3px solid #2161ff; pointer-events:none; z-index:999998; display:none; }
 .speech-status { position:fixed; bottom:90px; left:20px; max-width:320px; padding:12px 18px; background:#2161ff; color:#fff; border-radius:10px; font-family:Arial,sans-serif; font-size:14px; z-index:1000001; display:none; box-shadow:0 4px 15px rgba(0,0,0,.25); }
 
+/* ── Responsive ── */
 @media (max-width: 600px) {
   .links-list { gap:14px; }
   .link-btn   { padding:18px 14px; font-size:16px; }
@@ -487,7 +560,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
     <button class="nav-tab" data-target="infoView">INFO</button>
   </nav>
 
-  <!-- HOME -->
+  <!-- ═══════════════ HOME ═══════════════ -->
   <div id="homeView" class="view-section active">
     <div class="profile-section">
       <div class="avatar-snake-wrap">
@@ -502,28 +575,32 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
         <span class="status-text" id="kickStatusText">OFFLINE</span>
       </div>
     </div>
+
     <div class="links-list">
       <a href="https://kick.com/krav0n" target="_blank" rel="noopener noreferrer" class="link-btn btn-kick">
         <svg class="kick-svg-icon" viewBox="0 0 24 24" role="img" aria-label="Kick Logo"><path d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg>
         <span>Kick</span>
       </a>
       <a href="https://discord.com/invite/RsyXzy4G8n" target="_blank" rel="noopener noreferrer" class="link-btn btn-discord">
-        <i class="fa-brands fa-discord"></i><span>Discord</span>
+        <i class="fa-brands fa-discord"></i>
+        <span>Discord</span>
       </a>
       <a href="https://www.youtube.com/@Krav0n5" target="_blank" rel="noopener noreferrer" class="link-btn btn-youtube">
-        <i class="fa-brands fa-youtube"></i><span>YouTube</span>
+        <i class="fa-brands fa-youtube"></i>
+        <span>YouTube</span>
       </a>
       <a href="https://www.instagram.com/krav0n.5/" target="_blank" rel="noopener noreferrer" class="link-btn btn-instagram">
-        <i class="fa-brands fa-instagram"></i><span>Instagram</span>
+        <i class="fa-brands fa-instagram"></i>
+        <span>Instagram</span>
       </a>
     </div>
   </div>
 
-  <!-- INFO -->
+  <!-- ═══════════════ INFO ═══════════════ -->
   <div id="infoView" class="view-section">
     <div class="accordion-list">
 
-      <!-- 1: Setup Specs -->
+      <!-- ── ACCORDION 1: Setup Specs ── -->
       <div class="acc-item" id="acc-setup">
         <div class="acc-header" onclick="toggleAcc('acc-setup')">
           <div class="acc-icon"><i class="fa-solid fa-desktop"></i></div>
@@ -557,36 +634,58 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
         </div>
       </div>
 
-      <!-- 2: Subscriber Badges -->
+      <!-- ── ACCORDION 2: Subscriber Badges ── -->
       <div class="acc-item" id="acc-badges">
         <div class="acc-header" onclick="toggleAcc('acc-badges')">
           <div class="acc-icon"><i class="fa-solid fa-medal"></i></div>
           <span class="acc-title">Subscriber Badges</span>
-          <span class="acc-badge">8 תגים</span>
           <div class="acc-chevron"><i class="fa-solid fa-chevron-down"></i></div>
         </div>
         <div class="acc-body">
           <div class="acc-inner">
             <div class="badges-container">
-              <div class="badge-item"><img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_base.png?raw=true" alt="Base" draggable="false"><span>Base</span></div>
-              <div class="badge-item"><img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2m.png?raw=true" alt="2-Month" draggable="false"><span>2 Months</span></div>
-              <div class="badge-item"><img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_3m.png?raw=true" alt="3-Month" draggable="false"><span>3 Months</span></div>
-              <div class="badge-item"><img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_6m.png?raw=true" alt="6-Month" draggable="false"><span>6 Months</span></div>
-              <div class="badge-item"><img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_9m.png?raw=true" alt="9-Month" draggable="false"><span>9 Months</span></div>
-              <div class="badge-item"><img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1y.png?raw=true" alt="1-Year" draggable="false"><span>1 Year</span></div>
-              <div class="badge-item"><img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1_5y.png?raw=true" alt="1.5-Year" draggable="false"><span>1.5 Years</span></div>
-              <div class="badge-item"><img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2y.png?raw=true" alt="2-Year" draggable="false"><span>2 Years</span></div>
+              <div class="badge-item">
+                <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_base.png?raw=true" alt="Base" draggable="false">
+                <span>Base</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2m.png?raw=true" alt="2-Month" draggable="false">
+                <span>2 Months</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_3m.png?raw=true" alt="3-Month" draggable="false">
+                <span>3 Months</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_6m.png?raw=true" alt="6-Month" draggable="false">
+                <span>6 Months</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_9m.png?raw=true" alt="9-Month" draggable="false">
+                <span>9 Months</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1y.png?raw=true" alt="1-Year" draggable="false">
+                <span>1 Year</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_1_5y.png?raw=true" alt="1.5-Year" draggable="false">
+                <span>1.5 Years</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="https://github.com/Krav0n/Krav0n.github.io/blob/main/badge_2y.png?raw=true" alt="2-Year" draggable="false">
+                <span>2 Years</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 3: Leaderboard -->
+      <!-- ── ACCORDION 3: Leaderboard ── -->
       <div class="acc-item" id="acc-lb">
         <div class="acc-header" onclick="toggleAcc('acc-lb'); loadLeaderboard();">
           <div class="acc-icon"><i class="fa-solid fa-trophy"></i></div>
           <span class="acc-title">Leaderboard — Top 10</span>
-          <span class="acc-badge" id="lbUpdatedBadge">—</span>
           <div class="acc-chevron"><i class="fa-solid fa-chevron-down"></i></div>
         </div>
         <div class="acc-body">
@@ -604,8 +703,8 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
         </div>
       </div>
 
-    </div>
-  </div>
+    </div><!-- /accordion-list -->
+  </div><!-- /infoView -->
 
   <footer class="footer-container">
     <div class="footer-credit">Made by <span style="color:#facc15;">Krav0n</span>&nbsp;&nbsp;<span>© 2026</span></div>
@@ -617,6 +716,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
   </footer>
 </div>
 
+<!-- Accessibility -->
 <button class="accessibility-open" id="accessibilityOpen" aria-label="פתיחת כלי נגישות" title="כלי נגישות">
   <i class="fa-solid fa-universal-access"></i>
 </button>
@@ -662,217 +762,271 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
 <div id="speechStatus" class="speech-status">🔊 הקראת טקסט פעילה</div>
 
 <script>
-/* ── Accordion ── */
+/* ══════════════════════════════════════════════
+   ACCORDION
+   ══════════════════════════════════════════════ */
 function toggleAcc(id) {
   const item = document.getElementById(id);
   const isOpen = item.classList.contains('open');
+  // Close all
   document.querySelectorAll('.acc-item').forEach(el => el.classList.remove('open'));
+  // Open clicked if it was closed
   if (!isOpen) item.classList.add('open');
 }
 
-/* ── Leaderboard ── */
+/* ══════════════════════════════════════════════
+   LEADERBOARD — Auto fetch from Kick API via Cloudflare Proxy
+   ══════════════════════════════════════════════ */
 let lbLoaded = false;
 
+/* Fallback data (shown if API fails) */
 const FALLBACK_KICKS = [
-  {username:'Player1',total:312},{username:'Player2',total:278},{username:'Player3',total:241},
-  {username:'Player4',total:199},{username:'Player5',total:173},{username:'Player6',total:154},
-  {username:'Player7',total:130},{username:'Player8',total:117},{username:'Player9',total:98},
-  {username:'Player10',total:85}
+  { username:'Player1', total:0 },{ username:'Player2', total:0 },
+  { username:'Player3', total:0 },{ username:'Player4', total:0 },
+  { username:'Player5', total:0 },{ username:'Player6', total:0 },
+  { username:'Player7', total:0 },{ username:'Player8', total:0 },
+  { username:'Player9', total:0 },{ username:'Player10',total:0 },
 ];
 const FALLBACK_GIFTS = [
-  {username:'Gifter1',total:540},{username:'Gifter2',total:410},{username:'Gifter3',total:390},
-  {username:'Gifter4',total:310},{username:'Gifter5',total:255},{username:'Gifter6',total:210},
-  {username:'Gifter7',total:185},{username:'Gifter8',total:140},{username:'Gifter9',total:115},
-  {username:'Gifter10',total:90}
+  { username:'Gifter1', total:0 },{ username:'Gifter2', total:0 },
+  { username:'Gifter3', total:0 },{ username:'Gifter4', total:0 },
+  { username:'Gifter5', total:0 },{ username:'Gifter6', total:0 },
+  { username:'Gifter7', total:0 },{ username:'Gifter8', total:0 },
+  { username:'Gifter9', total:0 },{ username:'Gifter10',total:0 },
 ];
 
 function rankIcon(i) {
-  if (i===0) return '<span class="lb-rank">🥇</span>';
-  if (i===1) return '<span class="lb-rank">🥈</span>';
-  if (i===2) return '<span class="lb-rank">🥉</span>';
-  return `<span class="lb-rank">${i+1}</span>`;
+  if (i === 0) return '<span class="lb-rank gold">🥇</span>';
+  if (i === 1) return '<span class="lb-rank silver">🥈</span>';
+  if (i === 2) return '<span class="lb-rank bronze">🥉</span>';
+  return `<span class="lb-rank">${i + 1}</span>`;
 }
 
 function buildLbHTML(kicks, gifts) {
-  const kr = kicks.slice(0,10).map((e,i)=>`<div class="lb-row">${rankIcon(i)}<span class="lb-name">${e.username}</span><span class="lb-val kick-val">${e.total}</span></div>`).join('');
-  const gr = gifts.slice(0,10).map((e,i)=>`<div class="lb-row">${rankIcon(i)}<span class="lb-name">${e.username}</span><span class="lb-val gift-val">${e.total}</span></div>`).join('');
-  return `<div class="lb-columns">
-    <div class="lb-col"><div class="lb-col-title kicks"><i class="fa-solid fa-shoe-prints"></i> Kicks</div>${kr}</div>
-    <div class="lb-divider"></div>
-    <div class="lb-col"><div class="lb-col-title gifts"><i class="fa-solid fa-gift"></i> Gifts</div>${gr}</div>
-  </div>`;
+  const kickRows = kicks.slice(0,10).map((e,i) =>
+    `<div class="lb-row">${rankIcon(i)}<span class="lb-name">${e.username}</span><span class="lb-val kick-val">${e.total}</span></div>`
+  ).join('');
+  const giftRows = gifts.slice(0,10).map((e,i) =>
+    `<div class="lb-row">${rankIcon(i)}<span class="lb-name">${e.username}</span><span class="lb-val gift-val">${e.total}</span></div>`
+  ).join('');
+  return `
+    <div class="lb-columns">
+      <div class="lb-col">
+        <div class="lb-col-title kicks"><i class="fa-solid fa-shoe-prints"></i> Kicks</div>
+        ${kickRows || '<div class="lb-loading" style="padding:10px 0"><i class="fa-solid fa-minus"></i>אין נתונים</div>'}
+      </div>
+      <div class="lb-divider"></div>
+      <div class="lb-col">
+        <div class="lb-col-title gifts"><i class="fa-solid fa-gift"></i> Gifts</div>
+        ${giftRows || '<div class="lb-loading" style="padding:10px 0"><i class="fa-solid fa-minus"></i>אין נתונים</div>'}
+      </div>
+    </div>`;
 }
 
-function normalize(arr) {
-  return arr.map(e=>({
-    username: e.username||e.name||e.display_name||(e.user&&e.user.username)||'—',
-    total: e.quantity||e.total||e.count||e.amount||0
-  }));
+function setUpdatedTime() {
+  const now = new Date();
+  const t = now.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' });
+  document.getElementById('lbLastUpdated').textContent = `עודכן ב-${t}`;
 }
 
-async function loadLeaderboard(force=false) {
+async function loadLeaderboard(force = false) {
   if (lbLoaded && !force) return;
-  const content = document.getElementById('lbContent');
-  if (!lbLoaded) content.innerHTML = '<div class="lb-loading"><i class="fa-solid fa-circle-notch fa-spin"></i>טוען לידרבורד...</div>';
 
-  let kicks=[], gifts=[], apiOk=false;
+  const content = document.getElementById('lbContent');
+
+  if (!lbLoaded) {
+    content.innerHTML = '<div class="lb-loading"><i class="fa-solid fa-circle-notch fa-spin"></i>טוען לידרבורד...</div>';
+  }
+
+  let kicks = [], gifts = [], apiOk = false;
+
   try {
-    const [kr, gr] = await Promise.all([
-      fetch('https://kick.com/api/v2/channels/krav0n/leaderboards?type=kicks',{headers:{'Accept':'application/json'},cache:'no-store'}),
-      fetch('https://kick.com/api/v2/channels/krav0n/leaderboards?type=gifts',{headers:{'Accept':'application/json'},cache:'no-store'})
+    // Try Kick leaderboards API via Proxy
+    const [kicksRes, giftsRes] = await Promise.all([
+      fetch('https://krav0n-lb-proxy.smithhadeee.workers.dev/?type=kicks', {
+        headers: { 'Accept': 'application/json' }, cache: 'no-store'
+      }),
+      fetch('https://krav0n-lb-proxy.smithhadeee.workers.dev/?type=gifts', {
+        headers: { 'Accept': 'application/json' }, cache: 'no-store'
+      }),
     ]);
-    if (kr.ok && gr.ok) {
-      const kd=await kr.json(), gd=await gr.json();
-      kicks = Array.isArray(kd)?kd:(kd.data||kd.leaderboard||kd.users||[]);
-      gifts = Array.isArray(gd)?gd:(gd.data||gd.leaderboard||gd.users||[]);
-      if (kicks.length>0||gifts.length>0) apiOk=true;
+
+    if (kicksRes.ok && giftsRes.ok) {
+      const kd = await kicksRes.json();
+      const gd = await giftsRes.json();
+      kicks = Array.isArray(kd) ? kd : (kd.data || kd.leaderboard || kd.users || []);
+      gifts = Array.isArray(gd) ? gd : (gd.data || gd.leaderboard || gd.users || []);
+      if (kicks.length > 0 || gifts.length > 0) apiOk = true;
     }
+
     if (!apiOk) {
-      const alt = await fetch('https://kick.com/api/v2/channels/krav0n',{headers:{'Accept':'application/json'},cache:'no-store'});
-      if (alt.ok) {
-        const ch=await alt.json();
+      const altRes = await fetch('https://kick.com/api/v2/channels/krav0n', {
+        headers: { 'Accept': 'application/json' }, cache: 'no-store'
+      });
+      if (altRes.ok) {
+        const ch = await altRes.json();
         if (ch.leaderboard) {
-          kicks=ch.leaderboard.kicks||ch.leaderboard.top_kickers||[];
-          gifts=ch.leaderboard.gifts||ch.leaderboard.top_gifters||[];
-          if (kicks.length>0||gifts.length>0) apiOk=true;
+          kicks = ch.leaderboard.kicks || ch.leaderboard.top_kickers || [];
+          gifts = ch.leaderboard.gifts || ch.leaderboard.top_gifters || [];
+          if (kicks.length > 0 || gifts.length > 0) apiOk = true;
         }
       }
     }
-  } catch(e){ console.warn('Leaderboard fetch error:',e); }
-
-  const fk = apiOk ? normalize(kicks) : FALLBACK_KICKS;
-  const fg = apiOk ? normalize(gifts) : FALLBACK_GIFTS;
-  content.innerHTML = buildLbHTML(fk, fg);
-
-  const now = new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
-  if (apiOk) {
-    document.getElementById('lbLastUpdated').textContent = `עודכן ב-${now}`;
-    document.getElementById('lbUpdatedBadge').textContent = now;
-  } else {
-    document.getElementById('lbLastUpdated').textContent = 'נתוני דוגמה';
-    document.getElementById('lbUpdatedBadge').textContent = '—';
+  } catch (err) {
+    console.warn('Kick leaderboard API error:', err);
   }
+
+  function normalize(arr) {
+    return arr.map(e => ({
+      username: e.username || e.name || e.display_name || e.user?.username || '—',
+      total:    e.quantity  || e.total || e.count || e.amount || 0
+    }));
+  }
+
+  const finalKicks = apiOk ? normalize(kicks) : FALLBACK_KICKS;
+  const finalGifts = apiOk ? normalize(gifts) : FALLBACK_GIFTS;
+
+  content.innerHTML = buildLbHTML(finalKicks, finalGifts);
+
+  if (!apiOk) {
+    document.getElementById('lbLastUpdated').textContent = 'נתוני דוגמה (API לא זמין)';
+  } else {
+    setUpdatedTime();
+  }
+
   lbLoaded = true;
 }
 
-setInterval(()=>{ if(document.getElementById('acc-lb').classList.contains('open')) loadLeaderboard(true); }, 5*60*1000);
+// Auto-refresh leaderboard every 5 minutes if open
+setInterval(() => {
+  if (document.getElementById('acc-lb').classList.contains('open')) {
+    loadLeaderboard(true);
+  }
+}, 5 * 60 * 1000);
 
-/* ── Tabs ── */
-document.querySelectorAll('.nav-tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.view-section').forEach(v=>v.classList.remove('active'));
+/* ══════════════════════════════════════════════
+   TAB SWITCHING
+   ══════════════════════════════════════════════ */
+const tabs  = document.querySelectorAll('.nav-tab');
+const views = document.querySelectorAll('.view-section');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
-    const t=document.getElementById(tab.dataset.target);
-    if(t) t.classList.add('active');
+    views.forEach(v => v.classList.remove('active'));
+    const target = document.getElementById(tab.dataset.target);
+    if (target) target.classList.add('active');
   });
 });
 
 /* ── Anti-devtools ── */
-document.addEventListener('contextmenu',e=>e.preventDefault());
-document.addEventListener('copy',e=>e.preventDefault());
-document.addEventListener('selectstart',e=>e.preventDefault());
-document.addEventListener('keydown',e=>{
-  if(e.key==='F12'||e.keyCode===123) e.preventDefault();
-  if((e.ctrlKey||e.metaKey)&&e.shiftKey&&[73,74,67].includes(e.keyCode)) e.preventDefault();
-  if((e.ctrlKey||e.metaKey)&&[85,67,65,83].includes(e.keyCode)) e.preventDefault();
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy',        e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (e.key === 'F12' || e.keyCode === 123) e.preventDefault();
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && [73,74,67].includes(e.keyCode)) e.preventDefault();
+  if ((e.ctrlKey || e.metaKey) && [85,67,65,83].includes(e.keyCode)) e.preventDefault();
 });
 
 /* ── Kick Live Status ── */
 async function checkKickLiveStatus() {
-  const badge=document.getElementById('kickStatusBadge');
-  const textSpan=document.getElementById('kickStatusText');
-  if(!badge||!textSpan) return;
+  const badge    = document.getElementById('kickStatusBadge');
+  const textSpan = document.getElementById('kickStatusText');
+  if (!badge || !textSpan) return;
   try {
-    const r=await fetch('https://kick.com/api/v2/channels/krav0n',{headers:{'Accept':'application/json'},cache:'no-store'});
-    if(r.ok){
-      const data=await r.json();
-      const isLive=Boolean(data&&data.livestream);
-      if(isLive){
-        badge.classList.remove('offline');badge.classList.add('live');
-        textSpan.textContent='LIVE';
-        badge.style.pointerEvents='auto';badge.style.cursor='pointer';
-        badge.onclick=()=>window.open('https://kick.com/krav0n','_blank','noopener,noreferrer');
-        badge.title='Krav0n is LIVE on Kick! Click to watch';
+    const response = await fetch('https://kick.com/api/v2/channels/krav0n', {
+      headers: { 'Accept': 'application/json' }, cache: 'no-store'
+    });
+    if (response.ok) {
+      const data   = await response.json();
+      const isLive = Boolean(data && data.livestream);
+      if (isLive) {
+        badge.classList.remove('offline'); badge.classList.add('live');
+        textSpan.textContent = 'LIVE';
+        badge.style.pointerEvents = 'auto'; badge.style.cursor = 'pointer';
+        badge.onclick = () => window.open('https://kick.com/krav0n','_blank','noopener,noreferrer');
+        badge.title = 'Krav0n is LIVE on Kick! Click to watch';
       } else {
-        badge.classList.remove('live');badge.classList.add('offline');
-        textSpan.textContent='OFFLINE';
-        badge.style.pointerEvents='none';badge.style.cursor='default';
-        badge.onclick=null;badge.title='Krav0n is OFFLINE';
+        badge.classList.remove('live'); badge.classList.add('offline');
+        textSpan.textContent = 'OFFLINE';
+        badge.style.pointerEvents = 'none'; badge.style.cursor = 'default';
+        badge.onclick = null; badge.title = 'Krav0n is OFFLINE';
       }
     }
-  } catch(e){console.warn('Kick status error:',e);}
+  } catch(err) { console.warn('Kick status check error:', err); }
 }
 checkKickLiveStatus();
-setInterval(checkKickLiveStatus,60000);
+setInterval(checkKickLiveStatus, 60000);
 
 /* ── Lightning ── */
-const canvas=document.getElementById('lightningCanvas');
-const ctx=canvas.getContext('2d');
-function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-window.addEventListener('resize',resizeCanvas); resizeCanvas();
-function drawBolt(sx,sy,len,ang,bp,depth,color){
-  if(depth>3) return;
-  let cx=sx,cy=sy;
-  ctx.beginPath();ctx.moveTo(cx,cy);
-  ctx.shadowBlur=depth===0?15:5;ctx.shadowColor=color;
-  ctx.strokeStyle=`rgba(255,255,255,${1-depth*0.2})`;ctx.lineWidth=Math.max(1,3-depth);
-  for(let i=0;i<Math.floor(len/10);i++){
-    const sa=ang+(Math.random()-0.5)*1.5;
-    cx+=Math.cos(sa)*10;cy+=Math.sin(sa)*10;ctx.lineTo(cx,cy);
-    if(Math.random()<bp){
-      drawBolt(cx,cy,len*0.5,ang+(Math.random()>.5?1:-1)*(0.5+Math.random()*0.5),bp*0.5,depth+1,color);
-      ctx.moveTo(cx,cy);
+const canvas = document.getElementById('lightningCanvas');
+const ctx    = canvas.getContext('2d');
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+function drawBolt(sx, sy, length, angle, bp, depth, color) {
+  if (depth > 3) return;
+  let cx = sx, cy = sy;
+  ctx.beginPath(); ctx.moveTo(cx, cy);
+  ctx.shadowBlur = depth === 0 ? 15 : 5; ctx.shadowColor = color;
+  ctx.strokeStyle = `rgba(255,255,255,${1 - depth * 0.2})`; ctx.lineWidth = Math.max(1, 3 - depth);
+  for (let i = 0; i < Math.floor(length / 10); i++) {
+    const sa = angle + (Math.random() - 0.5) * 1.5;
+    cx += Math.cos(sa) * 10; cy += Math.sin(sa) * 10; ctx.lineTo(cx, cy);
+    if (Math.random() < bp) {
+      drawBolt(cx, cy, length * 0.5, angle + (Math.random() > 0.5 ? 1 : -1) * (0.5 + Math.random() * 0.5), bp * 0.5, depth + 1, color);
+      ctx.moveTo(cx, cy);
     }
   }
   ctx.stroke();
 }
-function strike(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  let sx,sy,ang;
-  const e=Math.random();
-  if(e<.25){sx=Math.random()*canvas.width;sy=0;ang=Math.PI/2;}
-  else if(e<.5){sx=canvas.width;sy=Math.random()*canvas.height;ang=Math.PI;}
-  else if(e<.75){sx=Math.random()*canvas.width;sy=canvas.height;ang=-Math.PI/2;}
-  else{sx=0;sy=Math.random()*canvas.height;ang=0;}
-  ang=Math.atan2(canvas.height/2-sy,canvas.width/2-sx)+(Math.random()-.5)*.5;
-  const lc=sx<canvas.width/2?'#00d2ff':'#ff9800';
-  const ff=sx<canvas.width/2?'rgba(0,210,255,0.03)':'rgba(255,152,0,0.03)';
-  drawBolt(sx,sy,canvas.height*.6,ang,.1,0,lc);
-  ctx.fillStyle=ff;ctx.fillRect(0,0,canvas.width,canvas.height);
-  setTimeout(()=>{
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    if(Math.random()<.3){setTimeout(strike,50+Math.random()*100);return;}
-    setTimeout(strike,2000+Math.random()*6000);
-  },1000);
+function strike() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let sx, sy, angle;
+  const edge = Math.random();
+  if      (edge < 0.25) { sx = Math.random()*canvas.width;  sy = 0;             angle = Math.PI/2; }
+  else if (edge < 0.5)  { sx = canvas.width;                sy = Math.random()*canvas.height; angle = Math.PI; }
+  else if (edge < 0.75) { sx = Math.random()*canvas.width;  sy = canvas.height; angle = -Math.PI/2; }
+  else                  { sx = 0;                            sy = Math.random()*canvas.height; angle = 0; }
+  angle = Math.atan2(canvas.height/2 - sy, canvas.width/2 - sx) + (Math.random()-0.5)*0.5;
+  const lc = sx < canvas.width/2 ? '#00d2ff' : '#ff9800';
+  const ff = sx < canvas.width/2 ? 'rgba(0,210,255,0.03)' : 'rgba(255,152,0,0.03)';
+  drawBolt(sx, sy, canvas.height*0.6, angle, 0.1, 0, lc);
+  ctx.fillStyle = ff; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  setTimeout(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (Math.random() < 0.3) { setTimeout(strike, 50 + Math.random()*100); return; }
+    setTimeout(strike, 2000 + Math.random()*6000);
+  }, 1000);
 }
-setTimeout(strike,1500);
+setTimeout(strike, 1500);
 
 /* ── Spotlight ── */
-const spotlight=document.getElementById('spotlight');
-document.addEventListener('mousemove',e=>{
-  spotlight.style.setProperty('--x',`${e.clientX}px`);
-  spotlight.style.setProperty('--y',`${e.clientY}px`);
+const spotlight = document.getElementById('spotlight');
+document.addEventListener('mousemove', e => {
+  spotlight.style.setProperty('--x', `${e.clientX}px`);
+  spotlight.style.setProperty('--y', `${e.clientY}px`);
 });
 
 /* ── Accessibility ── */
-const openButton=document.getElementById('accessibilityOpen');
-const closeButton=document.getElementById('accessibilityClose');
-const panel=document.getElementById('accessibilityPanel');
-const speechStatus=document.getElementById('speechStatus');
-const readingGuide=document.getElementById('reading-guide');
-const readingMask=document.getElementById('reading-mask');
-const items=document.querySelectorAll('.accessibility-item');
+const openButton   = document.getElementById('accessibilityOpen');
+const closeButton  = document.getElementById('accessibilityClose');
+const panel        = document.getElementById('accessibilityPanel');
+const speechStatus = document.getElementById('speechStatus');
+const readingGuide = document.getElementById('reading-guide');
+const readingMask  = document.getElementById('reading-mask');
+const items        = document.querySelectorAll('.accessibility-item');
 
-openButton.addEventListener('click',()=>panel.classList.add('open'));
-closeButton.addEventListener('click',()=>panel.classList.remove('open'));
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){panel.classList.remove('open');window.speechSynthesis.cancel();}
+openButton.addEventListener('click',  () => panel.classList.add('open'));
+closeButton.addEventListener('click', () => panel.classList.remove('open'));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { panel.classList.remove('open'); window.speechSynthesis.cancel(); }
 });
-items.forEach(item=>item.addEventListener('click',()=>handleAccessibilityAction(item.dataset.action,item)));
+items.forEach(item => item.addEventListener('click', () => handleAccessibilityAction(item.dataset.action, item)));
 
-function handleAccessibilityAction(action,item){
-  switch(action){
+function handleAccessibilityAction(action, item) {
+  switch(action) {
     case 'text-to-speech': toggleTextToSpeech(item); break;
     case 'large-text':     document.body.classList.toggle('access-large-text');    item.classList.toggle('active'); break;
     case 'line-spacing':   document.body.classList.toggle('access-line-spacing');  item.classList.toggle('active'); break;
@@ -894,67 +1048,67 @@ function handleAccessibilityAction(action,item){
   }
 }
 
-let textToSpeechEnabled=false;
-function toggleTextToSpeech(item){
-  textToSpeechEnabled=!textToSpeechEnabled;
-  item.classList.toggle('active',textToSpeechEnabled);
-  speechStatus.style.display=textToSpeechEnabled?'block':'none';
-  if(!textToSpeechEnabled) window.speechSynthesis.cancel();
+let textToSpeechEnabled = false;
+function toggleTextToSpeech(item) {
+  textToSpeechEnabled = !textToSpeechEnabled;
+  item.classList.toggle('active', textToSpeechEnabled);
+  speechStatus.style.display = textToSpeechEnabled ? 'block' : 'none';
+  if (!textToSpeechEnabled) window.speechSynthesis.cancel();
 }
-function speakText(text){
-  if(!text||!text.trim()) return;
+function speakText(text) {
+  if (!text || !text.trim()) return;
   window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text.trim());
-  u.lang='he-IL';u.rate=0.9;u.pitch=1;u.volume=1;
+  const u = new SpeechSynthesisUtterance(text.trim());
+  u.lang = 'he-IL'; u.rate = 0.9; u.pitch = 1; u.volume = 1;
   window.speechSynthesis.speak(u);
 }
-document.addEventListener('click',e=>{
-  if(!textToSpeechEnabled) return;
-  if(e.target.closest('.accessibility-panel')||e.target.closest('.accessibility-open')) return;
-  const text=(e.target.innerText||e.target.textContent||'').trim();
-  if(text.length>0) speakText(text);
-},true);
-document.addEventListener('mouseup',()=>{
-  if(!textToSpeechEnabled) return;
-  const sel=window.getSelection();
-  if(sel){const t=sel.toString().trim();if(t.length>0) speakText(t);}
+document.addEventListener('click', e => {
+  if (!textToSpeechEnabled) return;
+  if (e.target.closest('.accessibility-panel') || e.target.closest('.accessibility-open')) return;
+  const text = (e.target.innerText || e.target.textContent || '').trim();
+  if (text.length > 0) speakText(text);
+}, true);
+document.addEventListener('mouseup', () => {
+  if (!textToSpeechEnabled) return;
+  const sel = window.getSelection();
+  if (sel) { const t = sel.toString().trim(); if (t.length > 0) speakText(t); }
 });
 
-let guideEnabled=false;
-function toggleReadingGuide(item){
-  guideEnabled=!guideEnabled;
-  readingGuide.style.display=guideEnabled?'block':'none';
-  item.classList.toggle('active',guideEnabled);
+let guideEnabled = false;
+function toggleReadingGuide(item) {
+  guideEnabled = !guideEnabled;
+  readingGuide.style.display = guideEnabled ? 'block' : 'none';
+  item.classList.toggle('active', guideEnabled);
 }
-let maskEnabled=false;
-function toggleReadingMask(item){
-  maskEnabled=!maskEnabled;
-  readingMask.style.display=maskEnabled?'block':'none';
-  item.classList.toggle('active',maskEnabled);
+let maskEnabled = false;
+function toggleReadingMask(item) {
+  maskEnabled = !maskEnabled;
+  readingMask.style.display = maskEnabled ? 'block' : 'none';
+  item.classList.toggle('active', maskEnabled);
 }
-document.addEventListener('mousemove',e=>{
-  if(guideEnabled) readingGuide.style.top=(e.clientY-2)+'px';
-  if(maskEnabled)  readingMask.style.top=(e.clientY-40)+'px';
+document.addEventListener('mousemove', e => {
+  if (guideEnabled) readingGuide.style.top = (e.clientY - 2)  + 'px';
+  if (maskEnabled)  readingMask.style.top  = (e.clientY - 40) + 'px';
 });
 
-let currentAlignment=0;
-function toggleTextAlignment(item){
-  currentAlignment=(currentAlignment+1)%4;
-  document.body.style.textAlign=['','right','center','left'][currentAlignment];
-  item.classList.toggle('active',currentAlignment!==0);
+let currentAlignment = 0;
+function toggleTextAlignment(item) {
+  currentAlignment = (currentAlignment + 1) % 4;
+  document.body.style.textAlign = ['','right','center','left'][currentAlignment];
+  item.classList.toggle('active', currentAlignment !== 0);
 }
 
-document.getElementById('accessibilityReset').addEventListener('click',()=>{
+document.getElementById('accessibilityReset').addEventListener('click', () => {
   ['access-large-text','access-line-spacing','access-readable-font','access-letter-spacing',
    'access-headings','access-links','access-high-contrast','access-invert','access-grayscale',
    'access-saturation','access-hide-images','access-big-cursor','access-no-animation','access-focus'
-  ].forEach(c=>document.body.classList.remove(c));
-  currentAlignment=0;document.body.style.textAlign='';
-  guideEnabled=false;readingGuide.style.display='none';
-  maskEnabled=false;readingMask.style.display='none';
-  textToSpeechEnabled=false;speechStatus.style.display='none';
+  ].forEach(c => document.body.classList.remove(c));
+  currentAlignment = 0; document.body.style.textAlign = '';
+  guideEnabled = false; readingGuide.style.display = 'none';
+  maskEnabled  = false; readingMask.style.display  = 'none';
+  textToSpeechEnabled = false; speechStatus.style.display = 'none';
   window.speechSynthesis.cancel();
-  items.forEach(i=>i.classList.remove('active'));
+  items.forEach(i => i.classList.remove('active'));
 });
 </script>
 </body>
