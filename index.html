@@ -318,19 +318,6 @@ body {
   letter-spacing: 0.5px;
 }
 
-.acc-badge {
-  font-family: 'Poppins', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  color: #a19bb5;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 999px;
-  padding: 2px 10px;
-  letter-spacing: 0.5px;
-  margin-right: 8px;
-}
-
 /* ── Chevron arrow ── */
 .acc-chevron {
   width: 28px; height: 28px;
@@ -392,57 +379,6 @@ body {
 }
 .badge-img:hover { transform:scale(1.12); }
 .badge-item span { font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#d1cbe0; text-align:center; }
-
-/* ── Leaderboard ── */
-.lb-refresh-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0 6px;
-}
-.lb-last-updated {
-  font-size: 11px;
-  color: #a19bb5;
-  font-family: 'Poppins', sans-serif;
-}
-
-.lb-columns { display:flex; gap:16px; padding-top:8px; }
-.lb-col { flex:1; display:flex; flex-direction:column; }
-.lb-col-title {
-  font-family:'Poppins',sans-serif;
-  font-size:14px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase;
-  padding-bottom:10px; margin-bottom:6px;
-  display:flex; align-items:center; gap:7px;
-  border-bottom:1px solid rgba(255,255,255,0.1);
-}
-.lb-col-title.kicks { color:#53fc18; }
-.lb-col-title.gifts { color:#facc15; }
-
-.lb-row {
-  display:flex; align-items:center; gap:10px;
-  padding:9px 6px;
-  border-bottom:1px solid rgba(255,255,255,0.04);
-  border-radius:8px;
-  transition:background 0.15s;
-}
-.lb-row:hover { background:rgba(255,255,255,0.06); }
-.lb-row:last-child { border-bottom: none; }
-
-.lb-rank { font-family:'Poppins',sans-serif; font-size:13px; font-weight:800; width:24px; text-align:center; flex-shrink:0; color:#a19bb5; }
-.lb-name { flex:1; font-size:14px; font-weight:700; color:#ffffff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.lb-val  { font-family:'Poppins',sans-serif; font-size:14px; font-weight:800; flex-shrink:0; }
-.lb-val.kick-val { color:#53fc18; }
-.lb-val.gift-val { color:#facc15; }
-.lb-divider { width:1px; background:rgba(255,255,255,0.08); flex-shrink:0; }
-
-.lb-loading {
-  text-align: center;
-  padding: 20px 0;
-  color: #a19bb5;
-  font-size: 13px;
-  font-family: 'Poppins', sans-serif;
-}
-.lb-loading i { color: #53fc18; margin-bottom: 6px; display: block; font-size: 18px; }
 
 /* ── Footer ── */
 .footer-container {
@@ -538,8 +474,6 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
   .badge-item        { width:58px; }
   .badge-img         { width:44px; height:44px; }
   .badge-item span   { font-size:11px; }
-  .lb-columns        { flex-direction:column; gap:12px; }
-  .lb-divider        { width:100%; height:1px; }
 }
 @media (max-width: 500px) {
   .accessibility-panel { width:100%; }
@@ -683,21 +617,22 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
 
       <!-- ── ACCORDION 3: Leaderboard ── -->
       <div class="acc-item" id="acc-lb">
-        <div class="acc-header" onclick="toggleAcc('acc-lb'); loadLeaderboard();">
+        <div class="acc-header" onclick="toggleAcc('acc-lb')">
           <div class="acc-icon"><i class="fa-solid fa-trophy"></i></div>
-          <span class="acc-title">Leaderboard — Top 10</span>
+          <span class="acc-title">Leaderboard — Live</span>
           <div class="acc-chevron"><i class="fa-solid fa-chevron-down"></i></div>
         </div>
         <div class="acc-body">
-          <div class="acc-inner">
-            <div class="lb-refresh-row">
-              <span class="lb-last-updated" id="lbLastUpdated">לא עודכן עדיין</span>
-            </div>
-            <div id="lbContent">
-              <div class="lb-loading">
-                <i class="fa-solid fa-circle-notch fa-spin"></i>
-                טוען לידרבורד...
-              </div>
+          <div class="acc-inner" style="padding:16px 12px 16px;">
+            <div style="width:100%; border-radius:14px; overflow:hidden; border:1px solid rgba(83,252,24,0.3); box-shadow:0 0 16px rgba(83,252,24,0.15); background:#0e0e10;">
+              <iframe
+                src="https://botrix.live"
+                title="Botrix Live Leaderboard"
+                style="width:100%; height:520px; border:none; display:block;"
+                loading="lazy"
+                allow="fullscreen"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+              ></iframe>
             </div>
           </div>
         </div>
@@ -762,151 +697,15 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
 <div id="speechStatus" class="speech-status">🔊 הקראת טקסט פעילה</div>
 
 <script>
-/* ══════════════════════════════════════════════
-   ACCORDION
-   ══════════════════════════════════════════════ */
+/* ── Accordion ── */
 function toggleAcc(id) {
   const item = document.getElementById(id);
   const isOpen = item.classList.contains('open');
-  // Close all
   document.querySelectorAll('.acc-item').forEach(el => el.classList.remove('open'));
-  // Open clicked if it was closed
   if (!isOpen) item.classList.add('open');
 }
 
-/* ══════════════════════════════════════════════
-   LEADERBOARD — Auto fetch from Kick API via Cloudflare Proxy
-   ══════════════════════════════════════════════ */
-let lbLoaded = false;
-
-/* Fallback data (shown if API fails) */
-const FALLBACK_KICKS = [
-  { username:'Player1', total:0 },{ username:'Player2', total:0 },
-  { username:'Player3', total:0 },{ username:'Player4', total:0 },
-  { username:'Player5', total:0 },{ username:'Player6', total:0 },
-  { username:'Player7', total:0 },{ username:'Player8', total:0 },
-  { username:'Player9', total:0 },{ username:'Player10',total:0 },
-];
-const FALLBACK_GIFTS = [
-  { username:'Gifter1', total:0 },{ username:'Gifter2', total:0 },
-  { username:'Gifter3', total:0 },{ username:'Gifter4', total:0 },
-  { username:'Gifter5', total:0 },{ username:'Gifter6', total:0 },
-  { username:'Gifter7', total:0 },{ username:'Gifter8', total:0 },
-  { username:'Gifter9', total:0 },{ username:'Gifter10',total:0 },
-];
-
-function rankIcon(i) {
-  if (i === 0) return '<span class="lb-rank gold">🥇</span>';
-  if (i === 1) return '<span class="lb-rank silver">🥈</span>';
-  if (i === 2) return '<span class="lb-rank bronze">🥉</span>';
-  return `<span class="lb-rank">${i + 1}</span>`;
-}
-
-function buildLbHTML(kicks, gifts) {
-  const kickRows = kicks.slice(0,10).map((e,i) =>
-    `<div class="lb-row">${rankIcon(i)}<span class="lb-name">${e.username}</span><span class="lb-val kick-val">${e.total}</span></div>`
-  ).join('');
-  const giftRows = gifts.slice(0,10).map((e,i) =>
-    `<div class="lb-row">${rankIcon(i)}<span class="lb-name">${e.username}</span><span class="lb-val gift-val">${e.total}</span></div>`
-  ).join('');
-  return `
-    <div class="lb-columns">
-      <div class="lb-col">
-        <div class="lb-col-title kicks"><i class="fa-solid fa-shoe-prints"></i> Kicks</div>
-        ${kickRows || '<div class="lb-loading" style="padding:10px 0"><i class="fa-solid fa-minus"></i>אין נתונים</div>'}
-      </div>
-      <div class="lb-divider"></div>
-      <div class="lb-col">
-        <div class="lb-col-title gifts"><i class="fa-solid fa-gift"></i> Gifts</div>
-        ${giftRows || '<div class="lb-loading" style="padding:10px 0"><i class="fa-solid fa-minus"></i>אין נתונים</div>'}
-      </div>
-    </div>`;
-}
-
-function setUpdatedTime() {
-  const now = new Date();
-  const t = now.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' });
-  document.getElementById('lbLastUpdated').textContent = `עודכן ב-${t}`;
-}
-
-async function loadLeaderboard(force = false) {
-  if (lbLoaded && !force) return;
-
-  const content = document.getElementById('lbContent');
-
-  if (!lbLoaded) {
-    content.innerHTML = '<div class="lb-loading"><i class="fa-solid fa-circle-notch fa-spin"></i>טוען לידרבורד...</div>';
-  }
-
-  let kicks = [], gifts = [], apiOk = false;
-
-  try {
-    // Try Kick leaderboards API via Proxy
-    const [kicksRes, giftsRes] = await Promise.all([
-      fetch('https://krav0n-lb-proxy.smithhadeee.workers.dev/?type=kicks', {
-        headers: { 'Accept': 'application/json' }, cache: 'no-store'
-      }),
-      fetch('https://krav0n-lb-proxy.smithhadeee.workers.dev/?type=gifts', {
-        headers: { 'Accept': 'application/json' }, cache: 'no-store'
-      }),
-    ]);
-
-    if (kicksRes.ok && giftsRes.ok) {
-      const kd = await kicksRes.json();
-      const gd = await giftsRes.json();
-      kicks = Array.isArray(kd) ? kd : (kd.data || kd.leaderboard || kd.users || []);
-      gifts = Array.isArray(gd) ? gd : (gd.data || gd.leaderboard || gd.users || []);
-      if (kicks.length > 0 || gifts.length > 0) apiOk = true;
-    }
-
-    if (!apiOk) {
-      const altRes = await fetch('https://kick.com/api/v2/channels/krav0n', {
-        headers: { 'Accept': 'application/json' }, cache: 'no-store'
-      });
-      if (altRes.ok) {
-        const ch = await altRes.json();
-        if (ch.leaderboard) {
-          kicks = ch.leaderboard.kicks || ch.leaderboard.top_kickers || [];
-          gifts = ch.leaderboard.gifts || ch.leaderboard.top_gifters || [];
-          if (kicks.length > 0 || gifts.length > 0) apiOk = true;
-        }
-      }
-    }
-  } catch (err) {
-    console.warn('Kick leaderboard API error:', err);
-  }
-
-  function normalize(arr) {
-    return arr.map(e => ({
-      username: e.username || e.name || e.display_name || e.user?.username || '—',
-      total:    e.quantity  || e.total || e.count || e.amount || 0
-    }));
-  }
-
-  const finalKicks = apiOk ? normalize(kicks) : FALLBACK_KICKS;
-  const finalGifts = apiOk ? normalize(gifts) : FALLBACK_GIFTS;
-
-  content.innerHTML = buildLbHTML(finalKicks, finalGifts);
-
-  if (!apiOk) {
-    document.getElementById('lbLastUpdated').textContent = 'נתוני דוגמה (API לא זמין)';
-  } else {
-    setUpdatedTime();
-  }
-
-  lbLoaded = true;
-}
-
-// Auto-refresh leaderboard every 5 minutes if open
-setInterval(() => {
-  if (document.getElementById('acc-lb').classList.contains('open')) {
-    loadLeaderboard(true);
-  }
-}, 5 * 60 * 1000);
-
-/* ══════════════════════════════════════════════
-   TAB SWITCHING
-   ══════════════════════════════════════════════ */
+/* ── Tab Switching ── */
 const tabs  = document.querySelectorAll('.nav-tab');
 const views = document.querySelectorAll('.view-section');
 tabs.forEach(tab => {
