@@ -1,0 +1,40 @@
+{
+  "demo": true,
+  "updatedAt": null,
+  "watchTime": [
+    { "user": "ShadowWolf",   "hours": 1284.5 },
+    { "user": "NeonViper",    "hours": 1102.0 },
+    { "user": "PixelKnight",  "hours": 967.5 },
+    { "user": "TurboFox",     "hours": 842.0 },
+    { "user": "GhostRider99", "hours": 731.5 },
+    { "user": "LunaStrike",   "hours": 655.0 },
+    { "user": "CyberPanda",   "hours": 590.5 },
+    { "user": "IronMike",     "hours": 512.0 },
+    { "user": "FrostByte",    "hours": 468.5 },
+    { "user": "RogueSpark",   "hours": 421.0 }
+  ],
+  "gifted": [
+    { "user": "NeonViper",    "gifts": 250 },
+    { "user": "ShadowWolf",   "gifts": 180 },
+    { "user": "LunaStrike",   "gifts": 145 },
+    { "user": "TurboFox",     "gifts": 120 },
+    { "user": "PixelKnight",  "gifts": 96 },
+    { "user": "CyberPanda",   "gifts": 75 },
+    { "user": "GhostRider99", "gifts": 60 },
+    { "user": "RogueSpark",   "gifts": 42 },
+    { "user": "IronMike",     "gifts": 30 },
+    { "user": "FrostByte",    "gifts": 18 }
+  ],
+  "kicks": [
+    { "user": "PixelKnight",  "kicks": 48200 },
+    { "user": "ShadowWolf",   "kicks": 41750 },
+    { "user": "TurboFox",     "kicks": 36400 },
+    { "user": "NeonViper",    "kicks": 29900 },
+    { "user": "CyberPanda",   "kicks": 24150 },
+    { "user": "LunaStrike",   "kicks": 19800 },
+    { "user": "IronMike",     "kicks": 15300 },
+    { "user": "GhostRider99", "kicks": 11250 },
+    { "user": "RogueSpark",   "kicks": 8700 },
+    { "user": "FrostByte",    "kicks": 5400 }
+  ]
+}
