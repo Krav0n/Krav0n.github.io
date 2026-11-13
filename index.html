@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Krav0n Links</title>
-<link rel="icon" type="image/png" href="assets/images/favicon.png?v=3">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="alternate icon" type="image/png" href="images/favicon.png">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-N1LLZ9CNJF"></script>
 <script>
@@ -92,36 +93,37 @@ body {
 #bgFx {
   position: fixed; inset: 0;
   z-index: -1; overflow: hidden; pointer-events: none;
-  background: #07060d;
+  background: radial-gradient(circle at 50% 0%, #0d1026 0%, #06070f 60%, #030408 100%);
 }
 #bgFx .bg-glow {
-  position: absolute; inset: -20%;
+  position: absolute; inset: -25%;
   background:
-    radial-gradient(40% 45% at 18% 22%, rgba(0,150,255,0.22), transparent 70%),
-    radial-gradient(38% 42% at 84% 78%, rgba(255,140,0,0.18), transparent 70%),
-    radial-gradient(35% 40% at 62% 14%, rgba(120,70,255,0.14), transparent 70%);
-  animation: bgBreathe 16s ease-in-out infinite alternate;
+    radial-gradient(45% 45% at 20% 25%, rgba(0, 229, 255, 0.16), transparent 70%),
+    radial-gradient(42% 42% at 80% 75%, rgba(139, 92, 246, 0.16), transparent 70%),
+    radial-gradient(35% 35% at 50% 45%, rgba(83, 252, 24, 0.08), transparent 70%);
+  animation: auroraDrift 20s ease-in-out infinite alternate;
   will-change: transform, opacity;
+  filter: blur(35px);
 }
-@keyframes bgBreathe {
-  0%   { transform: scale(1)    translate3d(0,0,0);        opacity: 0.75; }
-  50%  { transform: scale(1.08) translate3d(2%,-1.5%,0);   opacity: 1;    }
-  100% { transform: scale(1.04) translate3d(-2%,2%,0);     opacity: 0.85; }
+@keyframes auroraDrift {
+  0%   { transform: scale(1) translate3d(0, 0, 0); opacity: 0.8; }
+  50%  { transform: scale(1.1) translate3d(2%, -2%, 0); opacity: 1; }
+  100% { transform: scale(1.05) translate3d(-2%, 2%, 0); opacity: 0.85; }
 }
 #bgFx .bg-grid {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 15%, transparent 75%);
-  mask-image: radial-gradient(ellipse at center, #000 15%, transparent 75%);
+    linear-gradient(rgba(0, 229, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 80%);
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 80%);
   animation: gridDrift 45s linear infinite;
 }
-@keyframes gridDrift { to { background-position: 56px 56px, 56px 56px; } }
+@keyframes gridDrift { to { background-position: 48px 48px, 48px 48px; } }
 #bgFx .bg-vignette {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.6) 100%);
+  background: radial-gradient(ellipse at center, transparent 35%, rgba(3, 4, 8, 0.75) 100%);
 }
 #bgParticles { position: absolute; inset: 0; width: 100%; height: 100%; }
 @media (prefers-reduced-motion: reduce) {
@@ -153,20 +155,11 @@ body {
   top: 0; left: 0;
   width: 100vw; height: 100vh;
   pointer-events: none;
-  background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255,255,255,0.12) 0%, transparent 120px);
+  background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(0, 229, 255, 0.06) 0%, transparent 220px);
   z-index: 0;
-  animation: lightningFlicker 2s infinite;
-}
-@keyframes lightningFlicker {
-  0%,94%,100% { opacity: 1; }
-  95%  { opacity: 1.8; }
-  96%  { opacity: 0.4; }
-  97%  { opacity: 2.2; }
-  98%  { opacity: 0.6; }
-  99%  { opacity: 1.5; }
 }
 
-/* ── Profile ── */
+/* ── Profile with Cyan Snake Border Animation ── */
 .profile-section {
   display: flex;
   flex-direction: column;
@@ -182,15 +175,46 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  padding: 4px;
+  background: transparent;
+  box-shadow: 0 0 32px rgba(0, 229, 255, 0.35), 0 10px 30px rgba(0, 0, 0, 0.85);
+}
+.avatar-snake-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  width: 200%; height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 60deg,
+    rgba(0, 229, 255, 0.15) 120deg,
+    rgba(0, 229, 255, 0.85) 240deg,
+    #00e5ff 320deg,
+    #ffffff 360deg
+  );
+  animation: snakeSpin 2.6s linear infinite;
+  border-radius: 50%;
+  z-index: 0;
+}
+.avatar-snake-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #06070f;
+  z-index: 1;
+  box-shadow: inset 0 0 14px rgba(0, 229, 255, 0.35);
 }
 .profile-pic {
   position: relative;
-  z-index: 1;
-  width: 180px; height: 180px;
+  z-index: 2;
+  width: 100%; height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255,255,255,0.25);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+  border: 2px solid rgba(0, 229, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.8);
   -webkit-user-drag: none;
   display: block;
 }
@@ -435,13 +459,6 @@ body {
 .footer-links a:hover { color:#facc15; }
 .footer-links .separator { opacity:0.7; }
 
-/* ── Lightning ── */
-#lightningCanvas {
-  position:fixed; top:0; left:0; width:100vw; height:100vh;
-  z-index:0; pointer-events:none;
-  -webkit-mask-image:radial-gradient(ellipse at center, transparent 35%, black 75%);
-  mask-image:radial-gradient(ellipse at center, transparent 35%, black 75%);
-}
 
 /* ── Accessibility ── */
 .accessibility-open {
@@ -504,12 +521,12 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
 /* ════════════════════════════════
    LEADERBOARD TAB
    ════════════════════════════════ */
-#leaderboardView { max-width: 560px; }
+#leaderboardView { max-width: 1260px; width: 100%; }
 .lb-status {
   display: flex; align-items: center; justify-content: center; gap: 10px;
   flex-wrap: wrap;
   margin: -8px 0 22px;
-  padding: 8px 14px;
+  padding: 8px 16px;
   background: rgba(18,14,28,0.7);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 30px;
@@ -535,113 +552,226 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
 .lb-refresh:hover { color: #fff; background: rgba(255,255,255,0.12); }
 .lb-refresh.spin i { animation: snakeSpin 0.8s linear infinite; }
 
-.lb-cards { width: 100%; display: flex; flex-direction: column; gap: 22px; }
+/* ── Leaderboard horizontal layout ── */
+.lb-cards {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
 .lb-card {
   --accent: #facc15; --accent-rgb: 250,204,21;
-  background: rgba(18,14,28,0.85);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-top: 2px solid rgba(var(--accent-rgb),0.7);
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 40px rgba(var(--accent-rgb),0.06);
-  backdrop-filter: blur(16px);
-  padding: 6px 14px 14px;
-  direction: ltr;
+  background: rgba(13, 15, 28, 0.82);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-top: 3px solid var(--accent);
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.6), 0 0 35px rgba(var(--accent-rgb),0.07);
+  backdrop-filter: blur(18px);
+  padding: 16px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  direction: rtl;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.lb-card:hover {
+  border-color: rgba(var(--accent-rgb), 0.35);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.7), 0 0 40px rgba(var(--accent-rgb),0.12);
 }
 .lb-card.lb-gifted { --accent: #b794ff; --accent-rgb: 183,148,255; }
 .lb-card.lb-kicks  { --accent: #53fc18; --accent-rgb: 83,252,24; }
 
-.lb-card-head { display: flex; align-items: center; gap: 14px; padding: 14px 6px 14px; }
+.lb-card-head { display: flex; align-items: center; gap: 12px; padding: 4px 4px 6px; }
 .lb-card-icon {
-  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+  width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  color: var(--accent); font-size: 16px;
+  color: var(--accent); font-size: 17px;
   background: rgba(var(--accent-rgb),0.12);
   border: 1px solid rgba(var(--accent-rgb),0.28);
-  box-shadow: 0 0 12px rgba(var(--accent-rgb),0.2);
+  box-shadow: 0 0 14px rgba(var(--accent-rgb),0.2);
 }
 .lb-card-icon .kick-svg-icon { width: 18px; height: 18px; }
-.lb-card-titles { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.lb-card-titles { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; text-align: right; }
 .lb-card-titles h3 {
   margin: 0; font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700;
-  color: #fff; letter-spacing: 0.4px; unicode-bidi: plaintext; text-align: left;
+  color: #fff; letter-spacing: 0.3px; text-align: right;
 }
-.lb-card-titles span { font-size: 11.5px; font-weight: 700; color: #a19bb5; letter-spacing: 0.8px; text-transform: uppercase; }
+.lb-card-titles span { font-size: 11.5px; font-weight: 700; color: #a19bb5; letter-spacing: 0.6px; text-transform: uppercase; text-align: right; }
 .lb-card-tag {
   font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px;
   padding: 4px 10px; border-radius: 12px;
   color: var(--accent); background: rgba(var(--accent-rgb),0.1); border: 1px solid rgba(var(--accent-rgb),0.25);
 }
 
-.lb-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-.lb-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 12px; border-radius: 12px;
-  background: rgba(255,255,255,0.035);
-  border: 1px solid rgba(255,255,255,0.05);
-  transition: transform .2s ease, background .2s ease;
-  animation: lbRowIn .45s ease both;
-  animation-delay: calc(var(--i, 0) * 40ms);
+/* ── Time filter tabs ── */
+.lb-time-tabs {
+  display: flex;
+  align-items: center;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+  direction: rtl;
 }
-.lb-row:hover { transform: translateX(3px); background: rgba(255,255,255,0.06); }
-@keyframes lbRowIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.lb-time-btn {
+  flex: 1;
+  padding: 7px 10px;
+  border: none;
+  background: transparent;
+  color: #a19bb5;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+.lb-time-btn:hover {
+  color: #ffffff;
+  background: rgba(255,255,255,0.06);
+}
+.lb-time-btn.active {
+  background: rgba(var(--accent-rgb), 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
+  box-shadow: 0 2px 10px rgba(var(--accent-rgb), 0.2);
+  font-weight: 700;
+}
 
+/* ── Ranking rows ── */
+.lb-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.lb-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.06);
+  direction: rtl;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  animation: lbRowIn 0.4s ease both;
+  animation-delay: calc(var(--i, 0) * 35ms);
+}
+.lb-row:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(var(--accent-rgb), 0.3);
+}
+@keyframes lbRowIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* Right column: Rank (1-10 with special icons for 1, 2, 3) + Username */
+.lb-col-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
 .lb-rank {
   width: 30px; height: 30px; flex-shrink: 0; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13px;
   color: #a19bb5; background: rgba(255,255,255,0.07);
 }
+.lb-rank.rank-gold {
+  color: #ffd700;
+  background: linear-gradient(135deg, rgba(250,204,21,0.3), rgba(217,119,6,0.4));
+  border: 1px solid rgba(250,204,21,0.7);
+  box-shadow: 0 0 14px rgba(250,204,21,0.5);
+  font-size: 14px;
+}
+.lb-rank.rank-silver {
+  color: #f1f5f9;
+  background: linear-gradient(135deg, rgba(203,213,225,0.25), rgba(100,116,139,0.35));
+  border: 1px solid rgba(203,213,225,0.6);
+  box-shadow: 0 0 12px rgba(203,213,225,0.4);
+  font-size: 13px;
+}
+.lb-rank.rank-bronze {
+  color: #f59e0b;
+  background: linear-gradient(135deg, rgba(217,119,6,0.25), rgba(146,64,14,0.35));
+  border: 1px solid rgba(217,119,6,0.6);
+  box-shadow: 0 0 12px rgba(217,119,6,0.35);
+  font-size: 13px;
+}
 .lb-name {
-  flex: 1; min-width: 0; font-weight: 600; font-size: 14.5px; color: #fff;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left;
+  flex: 1; min-width: 0; font-weight: 700; font-size: 14px; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right;
 }
-.lb-value { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14.5px; color: var(--accent); white-space: nowrap; }
-.lb-value small { font-size: 11px; font-weight: 600; color: #a19bb5; margin-left: 4px; letter-spacing: 0.5px; }
 
-/* Top 3 highlight */
-.lb-row.rank-1, .lb-row.rank-2, .lb-row.rank-3 { padding-top: 12px; padding-bottom: 12px; }
+/* Left column: Level tag + Category Value */
+.lb-col-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.lb-level-tag {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56,189,248,0.12);
+  border: 1px solid rgba(56,189,248,0.3);
+  padding: 2px 7px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.lb-value {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  direction: ltr;
+}
+.lb-unit { font-size: 11px; font-weight: 600; color: #a19bb5; }
+.lb-kick-unit { color: #53fc18; }
+
+/* Top 1, 2, 3 card highlight */
 .lb-row.rank-1 {
-  padding-top: 15px; padding-bottom: 15px;
-  background: linear-gradient(90deg, rgba(250,204,21,0.24), rgba(250,204,21,0.04));
-  border-color: rgba(250,204,21,0.55);
-  box-shadow: 0 0 22px rgba(250,204,21,0.2), inset 0 0 18px rgba(250,204,21,0.06);
+  background: linear-gradient(90deg, rgba(250,204,21,0.14), rgba(255,255,255,0.03));
+  border-color: rgba(250,204,21,0.4);
+  box-shadow: 0 0 16px rgba(250,204,21,0.1);
 }
-.lb-row.rank-1 .lb-rank { width: 38px; height: 38px; font-size: 16px; color: #2a1d00; background: linear-gradient(135deg,#fde047,#f59e0b); box-shadow: 0 0 14px rgba(250,204,21,0.6); }
-.lb-row.rank-1 .lb-name { font-size: 17px; font-weight: 700; }
-.lb-row.rank-1 .lb-value { font-size: 16px; color: #fde047; }
 .lb-row.rank-2 {
-  background: linear-gradient(90deg, rgba(203,213,225,0.17), rgba(203,213,225,0.03));
-  border-color: rgba(203,213,225,0.4);
-  box-shadow: 0 0 14px rgba(203,213,225,0.1);
+  background: linear-gradient(90deg, rgba(203,213,225,0.1), rgba(255,255,255,0.03));
+  border-color: rgba(203,213,225,0.3);
 }
-.lb-row.rank-2 .lb-rank { width: 34px; height: 34px; color: #1c2230; background: linear-gradient(135deg,#f1f5f9,#94a3b8); }
-.lb-row.rank-2 .lb-name { font-size: 15.5px; font-weight: 700; }
 .lb-row.rank-3 {
-  background: linear-gradient(90deg, rgba(217,119,6,0.2), rgba(217,119,6,0.03));
-  border-color: rgba(217,119,6,0.45);
-  box-shadow: 0 0 14px rgba(217,119,6,0.1);
+  background: linear-gradient(90deg, rgba(217,119,6,0.1), rgba(255,255,255,0.03));
+  border-color: rgba(217,119,6,0.3);
 }
-.lb-row.rank-3 .lb-rank { width: 34px; height: 34px; color: #2a1400; background: linear-gradient(135deg,#fbbf77,#b45309); }
-.lb-row.rank-3 .lb-name { font-size: 15.5px; font-weight: 700; }
 
 .lb-row.lb-changed { animation: lbFlash 1.2s ease; }
 @keyframes lbFlash { 0%,100% { box-shadow: none; } 30% { box-shadow: 0 0 0 2px rgba(var(--accent-rgb),0.7), 0 0 18px rgba(var(--accent-rgb),0.45); } }
 
-.lb-row.skeleton .lb-name  { height: 12px; max-width: 140px; border-radius: 6px; background: rgba(255,255,255,0.08); color: transparent; }
-.lb-row.skeleton .lb-value { width: 50px; height: 12px; border-radius: 6px; background: rgba(255,255,255,0.08); color: transparent; }
+.lb-row.skeleton .lb-name  { height: 12px; width: 80px; border-radius: 6px; background: rgba(255,255,255,0.08); color: transparent; }
+.lb-row.skeleton .lb-value { width: 45px; height: 12px; border-radius: 6px; background: rgba(255,255,255,0.08); color: transparent; }
 .lb-empty { text-align: center; color: #a19bb5; font-size: 13px; padding: 18px 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .lb-row { animation: none; }
   .lb-live-dot { animation: none; }
 }
+@media (max-width: 1024px) {
+  .lb-cards { grid-template-columns: 1fr; max-width: 540px; margin: 0 auto; }
+}
 @media (max-width: 600px) {
-  .lb-card { padding: 4px 10px 12px; }
-  .lb-card-head { gap: 10px; padding: 12px 4px; }
+  .lb-card { padding: 12px 12px 16px; }
+  .lb-card-head { gap: 10px; padding: 2px 2px 6px; }
   .lb-card-titles h3 { font-size: 15px; }
-  .lb-row { gap: 10px; padding: 9px 10px; }
+  .lb-row { padding: 8px 10px; }
   .lb-name, .lb-value { font-size: 13.5px; }
-  .lb-row.rank-1 .lb-name { font-size: 15.5px; }
 }
 
 /* ── Responsive ── */
@@ -651,7 +781,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
   .setup-inner-grid { flex-direction:column; gap:20px; }
   .setup-divider    { width:100%; height:1px; }
   .avatar-snake-wrap { width:155px; height:155px; }
-  .profile-pic       { width:145px; height:145px; }
+  .profile-pic       { width:100%; height:100%; }
   .top-navbar        { width:92%; justify-content:center; gap:2px; }
   .nav-tab           { padding:10px 12px; flex:1 1 auto; text-align:center; font-size:13px; letter-spacing:0.8px; }
   .badges-container  { gap:12px; }
@@ -677,7 +807,6 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
   <div class="bg-vignette"></div>
 </div>
 
-<canvas id="lightningCanvas"></canvas>
 <div class="spotlight" id="spotlight"></div>
 
 <div class="site-wrapper">
@@ -691,7 +820,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
   <div id="homeView" class="view-section active">
     <div class="profile-section">
       <div class="avatar-snake-wrap">
-        <img src="assets/images/profile.png"
+        <img src="images/profile.png"
              class="profile-pic" alt="תמונת הפרופיל המאוירת של Krav0n"
              draggable="false">
       </div>
@@ -726,7 +855,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
   <div id="infoView" class="view-section">
     <div class="profile-section profile-section--compact">
       <div class="avatar-snake-wrap">
-        <img src="assets/images/profile.png"
+        <img src="images/profile.png"
              class="profile-pic" alt="תמונת הפרופיל המאוירת של Krav0n"
              draggable="false">
       </div>
@@ -778,35 +907,35 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
           <div class="acc-inner">
             <div class="badges-container">
               <div class="badge-item">
-                <img class="badge-img" src="assets/badges/badge_base.png" alt="Base" draggable="false">
+                <img class="badge-img" src="badges/badge_base.png" alt="Base" draggable="false">
                 <span>Base</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="assets/badges/badge_2m.png" alt="2-Month" draggable="false">
+                <img class="badge-img" src="badges/badge_2m.png" alt="2-Month" draggable="false">
                 <span>2 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="assets/badges/badge_3m.png" alt="3-Month" draggable="false">
+                <img class="badge-img" src="badges/badge_3m.png" alt="3-Month" draggable="false">
                 <span>3 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="assets/badges/badge_6m.png" alt="6-Month" draggable="false">
+                <img class="badge-img" src="badges/badge_6m.png" alt="6-Month" draggable="false">
                 <span>6 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="assets/badges/badge_9m.png" alt="9-Month" draggable="false">
+                <img class="badge-img" src="badges/badge_9m.png" alt="9-Month" draggable="false">
                 <span>9 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="assets/badges/badge_1y.png" alt="1-Year" draggable="false">
+                <img class="badge-img" src="badges/badge_1y.png" alt="1-Year" draggable="false">
                 <span>1 Year</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="assets/badges/badge_1_5y.png" alt="1.5-Year" draggable="false">
+                <img class="badge-img" src="badges/badge_1_5y.png" alt="1.5-Year" draggable="false">
                 <span>1.5 Years</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="assets/badges/badge_2y.png" alt="2-Year" draggable="false">
+                <img class="badge-img" src="badges/badge_2y.png" alt="2-Year" draggable="false">
                 <span>2 Years</span>
               </div>
             </div>
@@ -821,7 +950,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
   <div id="leaderboardView" class="view-section">
     <div class="profile-section profile-section--compact">
       <div class="avatar-snake-wrap">
-        <img src="assets/images/profile.png"
+        <img src="images/profile.png"
              class="profile-pic" alt="תמונת הפרופיל המאוירת של Krav0n"
              draggable="false">
       </div>
@@ -835,30 +964,48 @@ body.access-big-cursor,body.access-big-cursor * { cursor:url("data:image/svg+xml
     </div>
 
     <div class="lb-cards">
+      <!-- 1. הצופים הנאמנים -->
       <section class="lb-card lb-watch" aria-labelledby="lbTitleWatch">
         <header class="lb-card-head">
           <div class="lb-card-icon"><i class="fa-solid fa-eye"></i></div>
           <div class="lb-card-titles"><h3 id="lbTitleWatch">הצופים הנאמנים</h3><span>Top Watch Time</span></div>
           <span class="lb-card-tag">TOP 10</span>
         </header>
+        <div class="lb-time-tabs" role="tablist">
+          <button class="lb-time-btn" data-board="lbWatch" data-time="week" type="button">השבוע</button>
+          <button class="lb-time-btn" data-board="lbWatch" data-time="month" type="button">החודש</button>
+          <button class="lb-time-btn active" data-board="lbWatch" data-time="all" type="button">כל הזמנים</button>
+        </div>
         <ol class="lb-list" id="lbWatch"></ol>
       </section>
 
+      <!-- 2. Subscribers / Gifted -->
       <section class="lb-card lb-gifted" aria-labelledby="lbTitleGifted">
         <header class="lb-card-head">
           <div class="lb-card-icon"><i class="fa-solid fa-gift"></i></div>
           <div class="lb-card-titles"><h3 id="lbTitleGifted">Subscribers / Gifted</h3><span>Top Gifted Subs</span></div>
           <span class="lb-card-tag">TOP 10</span>
         </header>
+        <div class="lb-time-tabs" role="tablist">
+          <button class="lb-time-btn" data-board="lbGifted" data-time="week" type="button">השבוע</button>
+          <button class="lb-time-btn" data-board="lbGifted" data-time="month" type="button">החודש</button>
+          <button class="lb-time-btn active" data-board="lbGifted" data-time="all" type="button">כל הזמנים</button>
+        </div>
         <ol class="lb-list" id="lbGifted"></ol>
       </section>
 
+      <!-- 3. KICKers -->
       <section class="lb-card lb-kicks" aria-labelledby="lbTitleKicks">
         <header class="lb-card-head">
           <div class="lb-card-icon"><svg class="kick-svg-icon" viewBox="0 0 24 24" role="img" aria-label="Kick"><path d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg></div>
           <div class="lb-card-titles"><h3 id="lbTitleKicks">KICKers</h3><span>Top Kicks Sent</span></div>
           <span class="lb-card-tag">TOP 10</span>
         </header>
+        <div class="lb-time-tabs" role="tablist">
+          <button class="lb-time-btn" data-board="lbKicks" data-time="week" type="button">השבוע</button>
+          <button class="lb-time-btn" data-board="lbKicks" data-time="month" type="button">החודש</button>
+          <button class="lb-time-btn active" data-board="lbKicks" data-time="all" type="button">כל הזמנים</button>
+        </div>
         <ol class="lb-list" id="lbKicks"></ol>
       </section>
     </div>
@@ -986,111 +1133,104 @@ async function checkKickLiveStatus() {
 checkKickLiveStatus();
 setInterval(checkKickLiveStatus, 60000);
 
-/* ── Background particles (subtle network) ── */
+/* ── Modern Gaming Ambient Particles ── */
 (function () {
-  const cv  = document.getElementById('bgParticles');
+  const cv = document.getElementById('bgParticles');
   if (!cv) return;
-  const c   = cv.getContext('2d');
+  const c = cv.getContext('2d');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const LINK = 130;
   let W = 0, H = 0, dpr = 1, pts = [], running = true;
+  let mouse = { x: -1000, y: -1000 };
+
+  const COLORS = [
+    { r: 0,   g: 229, b: 255 }, // Cyan
+    { r: 56,  g: 189, b: 248 }, // Light Blue
+    { r: 139, g: 92,  b: 246 }, // Purple
+    { r: 83,  g: 252, b: 24  }  // Kick Neon Green
+  ];
 
   function size() {
     dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    W = window.innerWidth; H = window.innerHeight;
-    cv.width = W * dpr; cv.height = H * dpr;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    cv.width = W * dpr;
+    cv.height = H * dpr;
     c.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const n = Math.max(28, Math.min(80, Math.round(W * H / 22000)));
-    pts = Array.from({ length: n }, () => ({
-      x: Math.random() * W, y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28,
-      r: 0.8 + Math.random() * 1.4
-    }));
+
+    const count = Math.max(35, Math.min(75, Math.round((W * H) / 20000)));
+    pts = Array.from({ length: count }, () => {
+      const col = COLORS[Math.floor(Math.random() * COLORS.length)];
+      return {
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: -0.2 - Math.random() * 0.45, // Gentle upward drift
+        r: 0.9 + Math.random() * 1.6,
+        alpha: 0.2 + Math.random() * 0.55,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.02 + Math.random() * 0.02,
+        col: col
+      };
+    });
   }
-  // blue on the left → orange on the right (matches the site's colours)
-  function col(x, a) {
-    const t = Math.min(1, Math.max(0, x / W));
-    const r = Math.round(0   + 255 * t), g = Math.round(170 - 20 * t), b = Math.round(255 - 215 * t);
-    return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
-  }
+
   function frame() {
     c.clearRect(0, 0, W, H);
+
     for (let i = 0; i < pts.length; i++) {
       const p = pts[i];
       if (!reduce) {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < -10) p.x = W + 10; else if (p.x > W + 10) p.x = -10;
-        if (p.y < -10) p.y = H + 10; else if (p.y > H + 10) p.y = -10;
-      }
-      for (let j = i + 1; j < pts.length; j++) {
-        const q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d = dx * dx + dy * dy;
-        if (d < LINK * LINK) {
-          c.strokeStyle = col((p.x + q.x) / 2, 0.14 * (1 - Math.sqrt(d) / LINK));
-          c.lineWidth = 1;
-          c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(q.x, q.y); c.stroke();
+        p.x += p.vx;
+        p.y += p.vy;
+        p.pulse += p.pulseSpeed;
+
+        // Subtle mouse interaction
+        const dx = mouse.x - p.x;
+        const dy = mouse.y - p.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120 && dist > 0) {
+          const force = (120 - dist) / 120;
+          p.x -= (dx / dist) * force * 0.8;
+          p.y -= (dy / dist) * force * 0.8;
         }
+
+        // Wrap around screen
+        if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+        if (p.x < -10) p.x = W + 10;
+        else if (p.x > W + 10) p.x = -10;
       }
-      c.fillStyle = col(p.x, 0.55);
-      c.beginPath(); c.arc(p.x, p.y, p.r, 0, Math.PI * 2); c.fill();
+
+      const currentAlpha = Math.max(0.1, p.alpha + Math.sin(p.pulse) * 0.2);
+      c.beginPath();
+      c.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      c.fillStyle = `rgba(${p.col.r}, ${p.col.g}, ${p.col.b}, ${currentAlpha})`;
+      c.shadowBlur = 8;
+      c.shadowColor = `rgba(${p.col.r}, ${p.col.g}, ${p.col.b}, ${currentAlpha * 0.8})`;
+      c.fill();
     }
+    c.shadowBlur = 0;
   }
+
   function loop() {
     if (!running) return;
-    // respects the site's "stop animations" accessibility option
     if (!document.body.classList.contains('access-no-animation')) frame();
     requestAnimationFrame(loop);
   }
+
   window.addEventListener('resize', () => { size(); if (reduce) frame(); });
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
   document.addEventListener('visibilitychange', () => {
     running = !document.hidden;
     if (running && !reduce) requestAnimationFrame(loop);
   });
-  size();
-  if (reduce) frame(); else requestAnimationFrame(loop);
-})();
 
-/* ── Lightning ── */
-const canvas = document.getElementById('lightningCanvas');
-const ctx    = canvas.getContext('2d');
-function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-function drawBolt(sx, sy, length, angle, bp, depth, color) {
-  if (depth > 3) return;
-  let cx = sx, cy = sy;
-  ctx.beginPath(); ctx.moveTo(cx, cy);
-  ctx.shadowBlur = depth === 0 ? 15 : 5; ctx.shadowColor = color;
-  ctx.strokeStyle = `rgba(255,255,255,${1 - depth * 0.2})`; ctx.lineWidth = Math.max(1, 3 - depth);
-  for (let i = 0; i < Math.floor(length / 10); i++) {
-    const sa = angle + (Math.random() - 0.5) * 1.5;
-    cx += Math.cos(sa) * 10; cy += Math.sin(sa) * 10; ctx.lineTo(cx, cy);
-    if (Math.random() < bp) {
-      drawBolt(cx, cy, length * 0.5, angle + (Math.random() > 0.5 ? 1 : -1) * (0.5 + Math.random() * 0.5), bp * 0.5, depth + 1, color);
-      ctx.moveTo(cx, cy);
-    }
-  }
-  ctx.stroke();
-}
-function strike() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  let sx, sy, angle;
-  const edge = Math.random();
-  if      (edge < 0.25) { sx = Math.random()*canvas.width;  sy = 0;             angle = Math.PI/2; }
-  else if (edge < 0.5)  { sx = canvas.width;                sy = Math.random()*canvas.height; angle = Math.PI; }
-  else if (edge < 0.75) { sx = Math.random()*canvas.width;  sy = canvas.height; angle = -Math.PI/2; }
-  else                  { sx = 0;                            sy = Math.random()*canvas.height; angle = 0; }
-  angle = Math.atan2(canvas.height/2 - sy, canvas.width/2 - sx) + (Math.random()-0.5)*0.5;
-  const lc = sx < canvas.width/2 ? '#00d2ff' : '#ff9800';
-  const ff = sx < canvas.width/2 ? 'rgba(0,210,255,0.03)' : 'rgba(255,152,0,0.03)';
-  drawBolt(sx, sy, canvas.height*0.6, angle, 0.1, 0, lc);
-  ctx.fillStyle = ff; ctx.fillRect(0, 0, canvas.width, canvas.height);
-  setTimeout(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (Math.random() < 0.3) { setTimeout(strike, 50 + Math.random()*100); return; }
-    setTimeout(strike, 2000 + Math.random()*6000);
-  }, 1000);
-}
-setTimeout(strike, 1500);
+  size();
+  if (reduce) frame();
+  else requestAnimationFrame(loop);
+})();
 
 /* ── Spotlight ── */
 const spotlight = document.getElementById('spotlight');
