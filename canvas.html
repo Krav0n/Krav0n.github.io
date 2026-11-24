@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#061a3a">
+<title>Canvas | Krav0n</title>
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<meta name="description" content="הקנבס של הקהילה של Krav0n — מציירים ביחד פיקסל אחרי פיקסל, או יוצרים ציור אישי ושומרים ומשתפים עם חברים.">
+<link rel="canonical" href="https://krav0n.github.io/canvas.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Krav0n">
+<meta property="og:locale" content="he_IL">
+<meta property="og:url" content="https://krav0n.github.io/canvas.html">
+<meta property="og:title" content="Krav0n Canvas">
+<meta property="og:description" content="מציירים ביחד עם הקהילה של Krav0n — קנבס קבוצתי בזמן אמת וקנבס אישי.">
+<meta property="og:image" content="https://krav0n.github.io/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Rubik:wght@400;500;600;700&display=swap">
+<script src="js/icons.js?v=20261123c"></script>
+<link rel="stylesheet" href="css/theme.css?v=20261123">
+<script src="js/daynight.js?v=20261124"></script>
+<link rel="stylesheet" href="css/document.css?v=20261121">
+<link rel="stylesheet" href="css/canvas.css?v=20261123p">
+</head>
+<body class="canvas-page">
+
+<div class="ocean" id="ocean" aria-hidden="true"></div>
+
+<div class="page-wrapper cv-wrapper">
+
+  <div class="cv-top">
+    <a href="index.html" class="nav-back">
+      <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      <span>חזרה לדף הראשי</span>
+    </a>
+    <h1 class="cv-title"><i class="fa-solid fa-paintbrush" aria-hidden="true"></i> CANVAS</h1>
+  </div>
+
+  <div class="cv-tabs" role="tablist" aria-label="סוג קנבס">
+    <button class="cv-tab active" type="button" role="tab" data-view="group" aria-selected="true"><i class="fa-solid fa-users" aria-hidden="true"></i> קנבס קבוצתי</button>
+    <button class="cv-tab" type="button" role="tab" data-view="personal" aria-selected="false"><i class="fa-solid fa-image" aria-hidden="true"></i> קנבס אישי</button>
+  </div>
+
+  <!-- ═══════════════ GROUP CANVAS ═══════════════ -->
+  <section class="cv-view active" id="groupView" aria-label="קנבס קבוצתי">
+    <div class="g-layout">
+      <div class="g-main">
+        <div class="g-bar">
+          <span class="g-conn" id="gConn"><span class="g-dot"></span><span id="gConnText">מתחבר…</span></span>
+          <span class="g-chip" title="מחוברים עכשיו"><i class="fa-solid fa-eye" aria-hidden="true"></i> <span id="gOnline">0</span></span>
+          <span class="g-chip g-coords" id="gCoords" dir="ltr">–, –</span>
+          <span class="g-spacer"></span>
+          <button class="g-name" id="gNameBtn" type="button"><i class="fa-solid fa-paintbrush" aria-hidden="true"></i> <span id="gNameText">בחירת כינוי</span></button>
+        </div>
+
+        <div class="g-access" id="gAccess" hidden></div>
+
+        <div class="g-work">
+          <div class="g-stage" id="gStage">
+            <canvas id="gCanvas" aria-label="הקנבס הקבוצתי. גרירה להזזה, גלגלת או צביטה לזום, לחיצה לצביעת פיקסל"></canvas>
+            <div class="g-zoom">
+              <button type="button" id="gZoomIn" aria-label="זום פנימה">+</button>
+              <button type="button" id="gZoomOut" aria-label="זום החוצה">−</button>
+              <button type="button" id="gZoomFit" aria-label="התאמה למסך"><i class="fa-solid fa-expand" aria-hidden="true"></i></button>
+            </div>
+            <div class="g-banner" id="gBanner" hidden></div>
+            <div class="g-admin-tag" id="gAdminTag" hidden><i class="fa-solid fa-user-shield" aria-hidden="true"></i> ADMIN</div>
+            <button class="g-quiet" id="gAdminOpen" type="button" aria-label="כניסת מנהל" title="כניסת מנהל"><i class="fa-solid fa-lock" aria-hidden="true"></i></button>
+          </div>
+
+          <div class="p-tools g-side" role="toolbar" aria-label="כלי ציור">
+            <div class="p-group">
+              <button type="button" class="p-tool active" data-gtool="paint" title="צביעת פיקסל" aria-label="צביעת פיקסל"><i class="fa-solid fa-paintbrush" aria-hidden="true"></i></button>
+              <button type="button" class="p-tool" data-gtool="erase" title="מחק (צובע בלבן)" aria-label="מחק"><i class="fa-solid fa-eraser" aria-hidden="true"></i></button>
+            </div>
+            <div class="p-group">
+              <span class="p-current" id="gCurrent" title="הצבע שנבחר"></span>
+            </div>
+            <div class="p-group p-colors" id="gPalette" role="radiogroup" aria-label="צבע">
+              <label class="p-color-pick" title="בחירת צבע חופשי"><input type="color" id="gColor" value="#000000" aria-label="בחירת צבע חופשי"></label>
+            </div>
+            <div class="p-group">
+              <button type="button" class="p-tool" id="gGrid" title="רשת" aria-label="הצגת רשת"><i class="fa-solid fa-table-cells" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="g-dock">
+          <div class="g-dock-row">
+            <div class="g-cd" id="gCd"><span class="g-cd-bar"><span id="gCdFill"></span></span><span id="gCdText">אפשר לצייר</span></div>
+          </div>
+          <p class="g-hint">גרירה להזזה · גלגלת / צביטה לזום · כל לחיצה צובעת פיקסל אחד בצבע שנבחר</p>
+        </div>
+      </div>
+
+      <!-- Admin panel (only after logging in with the admin key at canvas.html#admin) -->
+      <aside class="g-admin" id="gAdmin" hidden aria-label="פאנל ניהול">
+        <div class="ga-head">
+          <h2><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span id="gaTitle">פאנל ניהול</span></h2>
+          <button class="cv-btn cv-btn--ghost cv-btn--sm" type="button" id="gaLogout">יציאה</button>
+        </div>
+
+        <div class="ga-tools" role="radiogroup" aria-label="כלי">
+          <button type="button" class="ga-tool active" data-tool="paint"><i class="fa-solid fa-paintbrush" aria-hidden="true"></i> צביעה</button>
+          <button type="button" class="ga-tool" data-tool="inspect"><i class="fa-solid fa-eye" aria-hidden="true"></i> מי צייר?</button>
+          <button type="button" class="ga-tool" data-tool="area"><i class="fa-solid fa-expand" aria-hidden="true"></i> אזור</button>
+        </div>
+        <p class="ga-help" id="gaHelp">בחרו "מי צייר?" ולחצו על פיקסל, או "אזור" וגררו מלבן כדי לראות מי צייר שם.</p>
+
+        <div class="ga-result" id="gaResult" hidden></div>
+
+        <div class="ga-section" id="gaShopBox">
+          <h3><i class="fa-solid fa-gift" aria-hidden="true"></i> גישה מהחנות בקיק</h3>
+          <p class="ga-help" id="gaShopState">טוען…</p>
+          <div class="ga-actions">
+            <button class="cv-btn cv-btn--ok cv-btn--sm" type="button" id="gaOpen30">פתיחה לכולם 20 דק׳</button>
+            <button class="cv-btn cv-btn--danger cv-btn--sm" type="button" id="gaClose">🔒 לנעול</button>
+          </div>
+          <div class="ga-list" id="gaGrants" data-admin-only></div>
+          <details class="ga-details" data-admin-only>
+            <summary>הגדרת Streamer.bot</summary>
+            <p class="ga-help">ב-Streamer.bot צור שתי פעולות (Actions). בכל אחת: טריגר <b>Kick → Channel Reward → Reward Redemption</b> עם הפרס המתאים, ותת-פעולה <b>Core → Network → Fetch URL</b> עם הכתובת, ושמירת התשובה במשתנה <b>canvasResult</b>.</p>
+            <label class="ga-field">פרס "ציור אישי" (הפרס צריך לבקש טקסט מהצופה)
+              <span class="ga-url"><code id="gaUrlPersonal"></code><button class="cv-btn cv-btn--ghost cv-btn--sm" type="button" data-copy="gaUrlPersonal">העתקה</button></span>
+            </label>
+            <label class="ga-field">פרס "קנבס פתוח לכולם"
+              <span class="ga-url"><code id="gaUrlAll"></code><button class="cv-btn cv-btn--ghost cv-btn--sm" type="button" data-copy="gaUrlAll">העתקה</button></span>
+            </label>
+            <p class="ga-help">בפעולה של הציור האישי, אחרי Fetch URL: <b>If/Else</b> — אם <b>canvasResult</b> מכיל <b>BAD_CODE</b> → <b>Kick → Send Message</b>: <code>@%user% הקוד לא נכון — הקוד שלך מופיע בדף הקנבס</code></p>
+            <button class="cv-btn cv-btn--ghost cv-btn--sm" type="button" id="gaRegenKey">יצירת מפתח חדש (מבטל את הישן)</button>
+          </details>
+        </div>
+
+        <div class="ga-section" id="gaImageBox" data-admin-only>
+          <h3><i class="fa-solid fa-image" aria-hidden="true"></i> הוספת תמונה לקנבס</h3>
+          <label class="cv-btn cv-btn--ghost cv-btn--sm ga-file">
+            <input type="file" id="gaImageFile" accept="image/*" hidden> בחירת תמונה…
+          </label>
+          <div class="ga-image-ctrl" id="gaImageCtrl" hidden>
+            <div class="ga-size-row">
+              <button class="cv-btn cv-btn--ghost cv-btn--sm" type="button" id="gaImgSmaller" aria-label="הקטנה">−</button>
+              <input type="range" id="gaImgSize" min="4" max="256" value="48" aria-label="רוחב התמונה בפיקסלים">
+              <button class="cv-btn cv-btn--ghost cv-btn--sm" type="button" id="gaImgBigger" aria-label="הגדלה">+</button>
+            </div>
+            <p class="ga-help" id="gaImgInfo"></p>
+            <p class="ga-help">גררו את התמונה על הקנבס כדי לבחור מיקום. היא תופיע לכולם רק אחרי "הנחה על הקנבס".</p>
+            <div class="ga-actions">
+              <button class="cv-btn cv-btn--sm" type="button" id="gaImgPlace">הנחה על הקנבס</button>
+              <button class="cv-btn cv-btn--ghost cv-btn--sm" type="button" id="gaImgCancel">ביטול</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="ga-section" data-admin-only>
+          <h3><i class="fa-solid fa-user-shield" aria-hidden="true"></i> מפתח כניסה למודים</h3>
+          <p class="ga-help">שלחו את המפתח למודים. הם נכנסים דרך המנעול הקטן בפינת הקנבס ומקבלים פאנל מוגבל: בדיקה מי צייר, טיימאוט, באן, ביטול, פתיחה ונעילה.</p>
+          <span class="ga-url"><code id="gaModKey">…</code><button class="cv-btn cv-btn--ghost cv-btn--sm" type="button" data-copy="gaModKey">העתקה</button></span>
+          <button class="cv-btn cv-btn--ghost cv-btn--sm" type="button" id="gaRegenModKey">מפתח חדש (מנתק את כל המודים)</button>
+        </div>
+
+        <div class="ga-section" data-admin-only>
+          <button class="cv-btn cv-btn--ghost cv-btn--sm" type="button" id="gDownload"><i class="fa-solid fa-download" aria-hidden="true"></i> הורדת הקנבס כתמונה</button>
+        </div>
+
+        <div class="ga-tabs" role="tablist">
+          <button type="button" class="ga-tab active" data-tab="users">משתמשים</button>
+          <button type="button" class="ga-tab" data-tab="bans">חסומים</button>
+          <button type="button" class="ga-tab" data-tab="log" data-admin-only>יומן</button>
+          <button type="button" class="ga-tab" data-tab="settings">הגדרות</button>
+        </div>
+
+        <div class="ga-pane active" data-pane="users">
+          <input class="cv-input" id="gaSearch" type="search" placeholder="חיפוש לפי כינוי…" autocomplete="off">
+          <label class="ga-switch mod-erase"><input type="checkbox" id="gaEraseToo" checked> כשנותנים טיימאוט/באן — למחוק גם את מה שצייר</label>
+          <div class="ga-list" id="gaUsers"></div>
+        </div>
+        <div class="ga-pane" data-pane="bans">
+          <div class="ga-list" id="gaBans"></div>
+        </div>
+        <div class="ga-pane" data-pane="log">
+          <div class="ga-list ga-log" id="gaLog"></div>
+        </div>
+        <div class="ga-pane" data-pane="settings">
+          <label class="ga-field">זמן המתנה בין פיקסלים (שניות)
+            <input class="cv-input" id="gaCooldown" type="number" min="0" max="600" step="1">
+          </label>
+          <label class="ga-switch" data-admin-only><input type="checkbox" id="gaGate"> ציור רק עם קנייה בחנות בקיק (אישי / לכולם)</label>
+          <label class="ga-switch"><input type="checkbox" id="gaLocked"> נעילה מלאה (רק אדמין יכול לצייר, גם אחרי קנייה)</label>
+          <button class="cv-btn" type="button" id="gaSaveSettings">שמירת הגדרות</button>
+          <div class="ga-section ga-danger" data-admin-only>
+            <h3>⚠️ פעולות מתקדמות</h3>
+            <button class="cv-btn cv-btn--ok cv-btn--sm" type="button" id="gaUnbanAll">הסרת כל הבאנים והטיימאוטים</button>
+            <button class="cv-btn cv-btn--danger cv-btn--sm" type="button" id="gaClearAll">ניקוי כל הקנבס</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PERSONAL CANVAS ═══════════════ -->
+  <section class="cv-view" id="personalView" aria-label="קנבס אישי">
+    <div class="p-layout">
+      <div class="p-tools" role="toolbar" aria-label="כלי ציור">
+        <div class="p-group">
+          <button type="button" class="p-tool active" data-tool="brush" title="צביעת פיקסל" aria-label="צביעת פיקסל"><i class="fa-solid fa-paintbrush" aria-hidden="true"></i></button>
+          <button type="button" class="p-tool" data-tool="eraser" title="מחק" aria-label="מחק"><i class="fa-solid fa-eraser" aria-hidden="true"></i></button>
+        </div>
+        <div class="p-group">
+          <span class="p-current" id="pCurrent" title="הצבע שנבחר"></span>
+        </div>
+        <div class="p-group p-colors" id="pColors">
+          <label class="p-color-pick" title="בחירת צבע"><input type="color" id="pColor" value="#2e9bff" aria-label="בחירת צבע"></label>
+        </div>
+        <div class="p-group">
+          <button type="button" class="p-tool" id="pUndo" title="ביטול" aria-label="ביטול"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i></button>
+          <button type="button" class="p-tool p-redo" id="pRedo" title="חזרה" aria-label="חזרה"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i></button>
+          <button type="button" class="p-tool" id="pGrid" title="רשת" aria-label="הצגת רשת"><i class="fa-solid fa-table-cells" aria-hidden="true"></i></button>
+          <button type="button" class="p-tool" id="pClear" title="ניקוי" aria-label="ניקוי הכל"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+        </div>
+      </div>
+
+      <div class="p-stage">
+        <div class="p-board">
+          <canvas id="pCanvas" width="960" height="960" aria-label="הקנבס האישי שלך — ציור בפיקסלים"></canvas>
+          <div class="p-gridlines" aria-hidden="true"></div>
+          <div class="p-cursor" id="pCursor" hidden aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="p-actions">
+        <button class="cv-btn cv-btn--ghost" type="button" id="pShare"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> שיתוף</button>
+        <button class="cv-btn cv-btn--ghost" type="button" id="pDownload"><i class="fa-solid fa-download" aria-hidden="true"></i> הורדה</button>
+        <button class="cv-btn cv-btn--ghost" type="button" id="pNew">ציור חדש</button>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-credit">Made by <span class="footer-name">Krav0n</span>&nbsp;&nbsp;<span class="footer-year">© 2026</span></div>
+    <div class="footer-links">
+      <a href="accessibility.html">הצהרת נגישות</a>
+      <span class="separator" aria-hidden="true">|</span>
+      <a href="privacy.html">מדיניות פרטיות</a>
+    </div>
+  </footer>
+</div>
+
+<!-- Dialogs -->
+<div class="cv-modal" id="nameModal" hidden>
+  <form class="cv-modal-card" id="nameForm">
+    <h2>בחרו כינוי לקנבס</h2>
+    <p>כדי לצייר בקנבס הקבוצתי צריך כינוי. <strong>הכינוי נשמר לתמיד ואי אפשר לשנות אותו</strong>, וכל כינוי יכול להיות רק של אדם אחד. בלי מספרי טלפון ופרטים אישיים 🙏</p>
+    <input class="cv-input" id="nameInput" type="text" minlength="2" maxlength="20" placeholder="למשל: KickFan" autocomplete="nickname" required>
+    <p class="cv-modal-err" id="nameErr" hidden></p>
+    <label class="ga-switch"><input type="checkbox" id="nameRules" required> אני מתחייב/ת לא לצייר פרטים אישיים, מספרי טלפון או תוכן פוגעני</label>
+    <div class="cv-modal-actions">
+      <button class="cv-btn" type="submit">שמירת הכינוי</button>
+      <button class="cv-btn cv-btn--ghost" type="button" id="nameToPersonal">לקנבס האישי</button>
+    </div>
+  </form>
+</div>
+
+<div class="cv-modal" id="adminModal" hidden>
+  <form class="cv-modal-card" id="adminForm">
+    <h2><i class="fa-solid fa-lock" aria-hidden="true"></i> כניסת מנהל / מוד</h2>
+    <input class="cv-input" id="adminKey" type="password" placeholder="מפתח כניסה" autocomplete="current-password" required>
+    <p class="cv-modal-err" id="adminErr" hidden></p>
+    <div class="cv-modal-actions">
+      <button class="cv-btn" type="submit">כניסה</button>
+      <button class="cv-btn cv-btn--ghost" type="button" data-close>ביטול</button>
+    </div>
+  </form>
+</div>
+
+<button class="accessibility-open" id="accessibilityOpen" type="button" aria-label="פתיחת כלי נגישות" title="כלי נגישות">
+  <i class="fa-solid fa-universal-access" aria-hidden="true"></i>
+</button>
+<div class="accessibility-panel" id="accessibilityPanel" aria-label="כלי נגישות">
+  <div class="accessibility-header">
+    <div class="accessibility-title">כלי נגישות</div>
+    <button class="accessibility-close" id="accessibilityClose" type="button" aria-label="סגירת כלי נגישות">×</button>
+  </div>
+  <div class="accessibility-content">
+    <div class="accessibility-section-title">טקסט וקריאה</div>
+    <div class="accessibility-grid">
+      <button class="accessibility-item" type="button" data-action="text-to-speech"><div class="accessibility-icon">🔊</div><div class="accessibility-label">הקראת טקסט</div></button>
+      <button class="accessibility-item" type="button" data-action="large-text"><div class="accessibility-icon">A⁺</div><div class="accessibility-label">הגדלת טקסט</div></button>
+      <button class="accessibility-item" type="button" data-action="line-spacing"><div class="accessibility-icon">☰</div><div class="accessibility-label">מרווח שורות</div></button>
+      <button class="accessibility-item" type="button" data-action="readable-font"><div class="accessibility-icon">T</div><div class="accessibility-label">גופן קריא</div></button>
+      <button class="accessibility-item" type="button" data-action="letter-spacing"><div class="accessibility-icon">#</div><div class="accessibility-label">ריווח אותיות</div></button>
+      <button class="accessibility-item" type="button" data-action="headings"><div class="accessibility-icon">H</div><div class="accessibility-label">הדגשת כותרות</div></button>
+      <button class="accessibility-item" type="button" data-action="links"><div class="accessibility-icon">🔗</div><div class="accessibility-label">הדגשת קישורים</div></button>
+      <button class="accessibility-item" type="button" data-action="align"><div class="accessibility-icon">≡</div><div class="accessibility-label">יישור טקסט</div></button>
+    </div>
+    <div class="accessibility-section-title">צבע וניגודיות</div>
+    <div class="accessibility-grid">
+      <button class="accessibility-item" type="button" data-action="contrast"><div class="accessibility-icon">◐</div><div class="accessibility-label">ניגודיות</div></button>
+      <button class="accessibility-item" type="button" data-action="invert"><div class="accessibility-icon">◑</div><div class="accessibility-label">היפוך צבעים</div></button>
+      <button class="accessibility-item" type="button" data-action="grayscale"><div class="accessibility-icon">◯</div><div class="accessibility-label">גווני אפור</div></button>
+      <button class="accessibility-item" type="button" data-action="saturation"><div class="accessibility-icon">◉</div><div class="accessibility-label">רוויה</div></button>
+      <button class="accessibility-item" type="button" data-action="hide-images"><div class="accessibility-icon">▧</div><div class="accessibility-label">הסתרת תמונות</div></button>
+    </div>
+    <div class="accessibility-section-title">ניווט וסיוע</div>
+    <div class="accessibility-grid">
+      <button class="accessibility-item" type="button" data-action="big-cursor"><div class="accessibility-icon">↖</div><div class="accessibility-label">סמן גדול</div></button>
+      <button class="accessibility-item" type="button" data-action="no-animation"><div class="accessibility-icon">▥</div><div class="accessibility-label">עצירת אנימציות</div></button>
+      <button class="accessibility-item" type="button" data-action="reading-guide"><div class="accessibility-icon">↔</div><div class="accessibility-label">מדריך קריאה</div></button>
+      <button class="accessibility-item" type="button" data-action="focus"><div class="accessibility-icon">⛶</div><div class="accessibility-label">הדגשת פוקוס</div></button>
+      <button class="accessibility-item" type="button" data-action="reading-mask"><div class="accessibility-icon">▤</div><div class="accessibility-label">מסכת קריאה</div></button>
+    </div>
+    <button class="accessibility-reset" id="accessibilityReset" type="button">איפוס כל ההגדרות</button>
+    <a class="accessibility-statement" href="accessibility.html">הצהרת נגישות</a>
+  </div>
+</div>
+<div id="reading-guide"></div>
+<div id="reading-mask"></div>
+<div id="speechStatus" class="speech-status">🔊 הקראת טקסט פעילה</div>
+
+<script src="js/config.js?v=20261123b"></script>
+<script src="js/site.js?v=20261123"></script>
+<script src="js/fx.js?v=20261123"></script>
+<script src="js/seasonal.js?v=20261124c"></script>
+<script src="js/info-extras.js?v=20261123e"></script>
+<script src="js/canvas-group.js?v=20261123p"></script>
+<script src="js/canvas-personal.js?v=20261123d"></script>
+<script>
+/* Tabs: group / personal (canvas.html#personal, canvas.html#admin) */
+(function () {
+  var tabs = document.querySelectorAll('.cv-tab');
+  function show(view, push) {
+    tabs.forEach(function (t) { var on = t.dataset.view === view; t.classList.toggle('active', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    document.getElementById('groupView').classList.toggle('active', view === 'group');
+    document.getElementById('personalView').classList.toggle('active', view === 'personal');
+    document.dispatchEvent(new CustomEvent('cv:view', { detail: view }));
+    if (push && history.replaceState) history.replaceState(null, '', view === 'personal' ? '#personal' : location.pathname);
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.view, true); }); });
+  if (location.hash === '#personal') show('personal', false);
+  window.addEventListener('hashchange', function () { if (location.hash === '#personal') show('personal', false); else if (location.hash === '#group' || location.hash === '#admin' || location.hash === '#mod') show('group', false); });
+  document.querySelectorAll('.cv-modal [data-close]').forEach(function (b) {
+    b.addEventListener('click', function () { b.closest('.cv-modal').hidden = true; });
+  });
+})();
+</script>
+</body>
+</html>

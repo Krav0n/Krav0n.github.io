@@ -1,0 +1,472 @@
+/* ════════════════════════════════════════════════════════════════════════
+   Krav0n — shared theme for every page
+   The look comes from the logo: an electric-blue whale breaking the water.
+   One bold thing (the ocean behind everything), quiet glass on top of it.
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Water */
+  --abyss:   #020a18;   /* bottom of the page */
+  --deep:    #061a3a;   /* mid water */
+  --shallow: #0c3b7a;   /* light from the surface */
+  --current: #2e9bff;   /* electric blue from the logo — primary accent */
+  --current-rgb: 46, 155, 255;
+  --foam:    #bfefff;   /* bubbles, highlights */
+  --foam-rgb: 191, 239, 255;
+
+  /* Text */
+  --ink:     #eaf6ff;
+  --ink-dim: #9fb8d6;
+
+  /* Crown gold — reserved for the name, page titles and first place */
+  --crown-a: #facc15;
+  --crown-b: #ff9800;
+
+  /* Glass surfaces */
+  --glass:        rgba(8, 26, 56, 0.62);
+  --glass-strong: rgba(7, 22, 48, 0.86);
+  --glass-line:   rgba(150, 205, 255, 0.14);
+  --glass-edge:   inset 0 1px 0 rgba(191, 239, 255, 0.10);
+  --glass-shadow: 0 18px 44px rgba(0, 6, 20, 0.55);
+
+  --radius-panel: 20px;
+  --radius-row:   12px;
+
+  --font-body:    'Rubik', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --font-display: 'Poppins', 'Rubik', system-ui, -apple-system, sans-serif;
+
+  /* Legacy names still used by page styles */
+  --bg-color: var(--abyss);
+  --text-color: #ffffff;
+}
+
+html { background: var(--abyss); }
+
+body {
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+:focus-visible {
+  outline: 2px solid var(--foam);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Ocean background (layers are built by js/fx.js) ───────────────────── */
+.ocean {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 65% at 50% -12%, rgba(46, 155, 255, 0.30) 0%, rgba(12, 59, 122, 0) 62%),
+    linear-gradient(180deg, #0a2f63 0%, #061a3a 36%, #03102a 70%, #020a18 100%);
+}
+
+/* The underside of the surface, seen from below */
+.ocean__surface {
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%;
+  height: 150px;
+  opacity: 0.7;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 150' preserveAspectRatio='none'%3E%3Cpath d='M0 64 C150 34 300 94 450 64 S750 34 900 64 S1100 94 1200 64 V0 H0 Z' fill='rgba(150,215,255,0.10)'/%3E%3Cpath d='M0 42 C200 72 400 12 600 42 S1000 72 1200 42 V0 H0 Z' fill='rgba(200,240,255,0.08)'/%3E%3C/svg%3E");
+  background-size: 50% 100%;
+  background-repeat: repeat-x;
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent);
+          mask-image: linear-gradient(to bottom, #000 30%, transparent);
+  animation: oceanSurface 26s linear infinite;
+}
+@keyframes oceanSurface { to { transform: translate3d(-50%, 0, 0); } }
+
+/* Sunlight falling through the water */
+.ocean__rays {
+  position: absolute;
+  inset: -8% -10% 0;
+  mix-blend-mode: screen;
+}
+.ocean__rays i {
+  position: absolute;
+  top: -6%;
+  height: 92%;
+  width: var(--w, 10vw);
+  left: var(--x, 50%);
+  background: linear-gradient(180deg,
+    rgba(170, 220, 255, 0.24) 0%,
+    rgba(150, 210, 255, 0.08) 42%,
+    rgba(150, 210, 255, 0) 78%);
+  filter: blur(16px);
+  transform-origin: 50% 0;
+  transform: rotate(var(--r, 0deg));
+  animation: oceanRay var(--d, 14s) ease-in-out var(--delay, 0s) infinite alternate;
+  will-change: transform, opacity;
+}
+.ocean__rays i:nth-child(1) { --x: 6%;  --w: 7vw;  --r: 22deg;  --d: 13s; }
+.ocean__rays i:nth-child(2) { --x: 22%; --w: 12vw; --r: 12deg;  --d: 17s; --delay: -4s; }
+.ocean__rays i:nth-child(3) { --x: 41%; --w: 6vw;  --r: 4deg;   --d: 11s; --delay: -7s; }
+.ocean__rays i:nth-child(4) { --x: 55%; --w: 14vw; --r: -6deg;  --d: 19s; --delay: -2s; }
+.ocean__rays i:nth-child(5) { --x: 72%; --w: 8vw;  --r: -14deg; --d: 15s; --delay: -9s; }
+.ocean__rays i:nth-child(6) { --x: 86%; --w: 10vw; --r: -22deg; --d: 21s; --delay: -5s; }
+@keyframes oceanRay {
+  from { transform: rotate(calc(var(--r, 0deg) - 3deg)); opacity: 0.45; }
+  to   { transform: rotate(calc(var(--r, 0deg) + 3deg)); opacity: 1; }
+}
+
+.ocean__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The whale — moved by js/fx.js; starts off-screen */
+.ocean__whale {
+  position: absolute; left: 0; top: 0;
+  width: 240px; height: auto;
+  transform: translate3d(-9999px, 0, 0);
+  transform-origin: 50% 50%;
+  will-change: transform;
+  pointer-events: none; user-select: none; -webkit-user-drag: none;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 18px rgba(92, 200, 255, 0.35)) drop-shadow(0 12px 22px rgba(0, 8, 30, 0.55));
+}
+body.access-no-animation .ocean__whale { display: none; }
+
+/* Whale easter egg (js/fx.js → whaleSplash): a water spout + flying drops */
+.whale-spout {
+  position: fixed;
+  width: 14px; height: 120px;
+  margin: -120px 0 0 -7px;
+  transform-origin: 50% 100%;
+  border-radius: 50% 50% 40% 40%;
+  background: linear-gradient(to top, rgba(185, 232, 255, 0), rgba(185, 232, 255, 0.75) 40%, rgba(255, 255, 255, 0.92));
+  filter: drop-shadow(0 0 8px rgba(92, 200, 255, 0.7));
+  pointer-events: none;
+  animation: whaleSpout 0.9s ease-out forwards;
+}
+@keyframes whaleSpout {
+  0%   { transform: scaleY(0);   opacity: 0.9; }
+  35%  { transform: scaleY(1);   opacity: 1; }
+  100% { transform: scaleY(0.9); opacity: 0; }
+}
+.whale-drop {
+  position: fixed;
+  width: 6px; height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff, rgba(150, 215, 255, 0.7) 60%, rgba(92, 200, 255, 0.2));
+  pointer-events: none;
+  opacity: 0;
+  animation: whaleDrop 1.1s cubic-bezier(0.3, 0.6, 0.4, 1) forwards;
+}
+@keyframes whaleDrop {
+  0%   { transform: translate(0, 0) scale(0.5); opacity: 1; }
+  45%  { transform: translate(calc(var(--dx) * 0.6), var(--dy)) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), calc(var(--dy) * -0.1 + 40px)) scale(0.7); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .ocean__whale { display: none; } }
+
+.ocean__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.ocean__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 38%, transparent 46%, rgba(1, 6, 16, 0.72) 100%);
+}
+
+/* Soft light that follows the pointer */
+.spotlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at var(--x, 50vw) var(--y, 40vh), rgba(var(--current-rgb), 0.08) 0%, transparent 240px);
+}
+
+/* Ripple left by a click or tap */
+.ripple-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2147483000;
+  overflow: hidden;
+}
+.ripple {
+  position: absolute;
+  width: 14px; height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(var(--foam-rgb), 0.75);
+  box-shadow: 0 0 12px rgba(var(--current-rgb), 0.45);
+  animation: rippleOut 0.75s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+@keyframes rippleOut {
+  from { transform: scale(0.4); opacity: 0.9; }
+  to   { transform: scale(5.5); opacity: 0; }
+}
+
+/* ── Avatar with the spinning blue ring ────────────────────────────────── */
+.avatar-ring {
+  --size: 190px;
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-size: calc(var(--size) / 150);      /* bubbles below are sized in em */
+}
+.avatar-ring img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  -webkit-user-drag: none;
+  user-select: none;
+  box-shadow: 0 0 0 3px #5cc8ff, 0 0 26px rgba(var(--current-rgb), 0.55), 0 12px 32px rgba(0, 4, 14, 0.85);
+}
+.avatar-ring--sm { --size: 104px; }
+.avatar-ring--sm img { box-shadow: 0 0 0 2px #5cc8ff, 0 0 18px rgba(var(--current-rgb), 0.5), 0 8px 22px rgba(0, 4, 14, 0.8); }
+
+/* Water ripples spreading out from the avatar (third ring is added by js/site.js) */
+.avatar-ring::before,
+.avatar-ring::after,
+.ring-ripple {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(92, 200, 255, 0.7);
+  animation: ringRipple 3s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+.avatar-ring::after { animation-delay: 1s; }
+.ring-ripple { animation-delay: 2s; }
+@keyframes ringRipple {
+  0%   { transform: scale(1);    opacity: 0.9; }
+  100% { transform: scale(1.38); opacity: 0; }
+}
+
+/* Bubbles orbiting the avatar (built by js/site.js) */
+.ring-orbit {
+  position: absolute;
+  inset: -9%;
+  z-index: 3;
+  pointer-events: none;
+  animation: ringSpin 9s linear infinite;
+}
+.ring-orbit--b { inset: -5%; animation-duration: 13s; animation-direction: reverse; }
+.ring-orbit span {
+  position: absolute;
+  width: var(--b, 7em);
+  height: var(--b, 7em);
+  margin: calc(var(--b, 7em) / -2) 0 0 calc(var(--b, 7em) / -2);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.95), rgba(150, 215, 255, 0.35) 45%, rgba(92, 200, 255, 0.08) 70%);
+  border: 1px solid rgba(190, 235, 255, 0.6);
+}
+@keyframes ringSpin { to { transform: rotate(360deg); } }
+
+/* ── Glass panel ───────────────────────────────────────────────────────── */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  box-shadow: var(--glass-edge), var(--glass-shadow);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
+          backdrop-filter: blur(16px) saturate(125%);
+}
+
+/* ── Footer (all pages) ────────────────────────────────────────────────── */
+.site-footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  position: relative;
+  z-index: 3;
+}
+.site-footer .footer-credit { letter-spacing: 0.4px; }
+.site-footer .footer-name {
+  background: linear-gradient(100deg, #ffffff 0%, #c9f3ff 35%, #5cc8ff 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.site-footer .footer-year { font-size: 12.5px; opacity: 0.7; font-weight: 500; }
+.site-footer .footer-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.site-footer .footer-links a {
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.site-footer .footer-links a:hover,
+.site-footer .footer-links a[aria-current="page"] { color: var(--foam); }
+.site-footer .footer-links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
+.site-footer .separator { opacity: 0.5; }
+
+/* ── Accessibility widget (all pages) ──────────────────────────────────── */
+.accessibility-open {
+  position: fixed; left: 20px; bottom: 20px;
+  width: 56px; height: 56px; border: 0;
+  border-radius: 50%;
+  background: var(--current);
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 999999;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 27px;
+  box-shadow: 0 0 0 4px rgba(var(--current-rgb), 0.18), 0 6px 20px rgba(0, 0, 0, 0.45);
+  transition: transform 0.15s, background 0.15s;
+}
+.accessibility-open:hover { transform: scale(1.06); background: #49a9ff; }
+
+.accessibility-panel {
+  position: fixed; left: 0; top: 0;
+  width: 380px; max-width: 100vw; height: 100vh;
+  background: #ffffff;
+  z-index: 1000000;
+  box-shadow: 5px 0 25px rgba(0, 0, 0, 0.25);
+  transform: translateX(-100%);
+  display: flex; flex-direction: column;
+  font-family: Arial, "Segoe UI", sans-serif;
+  direction: rtl;
+  visibility: hidden;
+  transition: transform 0.25s ease, visibility 0s linear 0.25s;
+}
+.accessibility-panel.open { transform: translateX(0); visibility: visible; transition: transform 0.25s ease, visibility 0s; }
+.accessibility-header { height: 60px; min-height: 60px; background: #2161ff; color: #fff; display: flex; align-items: center; position: relative; padding: 0 18px; }
+.accessibility-title { width: 100%; text-align: center; font-size: 22px; font-weight: bold; }
+.accessibility-close { position: absolute; left: 10px; top: 10px; width: 38px; height: 38px; border: 0; border-radius: 9px; background: rgba(255, 255, 255, 0.15); color: #fff; font-size: 30px; line-height: 30px; cursor: pointer; }
+.accessibility-close:hover { background: rgba(255, 255, 255, 0.25); }
+.accessibility-content { overflow-y: auto; overflow-x: hidden; flex: 1; padding: 15px 18px 20px; }
+.accessibility-content::-webkit-scrollbar { width: 8px; }
+.accessibility-content::-webkit-scrollbar-thumb { background: #999; border-radius: 10px; }
+.accessibility-section-title { font-size: 14px; font-weight: bold; color: #666; margin: 12px 5px 10px; text-align: right; }
+.accessibility-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.accessibility-item { min-height: 108px; border: 0; border-radius: 14px; background: #f2f4fa; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 12px; font-family: inherit; transition: background 0.15s, transform 0.15s; color: #333; }
+.accessibility-item:hover { background: #e9edfa; }
+.accessibility-item:active { transform: scale(0.98); }
+.accessibility-item.active { background: #e3ebff; box-shadow: inset 0 0 0 2px #2161ff; }
+.accessibility-icon { width: 30px; height: 30px; margin-bottom: 10px; color: #2161ff; font-size: 28px; display: flex; align-items: center; justify-content: center; }
+.accessibility-label { font-size: 15px; color: #222; font-weight: 500; line-height: 1.3; }
+.accessibility-reset { width: 100%; height: 50px; margin-top: 18px; background: #fff; border: 2px solid #e0e3ea; border-radius: 10px; font-family: inherit; font-size: 16px; font-weight: bold; color: #222; cursor: pointer; }
+.accessibility-reset:hover { background: #f5f6f8; }
+.accessibility-statement { display: block; text-align: center; margin-top: 14px; margin-bottom: 5px; color: #555; font-size: 13px; text-decoration: underline; cursor: pointer; }
+
+body.access-large-text { font-size: 120% !important; }
+body.access-line-spacing * { line-height: 2 !important; }
+body.access-readable-font, body.access-readable-font * { font-family: Arial, sans-serif !important; }
+body.access-letter-spacing * { letter-spacing: 2px !important; }
+body.access-headings h1, body.access-headings h2, body.access-headings h3,
+body.access-headings h4, body.access-headings h5, body.access-headings h6 { outline: 3px solid #2161ff !important; outline-offset: 3px !important; }
+body.access-links a { text-decoration: underline !important; font-weight: bold !important; }
+body.access-high-contrast { filter: contrast(160%) !important; }
+body.access-invert { filter: invert(1) hue-rotate(180deg) !important; }
+body.access-grayscale { filter: grayscale(100%) !important; }
+body.access-saturation { filter: saturate(180%) !important; }
+body.access-hide-images img { visibility: hidden !important; }
+body.access-no-animation *, body.access-no-animation *::before, body.access-no-animation *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+body.access-focus *:focus { outline: 4px solid #2161ff !important; outline-offset: 3px !important; }
+body.access-big-cursor, body.access-big-cursor * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M4 2L42 25L27 28L38 43L31 47L20 32L12 42Z' fill='black' stroke='white' stroke-width='3'/%3E%3C/svg%3E") 4 2, auto !important;
+}
+
+#reading-guide { position: fixed; left: 0; right: 0; height: 4px; background: #2161ff; pointer-events: none; z-index: 999999; display: none; }
+#reading-mask  { position: fixed; left: 0; right: 0; top: 40%; height: 80px; background: rgba(0, 0, 0, 0.15); border-top: 3px solid #2161ff; border-bottom: 3px solid #2161ff; pointer-events: none; z-index: 999998; display: none; }
+.speech-status { position: fixed; bottom: 90px; left: 20px; max-width: 320px; padding: 12px 18px; background: #2161ff; color: #fff; border-radius: 10px; font-family: Arial, sans-serif; font-size: 14px; z-index: 1000001; display: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25); }
+
+@media (max-width: 500px) {
+  .accessibility-panel { width: 100%; }
+  .accessibility-grid  { gap: 8px; }
+  .accessibility-item  { min-height: 100px; }
+  .accessibility-open  { left: 15px; bottom: 15px; }
+  .avatar-ring { --size: 155px; }
+  .avatar-ring--sm { --size: 92px; }
+}
+
+/* ── Motion preferences ────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ocean__surface, .ocean__rays i, .avatar-ring::before, .avatar-ring::after, .ring-ripple, .ring-orbit, .ripple { animation: none !important; }
+  .ripple-layer { display: none; }
+}
+body.access-no-animation .ripple-layer { display: none; }
+
+/* ── Cookie consent banner (built by js/site.js) ─────────────────────── */
+.cookie-banner {
+  position: fixed; left: 50%; bottom: 16px; z-index: 9990;
+  width: min(560px, calc(100% - 32px));
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px; border-radius: 16px;
+  background: rgba(7, 16, 34, 0.94);
+  border: 1px solid rgba(92, 200, 255, 0.3);
+  box-shadow: 0 12px 36px rgba(0, 4, 14, 0.6);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  color: #d4e6fb; font-family: var(--font-body); font-size: 13.5px; line-height: 1.5;
+  opacity: 0; transform: translate(-50%, 20px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.cookie-banner.show { opacity: 1; transform: translate(-50%, 0); }
+.cookie-banner p { margin: 0; flex: 1; }
+.cookie-banner a { color: #5cc8ff; }
+.cookie-actions { display: flex; gap: 8px; flex: 0 0 auto; }
+.cookie-actions button {
+  font-family: var(--font-display); font-weight: 700; font-size: 13px;
+  padding: 8px 16px; border-radius: 10px; cursor: pointer;
+  border: 1px solid rgba(92, 200, 255, 0.35); background: transparent; color: #d4e6fb;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.cookie-actions button:hover { transform: translateY(-1px); background: rgba(92, 200, 255, 0.12); }
+.cookie-actions .cookie-accept { background: #5cc8ff; color: #06101f; border-color: #5cc8ff; }
+.cookie-actions .cookie-accept:hover { background: #8fdcff; }
+.cookie-actions button:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
+/* Keep clear of the round accessibility button (bottom-left, ~80px tall) */
+@media (max-width: 760px) { .cookie-banner { bottom: 96px; } }
+@media (max-width: 520px) {
+  .cookie-banner { flex-direction: column; align-items: stretch; text-align: center; }
+  .cookie-actions button { flex: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .cookie-banner { transition: none; } }
+
+/* ── Toast (copy confirmations, canvas messages) ── */
+.k-toast {
+  position: fixed; left: 50%; bottom: 28px; z-index: 10050;
+  transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+  max-width: min(92vw, 420px); padding: 11px 20px; border-radius: 14px;
+  font-family: var(--font-body); font-size: 14px; font-weight: 600; color: #fff; text-align: center; direction: rtl;
+  background: rgba(7, 22, 48, 0.94); border: 1px solid rgba(var(--current-rgb), 0.5);
+  box-shadow: 0 12px 32px rgba(0, 4, 14, 0.6), 0 0 22px rgba(var(--current-rgb), 0.25);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.k-toast.show { opacity: 1; transform: translate(-50%, 0); }
