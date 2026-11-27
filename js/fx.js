@@ -40,7 +40,10 @@
   if (!whale) {
     whale = doc.createElement('img');
     whale.className = 'ocean__whale';
-    whale.src = 'images/whale.webp';
+    // The glow is baked into whale-glow.webp (64px padding around the 340×152
+    // whale) instead of a CSS drop-shadow filter, which had to be redrawn on
+    // every frame while the whale moves.
+    whale.src = 'images/whale-glow.webp';
     whale.alt = '';
     whale.decoding = 'async';
     whale.draggable = false;
@@ -185,7 +188,9 @@
   var wh = { active: false, wait: 1800, x: 0, y: 0, base: 0, dir: -1, v: 0, phase: 0, w: 240, scare: 0, bubbleT: 0, boost: 0, jumpT: 0 };
   function whaleLaunch() {
     wh.w = Math.round(Math.max(150, Math.min(300, W * 0.2)));
-    whale.style.width = wh.w + 'px';
+    var sc = wh.w / 340;                                   // see whale-glow.webp
+    whale.style.width = Math.round(468 * sc) + 'px';
+    whale.style.margin = Math.round(-64 * sc) + 'px 0 0 ' + Math.round(-64 * sc) + 'px';
     wh.dir = Math.random() < 0.5 ? -1 : 1;              // the picture faces left
     wh.x = wh.dir < 0 ? W + 30 : -wh.w - 30;
     wh.base = H * (0.16 + Math.random() * 0.6);
@@ -340,7 +345,7 @@
     if (t && t.closest && t.closest('.accessibility-panel, .g-stage, .p-board')) return; // no ripple on the canvases
     if (wh.active && !(t && t.closest && t.closest('a, button, input, textarea, select, label, .cookie-banner'))) {
       var wr = whale.getBoundingClientRect();
-      var mx = wr.width * 0.12, my = wr.height * 0.15;
+      var mx = wr.width * 0.224, my = wr.height * 0.31;   // skip the glow padding of whale-glow.webp + the old 12%/15% margins
       if (e.clientX > wr.left + mx && e.clientX < wr.right - mx && e.clientY > wr.top + my && e.clientY < wr.bottom - my) whaleSplash();
     }
     for (var i = 0; i < 2; i++) {

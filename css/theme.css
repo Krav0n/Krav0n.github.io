@@ -23,7 +23,7 @@
   --crown-b: #ff9800;
 
   /* Glass surfaces */
-  --glass:        rgba(8, 26, 56, 0.62);
+  --glass:        rgba(8, 26, 56, 0.74);   /* no backdrop blur (it re-rendered every frame over the animated ocean) — a bit more solid instead */
   --glass-strong: rgba(7, 22, 48, 0.86);
   --glass-line:   rgba(150, 205, 255, 0.14);
   --glass-edge:   inset 0 1px 0 rgba(191, 239, 255, 0.10);
@@ -95,23 +95,33 @@ body {
 }
 @keyframes oceanSurface { to { transform: translate3d(-50%, 0, 0); } }
 
-/* Sunlight falling through the water */
+/* Sunlight falling through the water.
+   Soft edges come from gradients and a static mask instead of filter: blur()
+   + mix-blend-mode, which had to be re-rendered on every frame and made the
+   whole page stutter on weaker computers, phones, Firefox and Safari.
+   Colour per time of day is set with --ray-rgb / --ray-a / --ray-a2 (js/daynight.js). */
 .ocean__rays {
   position: absolute;
   inset: -8% -10% 0;
-  mix-blend-mode: screen;
+  --ray-rgb: 160, 215, 255;
+  --ray-a: 0.24;
+  --ray-a2: 0.13;
 }
 .ocean__rays i {
   position: absolute;
   top: -6%;
   height: 92%;
-  width: var(--w, 10vw);
+  width: calc(var(--w, 10vw) + 32px);
   left: var(--x, 50%);
-  background: linear-gradient(180deg,
-    rgba(170, 220, 255, 0.24) 0%,
-    rgba(150, 210, 255, 0.08) 42%,
-    rgba(150, 210, 255, 0) 78%);
-  filter: blur(16px);
+  margin-left: -16px;
+  background: linear-gradient(90deg,
+    rgba(var(--ray-rgb), 0) 0%,
+    rgba(var(--ray-rgb), var(--ray-a2)) 30%,
+    rgba(var(--ray-rgb), var(--ray-a)) 50%,
+    rgba(var(--ray-rgb), var(--ray-a2)) 70%,
+    rgba(var(--ray-rgb), 0) 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.33) 42%, transparent 78%);
+          mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.33) 42%, transparent 78%);
   transform-origin: 50% 0;
   transform: rotate(var(--r, 0deg));
   animation: oceanRay var(--d, 14s) ease-in-out var(--delay, 0s) infinite alternate;
@@ -142,9 +152,9 @@ body {
   transform: translate3d(-9999px, 0, 0);
   transform-origin: 50% 50%;
   will-change: transform;
-  pointer-events: none; user-select: none; -webkit-user-drag: none;
+  pointer-events: none; -webkit-user-select: none; user-select: none; -webkit-user-drag: none;
   opacity: 0.9;
-  filter: drop-shadow(0 0 18px rgba(92, 200, 255, 0.35)) drop-shadow(0 12px 22px rgba(0, 8, 30, 0.55));
+  /* glow is baked into images/whale-glow.webp (see js/fx.js) */
 }
 body.access-no-animation .ocean__whale { display: none; }
 
@@ -245,6 +255,7 @@ body.access-no-animation .ocean__whale { display: none; }
   object-fit: cover;
   display: block;
   -webkit-user-drag: none;
+  -webkit-user-select: none;
   user-select: none;
   box-shadow: 0 0 0 3px #5cc8ff, 0 0 26px rgba(var(--current-rgb), 0.55), 0 12px 32px rgba(0, 4, 14, 0.85);
 }
@@ -296,8 +307,6 @@ body.access-no-animation .ocean__whale { display: none; }
   background: var(--glass);
   border: 1px solid var(--glass-line);
   box-shadow: var(--glass-edge), var(--glass-shadow);
-  -webkit-backdrop-filter: blur(16px) saturate(125%);
-          backdrop-filter: blur(16px) saturate(125%);
 }
 
 /* ── Footer (all pages) ────────────────────────────────────────────────── */
@@ -432,7 +441,6 @@ body.access-no-animation .ripple-layer { display: none; }
   background: rgba(7, 16, 34, 0.94);
   border: 1px solid rgba(92, 200, 255, 0.3);
   box-shadow: 0 12px 36px rgba(0, 4, 14, 0.6);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   color: #d4e6fb; font-family: var(--font-body); font-size: 13.5px; line-height: 1.5;
   opacity: 0; transform: translate(-50%, 20px);
   transition: opacity 0.35s ease, transform 0.35s ease;

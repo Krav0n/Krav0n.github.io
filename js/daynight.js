@@ -52,26 +52,29 @@
   /* ── Colours ──────────────────────────────────────────────────────────── */
   var css = [
     '.ocean{transition:background 3s ease}',
-    '.ocean__rays,.ocean__surface{transition:opacity 3s ease,filter 3s ease}',
+    '.ocean__rays,.ocean__surface{transition:opacity 3s ease}',
     // day
     'html.tod-day .ocean{background:radial-gradient(120% 70% at 50% -12%,rgba(140,215,255,.46) 0%,rgba(40,120,210,0) 64%),linear-gradient(180deg,#155ca6 0%,#0c3b7a 32%,#062454 66%,#031533 100%)}',
-    'html.tod-day .ocean__rays{opacity:1;filter:brightness(1.35)}',
+    'html.tod-day .ocean__rays{opacity:1;--ray-rgb:185,228,255;--ray-a:.36;--ray-a2:.2}',
     'html.tod-day .ocean__surface{opacity:.9}',
     // dawn
     'html.tod-dawn .ocean{background:radial-gradient(120% 62% at 30% -10%,rgba(255,160,170,.55) 0%,rgba(255,190,150,.18) 40%,rgba(255,170,160,0) 64%),radial-gradient(120% 65% at 70% -12%,rgba(120,190,255,.25) 0%,rgba(12,59,122,0) 62%),linear-gradient(180deg,#3a4a86 0%,#1a3366 34%,#081a40 70%,#020b1c 100%)}',
-    'html.tod-dawn .ocean__rays{opacity:.8;filter:sepia(.5) hue-rotate(-25deg) saturate(1.6)}',
+    'html.tod-dawn .ocean__rays{opacity:.8;--ray-rgb:255,196,186;--ray-a:.32;--ray-a2:.17}',
     // dusk
     'html.tod-dusk .ocean{background:radial-gradient(110% 60% at 70% -10%,rgba(255,140,60,.42) 0%,rgba(255,120,60,0) 58%),radial-gradient(120% 70% at 25% -12%,rgba(170,90,220,.30) 0%,rgba(90,40,150,0) 60%),linear-gradient(180deg,#2b2f6e 0%,#141f52 34%,#081236 68%,#030818 100%)}',
-    'html.tod-dusk .ocean__rays{opacity:.75;filter:sepia(.8) hue-rotate(-30deg) saturate(2.2)}',
+    'html.tod-dusk .ocean__rays{opacity:.75;--ray-rgb:255,168,110;--ray-a:.32;--ray-a2:.17}',
     // night
     'html.tod-night .ocean{background:radial-gradient(60% 45% at 72% -8%,rgba(190,210,255,.16) 0%,rgba(120,150,230,0) 62%),linear-gradient(180deg,#071733 0%,#040e24 38%,#020814 70%,#010409 100%)}',
-    'html.tod-night .ocean__rays{opacity:.22;filter:saturate(.4)}',
+    'html.tod-night .ocean__rays{opacity:.22;--ray-rgb:185,200,222}',
     'html.tod-night .ocean__surface{opacity:.35}',
     // night life
-    '.ocean__night{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 3s ease}',
-    'html.tod-night .ocean__night{opacity:1}',
+    '.ocean__night{position:absolute;inset:0;pointer-events:none;opacity:0;visibility:hidden;transition:opacity 3s ease,visibility 0s linear 3s}',
+    'html.tod-night .ocean__night{opacity:1;visibility:visible;transition:opacity 3s ease,visibility 0s}',
+    'html:not(.tod-night) .jelly,html:not(.tod-night) .jelly *{animation-play-state:paused}',
     '.ocean__night canvas{position:absolute;inset:0;width:100%;height:100%}',
-    '.jelly{position:absolute;bottom:-160px;left:var(--x);width:var(--w);opacity:.75;animation:jellyRise var(--d) linear var(--t) infinite;filter:drop-shadow(0 0 14px rgba(var(--c),.7))}',
+    '.jelly{position:absolute;bottom:-160px;left:var(--x);width:var(--w);opacity:.75;animation:jellyRise var(--d) linear var(--t) infinite;will-change:transform}',
+    '.jelly::before{content:"";position:absolute;left:-30%;top:-25%;width:160%;height:80%;border-radius:50%;background:radial-gradient(closest-side,rgba(var(--c),.45),rgba(var(--c),0))}',
+    '.jelly svg{position:relative}',
     '.jelly svg{display:block;width:100%;height:auto;overflow:visible}',
     '.jelly .bell{transform-origin:50% 100%;transform-box:fill-box;animation:jellyPulse 2.4s ease-in-out infinite}',
     '.jelly .tent{transform-origin:50% 0;transform-box:fill-box;animation:jellyTent 2.4s ease-in-out infinite}',
@@ -118,7 +121,7 @@
     var cv = layer.querySelector('canvas'), ctx = cv.getContext('2d');
     var W = 0, H = 0, dpr = 1, ps = [], raf = 0;
     function size() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight;
       cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     size(); addEventListener('resize', size);
@@ -128,25 +131,37 @@
     function off() {
       return (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) || document.body.classList.contains('access-no-animation');
     }
-    function frame() {
+    // one pre-drawn glow sprite per colour (instead of a new gradient for
+    // every particle on every frame); speed follows real time so it looks the
+    // same on 60, 144 and 240 Hz screens
+    var SPR = {}, SR = 32;
+    COLORS.forEach(function (c) {
+      var sc = document.createElement('canvas'); sc.width = sc.height = SR * 2;
+      var g2 = sc.getContext('2d'), gr = g2.createRadialGradient(SR, SR, 0, SR, SR, SR);
+      gr.addColorStop(0, 'rgba(' + c + ',1)'); gr.addColorStop(1, 'rgba(' + c + ',0)');
+      g2.fillStyle = gr; g2.fillRect(0, 0, SR * 2, SR * 2); SPR[c] = sc;
+    });
+    var last = 0, wasNight = false;
+    function frame(ts) {
       raf = requestAnimationFrame(frame);
-      if (document.hidden || window.krav0nTimeOfDay !== 'night') return;
+      var night = window.krav0nTimeOfDay === 'night';
+      if (document.hidden || !night) { last = 0; if (wasNight) { ctx.clearRect(0, 0, W, H); wasNight = false; } return; }
+      wasNight = true;
+      var k = last ? Math.min(3, (ts - last) / 16.67) : 1; last = ts;
       ctx.clearRect(0, 0, W, H);
       var still = off();
       for (var i = 0; i < ps.length; i++) {
         var p = ps[i];
         if (!still) {
-          p.ph += p.sp; p.x += p.vx + Math.sin(p.ph * 0.5) * 0.08; p.y += p.vy;
+          p.ph += p.sp * k; p.x += (p.vx + Math.sin(p.ph * 0.5) * 0.08) * k; p.y += p.vy * k;
           if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
           if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
         }
-        var a = 0.35 + 0.45 * (0.5 + 0.5 * Math.sin(p.ph));
-        var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
-        g.addColorStop(0, 'rgba(' + p.c + ',' + a + ')');
-        g.addColorStop(1, 'rgba(' + p.c + ',0)');
-        ctx.fillStyle = g;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 5, 0, 6.283); ctx.fill();
+        var R = p.r * 5;
+        ctx.globalAlpha = 0.35 + 0.45 * (0.5 + 0.5 * Math.sin(p.ph));
+        ctx.drawImage(SPR[p.c], p.x - R, p.y - R, R * 2, R * 2);
       }
+      ctx.globalAlpha = 1;
     }
     raf = requestAnimationFrame(frame);
   }

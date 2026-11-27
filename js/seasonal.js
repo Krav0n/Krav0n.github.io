@@ -127,7 +127,7 @@
     /* greeting in the bottom-right corner */
     '.season-corner{position:fixed;right:18px;bottom:18px;z-index:39;display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none;max-width:calc(100vw - 110px)}',
     '.season-greet{display:flex;align-items:center;gap:12px;padding:12px 18px 12px 15px;border-radius:16px;border-radius:14px;direction:rtl;pointer-events:auto;',
-    'font-family:var(--font-body,Rubik,system-ui,sans-serif);color:#eaf6ff;background:rgba(7,22,48,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);',
+    'font-family:var(--font-body,Rubik,system-ui,sans-serif);color:#eaf6ff;background:rgba(7,22,48,.86);',
     'border:1px solid rgba(var(--season-rgb),.42);box-shadow:0 12px 30px rgba(0,6,20,.55),0 0 22px rgba(var(--season-rgb),.22);animation:seasonIn .8s cubic-bezier(.2,1.2,.4,1) both .4s}',
     '@keyframes seasonIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}',
     '.season-greet__icon{font-size:28px;line-height:1;filter:drop-shadow(0 0 8px rgba(var(--season-rgb),.6))}',
@@ -333,12 +333,44 @@
       W = innerWidth; H = innerHeight;
       cv.width = W * dpr; cv.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      emojiCache = {};
     }
     size(); addEventListener('resize', size);
     var small = W < 700;
     var COUNT = { snow: small ? 45 : 90, emoji: small ? 12 : 22, confetti: small ? 40 : 80, sparks: small ? 30 : 55 }[kind] || 0;
     var CONF = ['#ff5a5a', '#ffd24a', '#4ad17a', '#5cc8ff', '#c77dff', '#ff8ad8', '#ffffff'];
     function rnd(a, b) { return a + Math.random() * (b - a); }
+    // Pre-drawn sprites: drawing colour emoji with fillText and glows with
+    // shadowBlur on every frame was slow (mostly in Firefox and Safari).
+    var emojiCache = {}, glowCache = {};
+    function emojiSprite(e, size) {
+      size = Math.max(8, Math.round(size));
+      var key = e + '|' + size;
+      if (emojiCache[key]) return emojiCache[key];
+      var px = Math.ceil(size * 1.5 * dpr), c = document.createElement('canvas');
+      c.width = c.height = px;
+      var g = c.getContext('2d');
+      g.font = (size * dpr) + 'px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif';
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText(e, px / 2, px / 2);
+      return (emojiCache[key] = { c: c, s: px / dpr });
+    }
+    function glowSprite(col, blur) {
+      var key = col + '|' + blur;
+      if (glowCache[key]) return glowCache[key];
+      var R = 32, c = document.createElement('canvas'); c.width = c.height = R * 2;
+      var g = c.getContext('2d'), core = 3 / (3 + blur);     // like a ~3px dot with shadowBlur
+      var gr = g.createRadialGradient(R, R, 0, R, R, R);
+      gr.addColorStop(0, col); gr.addColorStop(core, col);
+      gr.addColorStop(Math.min(1, core + 0.08), col.replace(/^#(..)(..)(..)$/, function (m, r, gg, b) { return 'rgba(' + parseInt(r, 16) + ',' + parseInt(gg, 16) + ',' + parseInt(b, 16) + ',.45)'; }));
+      gr.addColorStop(1, col.replace(/^#(..)(..)(..)$/, function (m, r, gg, b) { return 'rgba(' + parseInt(r, 16) + ',' + parseInt(gg, 16) + ',' + parseInt(b, 16) + ',0)'; }));
+      g.fillStyle = gr; g.fillRect(0, 0, R * 2, R * 2);
+      return (glowCache[key] = c);
+    }
+    function drawGlow(col, blur, x, y, r) {
+      var R = r + blur;
+      ctx.drawImage(glowSprite(col, blur), x - R, y - R, R * 2, R * 2);
+    }
     function spawn(initial) {
       var p = { x: rnd(0, W), y: initial ? rnd(-H, H) : rnd(-60, -10), a: rnd(0, 6.28), va: rnd(-0.02, 0.02), ph: rnd(0, 6.28) };
       if (kind === 'snow') { p.r = rnd(1, 3.4); p.vy = rnd(0.35, 1.1); p.vx = rnd(-0.25, 0.25); p.o = rnd(0.35, 0.9); }
@@ -370,8 +402,7 @@
         if (p.fw) {
           p.vx *= 0.985; p.vy = p.vy * 0.985 + 0.035 * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= 0.012 * dt;
           if (p.life <= 0) { ps.splice(i, 1); continue; }
-          ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.c; ctx.shadowColor = p.c; ctx.shadowBlur = 8;
-          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill(); ctx.shadowBlur = 0;
+          ctx.globalAlpha = Math.max(0, p.life); drawGlow(p.c, 8, p.x, p.y, p.r);
           continue;
         }
         p.ph += 0.02 * dt; p.a += p.va * dt;
@@ -381,17 +412,16 @@
         if (gone || p.x < -60 || p.x > W + 60) { ps[i] = spawn(false); continue; }
         ctx.globalAlpha = kind === 'sparks' ? p.o * Math.max(0, p.life) : p.o;
         if (p.e) {
+          var es = emojiSprite(p.e, p.r);
           ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(Math.sin(p.ph) * 0.4);
-          ctx.font = p.r + 'px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif';
-          ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(p.e, 0, 0); ctx.restore();
+          ctx.drawImage(es.c, -es.s / 2, -es.s / 2, es.s, es.s); ctx.restore();
         } else if (kind === 'snow') {
           ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill();
         } else if (kind === 'confetti') {
           ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.scale(1, Math.cos(p.ph * 3));
           ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
         } else if (kind === 'sparks') {
-          ctx.fillStyle = p.life > 0.5 ? '#ffd27a' : '#ff7a2a'; ctx.shadowColor = '#ff8a2a'; ctx.shadowBlur = 10;
-          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill(); ctx.shadowBlur = 0;
+          drawGlow(p.life > 0.5 ? '#ffd27a' : '#ff7a2a', 10, p.x, p.y, p.r);
         }
       }
       ctx.globalAlpha = 1;

@@ -21,7 +21,6 @@ body.canvas-page { -webkit-user-select: none; user-select: none; }
   display: flex; width: fit-content; gap: 5px; padding: 5px; margin: 0 auto 18px; border-radius: 40px;
   background: rgba(6, 22, 48, 0.74); border: 1px solid var(--glass-line);
   box-shadow: var(--glass-edge), 0 10px 28px rgba(0, 4, 14, 0.5);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
 }
 .cv-tab {
   display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border: 0; border-radius: 30px; cursor: pointer;
@@ -69,7 +68,6 @@ body.canvas-page { -webkit-user-select: none; user-select: none; }
 .cv-panel {
   background: var(--glass); border: 1px solid var(--glass-line); border-radius: var(--radius-panel);
   box-shadow: var(--glass-edge), var(--glass-shadow);
-  -webkit-backdrop-filter: blur(16px) saturate(125%); backdrop-filter: blur(16px) saturate(125%);
 }
 
 /* ═════════ GROUP ═════════ */

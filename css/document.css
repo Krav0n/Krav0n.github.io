@@ -40,8 +40,6 @@ img { -webkit-user-drag: none; user-select: none; }
   background: rgba(6, 22, 48, 0.7);
   border: 1px solid var(--glass-line);
   border-radius: 20px;
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
   transition: color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 .nav-back:hover { transform: translateX(4px); color: var(--foam); border-color: rgba(var(--current-rgb), 0.45); }
@@ -77,8 +75,6 @@ img { -webkit-user-drag: none; user-select: none; }
   border-radius: var(--radius-panel);
   padding: 35px 30px;
   box-shadow: var(--glass-edge), var(--glass-shadow);
-  -webkit-backdrop-filter: blur(16px) saturate(125%);
-          backdrop-filter: blur(16px) saturate(125%);
 }
 
 .doc-section {
